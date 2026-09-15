@@ -1,0 +1,499 @@
+---
+export const prerender = true
+
+import BaseLayout from '../layouts/BaseLayout.astro'
+import ScenarioExplorer from '../components/explorer/ScenarioExplorer.tsx'
+import { runModel } from '../lib/explorer/model'
+import { TASKS, ENTRY_LADDER_TASKS } from '../lib/explorer/tasks'
+import { TODAY } from '../lib/explorer/levers'
+import { findScenario } from '../lib/explorer/scenarios'
+
+// Static figures come from the same model the island runs, so the prose and the
+// explorer can never drift apart.
+const today = runModel('junior', TODAY)
+const compression = runModel('junior', findScenario('compression')!.levers)
+const everywhere = runModel('junior', findScenario('everywhere')!.levers)
+
+const juniorProduction = TASKS.filter((t) => t.phase === 'production').reduce(
+  (s, t) => s + t.volume.junior,
+  0
+)
+const leadProduction = TASKS.filter((t) => t.phase === 'production').reduce(
+  (s, t) => s + t.volume.lead,
+  0
+)
+const ladderCount = ENTRY_LADDER_TASKS.size
+
+const title = 'What AI does to design work'
+const description =
+  'A task-level model of how AI changes design jobs, built around Indian design employment. Twenty-nine tasks, five levers, four futures — set the assumptions yourself.'
+---
+
+<BaseLayout title={`${title} — Asif Asharaf`} description={description}>
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="px-6 sm:px-8 pt-8 sm:pt-16 pb-12 sm:pb-20">
+    <div class="container-page">
+      <div class="flex flex-wrap items-center gap-3 mb-10 sm:mb-14">
+        <span class="text-muted text-xs uppercase tracking-[0.2em]">Interactive</span>
+        <span class="h-px w-8 bg-accent"></span>
+        <span class="text-muted text-xs uppercase tracking-[0.2em]">
+          Data as of September 2026
+        </span>
+      </div>
+
+      <h1
+        class="font-serif text-[clamp(2.5rem,7vw,6rem)] text-fg leading-[1.02] tracking-tight max-w-4xl"
+      >
+        AI does not take design jobs.<br />It takes design tasks.
+      </h1>
+
+      <p class="text-muted text-lg sm:text-xl mt-10 sm:mt-14 max-w-2xl leading-relaxed">
+        Which is a different problem, because tasks are not spread evenly across a
+        career. Production fills {juniorProduction}% of a junior designer&rsquo;s week
+        and {leadProduction}% of a lead&rsquo;s. This page models that gap rather than
+        arguing about it — twenty-nine tasks, five levers, and whatever conclusion the
+        numbers support once you set them yourself.
+      </p>
+
+      <div class="mt-12 sm:mt-16 flex flex-wrap gap-x-10 gap-y-6">
+        <div>
+          <p class="font-serif text-4xl sm:text-5xl text-accent tabular-nums leading-none">
+            {Math.round(today.absorbed * 100)}%
+          </p>
+          <p class="text-muted text-sm mt-2 max-w-[16ch] leading-snug">
+            of a junior week the model puts on AI today
+          </p>
+        </div>
+        <div>
+          <p class="font-serif text-4xl sm:text-5xl text-mustard tabular-nums leading-none">
+            {Math.round(compression.entryPoolIndex)}
+          </p>
+          <p class="text-muted text-sm mt-2 max-w-[18ch] leading-snug">
+            entry-level work left under <em>the compression</em> (100 = today)
+          </p>
+        </div>
+        <div>
+          <p class="font-serif text-4xl sm:text-5xl text-olive tabular-nums leading-none">
+            {Math.round(everywhere.headcountIndex)}
+          </p>
+          <p class="text-muted text-sm mt-2 max-w-[18ch] leading-snug">
+            designer headcount under <em>design everywhere</em>
+          </p>
+        </div>
+      </div>
+
+      <p class="text-muted text-sm mt-10">
+        <a href="#explorer" class="link-underline text-accent">Skip to the explorer →</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="px-6 sm:px-8">
+    <div class="container-page">
+      <!-- ── 01 · Two true things ─────────────────────────────────── -->
+      <section class="border-t border-border pt-12 sm:pt-16 pb-16 sm:pb-24">
+        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
+          <span class="section-num section-num--01">01</span>
+          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
+            Two true things
+          </h2>
+        </div>
+
+        <div class="max-w-2xl mb-12" data-reveal>
+          <p class="text-fg/80 leading-relaxed mb-4">
+            Almost every claim about AI and design cites real evidence. The
+            disagreement is not usually about facts; it is about which facts get left
+            out. Here are two sets that are both well-sourced and point in opposite
+            directions.
+          </p>
+          <p class="text-muted leading-relaxed">
+            Any account of design work that cannot hold both at once is incomplete.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-px bg-border border border-border rounded-lg overflow-hidden">
+          <div class="bg-bg p-6 sm:p-8">
+            <h3 class="font-serif text-2xl sm:text-3xl text-olive mb-6">
+              Design is growing
+            </h3>
+            <ul class="space-y-5 list-none pl-0 m-0">
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  UX/UI postings in India grew roughly <strong>40%</strong> between 2024
+                  and 2026, led by Bengaluru, Hyderabad and Delhi NCR.
+                </p>
+              </li>
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  India runs about a <strong>4:1 developer-to-designer ratio</strong>.
+                  Most software here ships without a designer anywhere near it.
+                </p>
+              </li>
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  Global capability centres employ <strong>2.36 million</strong> people
+                  across 2,117 centres, with <strong>$98.4B</strong> in FY2026 exports
+                  and roughly <strong>510,000</strong> hires projected for 2026.
+                  Bengaluru holds about 36% of that talent.
+                </p>
+              </li>
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  <strong>82%</strong> of design leaders say their need for designers
+                  has increased or stayed the same.
+                </p>
+              </li>
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  US projections still show growth for digital design:
+                  <strong>+7%</strong> for web developers and digital designers,
+                  2024–2034.
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-bg p-6 sm:p-8">
+            <h3 class="font-serif text-2xl sm:text-3xl text-rose mb-6">
+              The entry rung is narrowing
+            </h3>
+            <ul class="space-y-5 list-none pl-0 m-0">
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  Indian IT fresher intake fell from about <strong>600,000</strong> in
+                  FY2022 to roughly <strong>120,000</strong> in FY2025 — an 80% drop in
+                  three years.
+                </p>
+              </li>
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  EY estimates entry-level IT roles have already declined
+                  <strong>20–25%</strong> from automation.
+                </p>
+              </li>
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  About <strong>55%</strong> of Indian IT companies reduced entry-level
+                  hiring, against <strong>14%</strong> for senior roles.
+                </p>
+              </li>
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  US graphic design postings fell <strong>33%</strong> in 2025 after
+                  <strong>12%</strong> in 2024, and the WEF moved the role from
+                  moderately growing to one of the fastest declining.
+                </p>
+              </li>
+              <li>
+                <p class="text-fg text-sm leading-relaxed">
+                  Senior and generalist roles are recovering faster than entry-level
+                  ones, which remain scarce and heavily contested.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="text-muted text-sm mt-6 max-w-2xl leading-relaxed">
+          Note what the second column mostly describes: software engineering, not
+          design. That is deliberate. Indian IT services has already run a version of
+          this experiment at a scale design has not, and it is the closest thing to
+          evidence we have about what happens next.
+        </p>
+      </section>
+
+      <!-- ── 02 · Why job-level forecasts fail ────────────────────── -->
+      <section class="border-t border-border pt-12 sm:pt-16 pb-16 sm:pb-24">
+        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
+          <span class="section-num section-num--02">02</span>
+          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
+            Why job-level forecasts fail
+          </h2>
+        </div>
+
+        <div class="max-w-2xl space-y-6" data-reveal>
+          <p class="text-fg/80 leading-relaxed">
+            &ldquo;Will AI replace designers?&rdquo; cannot be answered because
+            &ldquo;designer&rdquo; is not a unit of work. It is a bundle of tasks that
+            changes shape as a career progresses, and the bundle is what AI acts on.
+          </p>
+          <p class="text-fg/80 leading-relaxed">
+            Two designers with the same title can hold almost disjoint task mixes. One
+            spends most of a week producing screens; the other spends it deciding
+            which screens are worth producing. A forecast at the level of the job
+            title averages those two people together and tells you nothing about
+            either.
+          </p>
+          <p class="text-fg/80 leading-relaxed">
+            So this model works one level down. It scores each task on three things:
+            how automatable it is, how expensive it is for a human to verify, and how
+            much of it is irreducibly judgment. Then it asks how much of a week each
+            seniority band spends on each task.
+          </p>
+          <p class="text-fg/80 leading-relaxed">
+            The middle term matters more than it first appears. A task that a machine
+            can do but nobody can cheaply check does not get automated — it gets
+            produced by a machine and then re-done by a person, which is worse than
+            either. Verification cost, not capability, is what has held adoption at
+            roughly a third of core design work while <strong>72%</strong> of designers
+            use generative AI somewhere and only <strong>32%</strong> trust it enough
+            to ship.
+          </p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ── 03–05 · The interactive core ──────────────────────────────── -->
+  <div class="px-6 sm:px-8">
+    <div class="container-page">
+      <ScenarioExplorer client:visible={{ rootMargin: '600px' }} />
+    </div>
+  </div>
+
+  <div class="px-6 sm:px-8">
+    <div class="container-page">
+      <!-- ── 06 · The pyramid precedent ───────────────────────────── -->
+      <section class="border-t border-border mt-16 sm:mt-24 pt-12 sm:pt-16 pb-16 sm:pb-24">
+        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
+          <span class="section-num section-num--01">06</span>
+          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
+            The pyramid precedent
+          </h2>
+        </div>
+
+        <div class="max-w-2xl space-y-6" data-reveal>
+          <p class="text-fg/80 leading-relaxed">
+            Indian IT services was built as a pyramid. Hire freshers in the tens of
+            thousands, train them for three to six months, deploy them on routine
+            maintenance and development, and promote the ones who stick. The routine
+            work at the base was not a side effect of the model — it was the model. It
+            paid for the training and it was where judgment got built.
+          </p>
+          <p class="text-fg/80 leading-relaxed">
+            Coding assistants automated that base layer specifically. Fresher intake
+            fell roughly 80% in three years. Entry-level roles are down 20–25% by EY&rsquo;s
+            estimate. The asymmetry is the tell: about 55% of firms cut entry-level
+            hiring against 14% at senior level, and the stated preference shifted to
+            smaller teams of people who can contribute immediately.
+          </p>
+          <p class="text-fg/80 leading-relaxed">
+            Design in India has the same shape. Production-heavy delivery, a large
+            junior tier, and a career ladder whose bottom rungs are exactly the tasks
+            the atlas scores as most exposed — {ladderCount} of the twenty-nine.
+          </p>
+          <p class="text-fg/80 leading-relaxed">
+            What makes design different is the demand side. Software engineering was
+            well-supplied when automation arrived; design is not. A 4:1
+            developer-to-designer ratio means there is a large backlog of work that
+            never got a designer at all. That is the case for growth, and the model
+            takes it seriously — the <em>design everywhere</em> scenario puts headcount
+            at {Math.round(everywhere.headcountIndex)} against today&rsquo;s 100.
+          </p>
+          <div class="border-l-2 border-accent pl-6 py-1">
+            <p class="text-fg/80 leading-relaxed">
+              But run that scenario and look at the entry-level figure, not the
+              headcount one. It still lands at
+              {' '}{Math.round(everywhere.entryPoolIndex)}. Growth in the profession and
+              contraction in its entry rung are not alternatives. The same automation
+              produces both, because the work that expands is judgment work and the
+              work that disappears is what juniors were doing to earn the right to do
+              it.
+            </p>
+          </div>
+          <p class="text-fg/80 leading-relaxed">
+            This is the part of the model that generalises least gracefully and matters
+            most. There is a circularity in the atlas worth sitting with: mentoring is
+            among the least automatable tasks in design, and it is the one that depends
+            on there being juniors to mentor.
+          </p>
+        </div>
+      </section>
+
+      <!-- ── 07 · What stays ──────────────────────────────────────── -->
+      <section class="border-t border-border pt-12 sm:pt-16 pb-16 sm:pb-24">
+        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
+          <span class="section-num section-num--02">07</span>
+          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
+            What the model will not move
+          </h2>
+        </div>
+
+        <div class="max-w-2xl mb-10" data-reveal>
+          <p class="text-fg/80 leading-relaxed">
+            These are not a list of comforting things to tell designers. They are the
+            tasks that stay below 15% absorbed even at maximum capability, adoption and
+            trust — because judgment load caps them outright, or because verifying the
+            output costs as much as producing it.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8 max-w-4xl" data-stagger>
+          {
+            TASKS.filter((t) => t.judgmentLoad >= 0.75)
+              .sort((a, b) => b.judgmentLoad - a.judgmentLoad)
+              .map((t) => (
+                <div>
+                  <h3 class="text-fg text-base mb-2">{t.label}</h3>
+                  <p class="text-muted text-sm leading-relaxed">{t.note}</p>
+                  <p class="text-muted font-mono text-[11px] mt-2 uppercase tracking-wider">
+                    judgment {Math.round(t.judgmentLoad * 100)}% · verification{' '}
+                    {Math.round(t.verificationCost * 100)}%
+                  </p>
+                </div>
+              ))
+          }
+        </div>
+
+        <p class="text-muted text-sm mt-10 max-w-2xl leading-relaxed">
+          One structural observation from the atlas: there is almost no such thing as a
+          design task that is hard to automate but cheap to verify. The two scores are
+          strongly anti-correlated, which is why the &ldquo;assisted&rdquo; corner of
+          the matrix is nearly empty. Design work tends to be either mechanical and
+          checkable, or judgment-loaded and expensive to check. Very little sits in
+          between, and that is what makes the middle of the career ladder feel thin.
+        </p>
+      </section>
+
+      <!-- ── 08 · Method ──────────────────────────────────────────── -->
+      <section class="border-t border-border pt-12 sm:pt-16 pb-16 sm:pb-24">
+        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
+          <span class="section-num section-num--03">08</span>
+          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
+            Method, and what this cannot tell you
+          </h2>
+        </div>
+
+        <div class="max-w-2xl space-y-6" data-reveal>
+          <p class="text-fg/80 leading-relaxed">
+            The model is deliberately simple enough to argue with. For each task it
+            computes how far capability reaches into that task&rsquo;s intrinsic
+            susceptibility, how much of that reach adoption puts to work, and then
+            applies a gate: trust raised to a power set by verification cost. A task
+            that is cheap to check passes through at close to the trust level; a task
+            that is expensive to check is crushed. Judgment load then caps the result.
+            Freed capacity meets the demand lever to give headcount.
+          </p>
+
+          <h3 class="font-serif text-2xl text-fg pt-2">Which numbers are measured</h3>
+          <p class="text-fg/80 leading-relaxed">
+            The employment figures are published and cited below. The lever defaults
+            for adoption and trust come from Figma&rsquo;s 2026 survey work. The
+            demand default reflects India&rsquo;s measured undersupply. The ladder
+            default reflects what Indian IT services actually did, which was not
+            rebuild.
+          </p>
+
+          <h3 class="font-serif text-2xl text-fg pt-2">Which numbers are mine</h3>
+          <p class="text-fg/80 leading-relaxed">
+            The task scores are not measured. No public dataset scores design tasks for
+            automatability, verification cost and judgment load, so all three are my
+            estimates, applied consistently across the twenty-nine tasks rather than
+            derived from data. The share-of-week figures per seniority band are also
+            estimates, built from a decade in product design and sanity-checked against
+            the shape of Indian services delivery. Each role&rsquo;s column sums to
+            exactly 100 points, which is a modelling convenience, not a finding.
+          </p>
+          <p class="text-fg/80 leading-relaxed">
+            The adoption default of 40% deserves a specific caveat. The two figures it
+            sits between — 72% of designers using generative AI somewhere, 31% using it
+            for core design work — are both shares of <em>designers</em>, not shares of
+            <em> work</em>. The model needs the latter. 40% is an interpolation and
+            nothing firmer.
+          </p>
+
+          <h3 class="font-serif text-2xl text-fg pt-2">What it cannot tell you</h3>
+          <ul class="text-fg/80 leading-relaxed space-y-3 list-disc pl-6">
+            <li>
+              It has no time axis. It describes states, not paths, and says nothing
+              about how long a transition takes or how disorderly it is.
+            </li>
+            <li>
+              It assumes the task list itself is stable. Historically, automation
+              creates new tasks — none are modelled here, which biases it pessimistic.
+            </li>
+            <li>
+              It treats design as one labour market. In-house product design, agency
+              work and GCC delivery have genuinely different exposure, and pooling them
+              hides that.
+            </li>
+            <li>
+              It says nothing about wages, which move on bargaining power rather than
+              on task counts alone.
+            </li>
+            <li>
+              It cannot adjudicate the demand lever, and that lever decides whether the
+              picture is growth or contraction. Nobody knows its value. That is the
+              honest centre of the whole question.
+            </li>
+          </ul>
+
+          <h3 class="font-serif text-2xl text-fg pt-2">Sources</h3>
+          <ul class="text-muted text-sm leading-relaxed space-y-2 list-none pl-0">
+            <li>
+              Figma — <a href="https://www.figma.com/blog/2026-ai-report/" target="_blank" rel="noopener noreferrer">2026 AI Report</a>
+              and State of the Designer 2026 (adoption, trust, design-leader demand)
+            </li>
+            <li>
+              Nielsen Norman Group — <a href="https://www.nngroup.com/articles/state-of-ux-2026/" target="_blank" rel="noopener noreferrer">State of UX 2026</a>
+              (team size, compressed responsibilities)
+            </li>
+            <li>
+              US Bureau of Labor Statistics — <a href="https://www.bls.gov/ooh/arts-and-design/graphic-designers.htm" target="_blank" rel="noopener noreferrer">Occupational Outlook, 2024–34</a>
+            </li>
+            <li>World Economic Forum — Future of Jobs (declining-roles ranking)</li>
+            <li>EY — entry-level IT role decline, 2025</li>
+            <li>
+              Indian IT fresher intake, GCC employment and export figures — industry
+              reporting, FY2022–FY2026
+            </li>
+            <li>
+              Anthropic — <a href="https://www.anthropic.com/institute/econ-scenarios" target="_blank" rel="noopener noreferrer">Scenarios for our Economic Future</a>,
+              whose structure this page borrows
+            </li>
+          </ul>
+
+          <p class="text-muted text-sm leading-relaxed border-t border-border pt-6">
+            Figures were compiled in September 2026 from published reports and
+            reporting on them, and they will age. If you think a task score is wrong,
+            it probably is — the useful version of that disagreement is a specific
+            score and a reason.
+            <a href="mailto:hello@asifasharaf.com" class="text-accent">Tell me</a>.
+          </p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ── Close ────────────────────────────────────────────────────── -->
+  <section class="px-6 sm:px-8 py-20 sm:py-32 border-t border-border">
+    <div class="container-page">
+      <div class="max-w-3xl" data-reveal>
+        <span class="text-muted text-xs uppercase tracking-[0.22em] mb-8 block">
+          Get in touch
+        </span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-fg leading-tight mb-8">
+          I build models like this because arguing from vibes is expensive.
+        </h2>
+        <p class="text-muted leading-relaxed mb-8 max-w-xl">
+          Ten years of product design, currently in Bengaluru. I mentor designers
+          earlier in their careers, which is the part of this page I have the most
+          stake in.
+        </p>
+        <a href="mailto:hello@asifasharaf.com" class="link-underline text-accent text-lg sm:text-xl">
+          hello@asifasharaf.com →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- A shared scenario link lands below the fold, so nudge the explorer into
+       view; that intersection is also what triggers hydration. -->
+  <script is:inline>
+    (function () {
+      if (!window.location.hash.startsWith('#v1.')) return
+      var el = document.getElementById('explorer')
+      if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' })
+    })()
+  </script>
+</BaseLayout>

@@ -36,6 +36,25 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort()
       )
     }
 
+    <a
+      href="/ai-and-design"
+      class="group block border border-border rounded-lg p-6 sm:p-8 mb-12 hover:border-accent transition-colors"
+    >
+      <span class="text-accent text-[11px] uppercase tracking-[0.2em] mb-4 block">
+        Interactive
+      </span>
+      <h2
+        class="font-serif text-2xl sm:text-4xl text-fg leading-tight mb-4 group-hover:text-accent transition-colors"
+      >
+        What AI does to design work
+      </h2>
+      <p class="text-muted leading-relaxed max-w-2xl mb-5">
+        Twenty-nine design tasks, five levers and four futures — a model you can set
+        yourself, built around Indian design employment rather than US headlines.
+      </p>
+      <span class="text-accent text-sm link-underline">Open the explorer →</span>
+    </a>
+
     <div id="posts-list">
       {
         posts.map((entry) => (
