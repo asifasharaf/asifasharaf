@@ -160,6 +160,39 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
     </div>
   </section>
 
+  <!-- Featured interactive -->
+  <section class="px-6 sm:px-8 py-16 sm:py-24 border-t border-border">
+    <div class="container-page">
+      <Reveal client:visible>
+        <a href="/ai-and-design" class="group block">
+          <div class="flex items-baseline gap-4 sm:gap-6 mb-8 sm:mb-10">
+            <span class="section-num section-num--05">✳</span>
+            <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
+              Interactive
+            </h2>
+          </div>
+          <div class="grid md:grid-cols-[minmax(0,1fr)_auto] gap-8 md:gap-16 items-end">
+            <div>
+              <h3
+                class="font-serif text-3xl sm:text-5xl text-fg leading-tight mb-5 group-hover:text-accent transition-colors"
+              >
+                What AI does to design work
+              </h3>
+              <p class="text-muted leading-relaxed max-w-xl">
+                A task-level model of how AI changes design jobs, built around Indian
+                design employment. Twenty-nine tasks, five levers, four futures — set
+                the assumptions yourself and see what follows.
+              </p>
+            </div>
+            <span class="text-accent text-sm whitespace-nowrap link-underline">
+              Open the explorer →
+            </span>
+          </div>
+        </a>
+      </Reveal>
+    </div>
+  </section>
+
   <!-- 03 · Writing -->
   {
     recentPosts.length > 0 && (

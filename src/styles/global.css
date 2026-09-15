@@ -171,7 +171,71 @@
   .prose-antigravity ol {
     @apply list-decimal;
   }
+
+  /* Explorer range sliders — styled to the token palette in both themes */
+  .explorer-range {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    height: 1.25rem;
+  }
+  .explorer-range::-webkit-slider-runnable-track {
+    height: 2px;
+    background: rgb(var(--rgb-border));
+    border-radius: 1px;
+  }
+  .explorer-range::-moz-range-track {
+    height: 2px;
+    background: rgb(var(--rgb-border));
+    border-radius: 1px;
+  }
+  .explorer-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    margin-top: -6px;
+    border-radius: 50%;
+    background: rgb(var(--rgb-accent));
+    border: 2px solid rgb(var(--rgb-bg));
+    transition: transform 0.15s ease;
+  }
+  .explorer-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgb(var(--rgb-accent));
+    border: 2px solid rgb(var(--rgb-bg));
+    transition: transform 0.15s ease;
+  }
+  .explorer-range:hover::-webkit-slider-thumb,
+  .explorer-range:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+  .explorer-range:focus-visible {
+    outline: none;
+  }
+  .explorer-range:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgb(var(--rgb-accent) / 0.3);
+  }
+  .explorer-range:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 3px rgb(var(--rgb-accent) / 0.3);
+  }
+
+  /* Keyboard targets in the exposure matrix are transparent circles; the
+     browser default outline draws a black box around them. */
+  .explorer-chart circle[role='button']:focus {
+    outline: none;
+  }
+  .explorer-chart circle[role='button']:focus-visible {
+    outline: none;
+    stroke: rgb(var(--rgb-fg));
+    stroke-width: 2;
+    stroke-dasharray: 3 3;
+  }
 }
+
 
 /* ============================================
    Motion
@@ -276,4 +340,9 @@
   .word { animation: none; transform: none; }
   [data-reveal], [data-stagger] > * { opacity: 1; transform: none; transition: none; }
   .marquee-track { animation: none; }
+  /* Explorer charts transition inline-styled SVG geometry; kill it here rather
+     than branching on matchMedia in JS, which has no server-side answer. */
+  .explorer-chart * { transition: none !important; }
+  .explorer-range::-webkit-slider-thumb { transition: none; }
+  .explorer-range::-moz-range-thumb { transition: none; }
 }
