@@ -3,6 +3,7 @@ export const prerender = true
 
 import BaseLayout from '../layouts/BaseLayout.astro'
 import ScenarioExplorer from '../components/explorer/ScenarioExplorer.tsx'
+import FlowCover from '../components/explorer/FlowCover.astro'
 import { runModel } from '../lib/explorer/model'
 import { TASKS, ENTRY_LADDER_TASKS } from '../lib/explorer/tasks'
 import { TODAY } from '../lib/explorer/levers'
@@ -87,6 +88,11 @@ const description =
       </p>
     </div>
   </section>
+
+  <!-- Cover band: full-bleed, sits between the hero copy and the argument. -->
+  <div class="relative w-full h-[280px] sm:h-[400px] overflow-hidden">
+    <FlowCover />
+  </div>
 
   <div class="px-6 sm:px-8">
     <div class="container-page">
