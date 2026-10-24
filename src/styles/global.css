@@ -41,6 +41,7 @@
 
   body {
     background-color: rgb(var(--rgb-bg));
+    overflow-x: clip;
   }
 
   h1, h2, h3, h4, .font-serif {
@@ -259,11 +260,17 @@
   }
 
   .tag-btn {
-    @apply font-mono text-[11px] uppercase tracking-[0.1em] text-muted border border-border px-3.5 py-1.5 rounded-full transition-colors cursor-pointer;
+    @apply font-mono text-[11px] uppercase tracking-[0.06em] text-fg px-3.5 py-1.5 rounded-full cursor-pointer;
+    border: 2px solid rgb(var(--rgb-ink));
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
   }
-  .tag-btn:hover,
+  .tag-btn:hover {
+    transform: translateY(-2px) rotate(-2deg);
+  }
   .tag-btn.active {
-    @apply border-accent text-accent;
+    background: rgb(var(--rgb-lime));
+    color: #111216;
+    box-shadow: 2px 2px 0 rgb(var(--rgb-ink));
   }
 
   .prose-antigravity {
@@ -321,6 +328,11 @@
   .prose-antigravity code {
     @apply text-fg px-1.5 py-0.5 rounded text-sm;
     background: rgb(var(--rgb-lime) / 0.45);
+  }
+  .prose-antigravity pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
   }
   .prose-antigravity pre {
     @apply bg-surface rounded-lg p-6 overflow-x-auto;

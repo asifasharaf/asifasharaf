@@ -3,6 +3,7 @@ export const prerender = true
 
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import PersonCard from '../../components/PersonCard.astro'
+import PageHero from '../../components/PageHero.astro'
 import { getCollection } from 'astro:content'
 
 const people = (await getCollection('people')).sort((a, b) =>
@@ -14,49 +15,39 @@ const allTags = [...new Set(people.flatMap((p) => p.data.tags))].sort()
 
 <BaseLayout
   title="People — Asif Asharaf"
-  description="Designers and builders I respect — and what I actually think of their work."
+  description="Designers and builders I respect, and what I actually think of their work."
 >
-  <div class="container-page px-6 sm:px-8 py-16 sm:py-24">
-    <header class="mb-8 sm:mb-12 fade-up">
-      <h1 class="font-serif text-5xl sm:text-7xl text-fg mb-6">People</h1>
-      <p class="text-muted text-lg max-w-md leading-relaxed">
-        Designers, builders, and thinkers I respect. What you'll find here isn't a mutual follow list
-        — it's a curated set of people whose work I've spent real time with, and what I actually
-        think about it.
-      </p>
-    </header>
+  <PageHero chip="♥ People I respect" glow="mint">
+    <Fragment slot="title">People whose work I <em class="hl-mint">love.</em></Fragment>
+    Not a mutual-follow list. A short set of designers and builders whose work I've spent real time
+    with, and what I actually think about it.
+  </PageHero>
 
-    {
-      allTags.length > 1 && (
-        <div id="tag-filter" class="flex flex-wrap gap-2 mb-12">
-          <button class="tag-btn active" data-tag="all">
-            All
-          </button>
-          {allTags.map((tag) => (
-            <button class="tag-btn" data-tag={tag}>
-              {tag}
-            </button>
-          ))}
-        </div>
-      )
-    }
-
-    <div
-      id="people-grid"
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-    >
+  <div class="px-5 sm:px-8">
+    <div class="container-page">
       {
-        people.map((entry) => (
-          <div class="person-item" data-tags={JSON.stringify(entry.data.tags)}>
-            <PersonCard entry={entry} />
+        allTags.length > 1 && (
+          <div id="tag-filter" class="flex flex-wrap gap-2 mb-10">
+            <button class="tag-btn active" data-tag="all">All</button>
+            {allTags.map((tag) => (
+              <button class="tag-btn" data-tag={tag}>{tag}</button>
+            ))}
           </div>
-        ))
+        )
       }
-    </div>
 
-    {people.length === 0 && (
-      <p class="text-muted text-lg py-12">No entries yet. Add some through the CMS.</p>
-    )}
+      <div id="people-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {
+          people.map((entry) => (
+            <div class="person-item" data-tags={JSON.stringify(entry.data.tags)}>
+              <PersonCard entry={entry} />
+            </div>
+          ))
+        }
+      </div>
+
+      {people.length === 0 && <p class="text-muted text-lg py-12">No entries yet. Add some through the CMS.</p>}
+    </div>
   </div>
 </BaseLayout>
 

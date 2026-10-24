@@ -43,7 +43,7 @@ export function KpiReadout() {
   ]
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border rounded-lg overflow-hidden">
+    <div className="pop grid grid-cols-2 lg:grid-cols-4 gap-px bg-ink rounded-[22px] overflow-hidden">
       {kpis.map((k) => (
         <div key={k.label} className="bg-bg p-4 sm:p-5">
           <p className="text-muted text-[11px] uppercase tracking-[0.14em] mb-2">{k.label}</p>

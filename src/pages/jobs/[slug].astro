@@ -3,6 +3,7 @@ export const prerender = true
 
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
+import { personColor } from '../../lib/palette'
 
 export async function getStaticPaths() {
   const jobs = await getCollection('jobs')
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props
 const { Content } = await entry.render()
 const { title, company, location, type, tags, url, salary, postedAt, asifNote } = entry.data
+const color = personColor(company)
 
 const typeLabel: Record<string, string> = {
   'full-time': 'Full-time',
@@ -26,49 +28,40 @@ const formatDate = (d: Date) =>
 ---
 
 <BaseLayout title={`${title} at ${company} — Jobs`} description={asifNote ?? `${title} at ${company} — ${location}`}>
-  <div class="max-w-2xl mx-auto px-6 sm:px-8 py-16 sm:py-24">
+  <article class="relative px-5 sm:px-8 pt-10 sm:pt-16 overflow-x-clip">
+    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -right-32 w-[520px] h-[520px] rounded-full bg-sun/35 blur-[120px]"></div>
+    <div class="relative max-w-3xl mx-auto">
+      <a href="/jobs" class="arrow-link mb-10 sm:mb-14"><span class="arr">←</span> All opportunities</a>
 
-    <a href="/jobs" class="text-muted hover:text-fg text-sm transition-colors mb-12 inline-block">
-      ← All opportunities
-    </a>
-
-    <header class="mb-12" data-reveal>
-      <!-- Meta -->
-      <div class="flex flex-wrap items-center gap-2 mb-6">
-        <span class="tag-pill text-accent border-accent/40">{typeLabel[type]}</span>
-        {tags.map((tag) => <span class="tag-pill">{tag}</span>)}
-      </div>
-
-      <h1 class="font-serif text-4xl sm:text-5xl text-fg leading-tight mb-2">{title}</h1>
-      <p class="text-muted text-xl mb-6">{company}</p>
-
-      <div class="flex flex-wrap gap-6 text-sm text-muted mb-8">
-        <span>📍 {location}</span>
-        {salary && <span class="text-olive">💰 {salary}</span>}
-        <span>🗓 Posted {formatDate(postedAt)}</span>
-      </div>
-
-      {asifNote && (
-        <div class="border-l-2 border-accent pl-5 py-1 mb-8">
-          <p class="text-xs uppercase tracking-widest text-muted mb-2">Asif's note</p>
-          <p class="text-fg leading-relaxed italic">"{asifNote}"</p>
+      <header class="mb-12">
+        <div class="rise flex flex-wrap items-center gap-2 mb-6">
+          <span class:list={['chip text-[#111216]', color]}>{typeLabel[type]}</span>
+          {tags.map((tag) => <span class="tag-pill">{tag}</span>)}
         </div>
-      )}
+        <h1 class="rise display text-5xl sm:text-7xl mb-4" style="--d: 80ms">{title}</h1>
+        <p class="rise text-2xl font-medium text-fg/80 mb-8" style="--d: 120ms">{company}</p>
 
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 bg-fg text-bg text-sm font-medium px-6 py-3 rounded-full hover:bg-accent transition-colors"
-      >
-        Apply / View original →
-      </a>
-    </header>
+        <dl class="rise grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10" style="--d: 160ms">
+          <div class="rounded-2xl bg-surface px-5 py-4"><dt class="meta mb-1">Location</dt><dd>{location}</dd></div>
+          <div class="rounded-2xl bg-surface px-5 py-4"><dt class="meta mb-1">Salary</dt><dd>{salary ?? 'Not listed'}</dd></div>
+          <div class="rounded-2xl bg-surface px-5 py-4"><dt class="meta mb-1">Posted</dt><dd>{formatDate(postedAt)}</dd></div>
+        </dl>
 
-    <!-- Body / full JD -->
-    <div class="prose-antigravity" data-reveal>
-      <Content />
+        {
+          asifNote && (
+            <div class="pop rounded-[22px] bg-lilac text-[#111216] p-7 mb-10 relative">
+              <span class="absolute -top-4 left-6 chip bg-white border-[#111216] text-[#111216]">Asif's note</span>
+              <p class="text-lg leading-relaxed font-medium">“{asifNote}”</p>
+            </div>
+          )
+        }
+
+        <a href={url} target="_blank" rel="noopener noreferrer" class="btn-ink">Apply / view original ↗</a>
+      </header>
+
+      <div class="prose-antigravity">
+        <Content />
+      </div>
     </div>
-
-  </div>
+  </article>
 </BaseLayout>

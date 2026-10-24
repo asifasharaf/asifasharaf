@@ -4,6 +4,7 @@ export const prerender = true
 import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { Image } from 'astro:assets'
+import { personColor } from '../../lib/palette'
 
 export async function getStaticPaths() {
   const entries = await getCollection('people')
@@ -16,70 +17,50 @@ export async function getStaticPaths() {
 const { entry } = Astro.props
 const { Content } = await entry.render()
 const { name, role, location, url, avatar, tags, relationship, asifsTake } = entry.data
+const color = personColor(name)
 ---
 
 <BaseLayout
   title={`${name} — People — Asif Asharaf`}
   description={asifsTake.slice(0, 160)}
 >
-  <article class="max-w-2xl mx-auto px-6 sm:px-8 py-16 sm:py-24">
-    <a href="/people" class="text-muted hover:text-fg text-sm transition-colors mb-12 inline-block">
-      ← People
-    </a>
+  <article class="relative px-5 sm:px-8 pt-10 sm:pt-16 overflow-x-clip">
+    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -right-32 w-[520px] h-[520px] rounded-full bg-mint/30 blur-[120px]"></div>
+    <div class="relative max-w-3xl mx-auto">
+      <a href="/people" class="arrow-link mb-10 sm:mb-14"><span class="arr">←</span> People</a>
 
-    <header class="mb-12 fade-up">
-      <div class="flex items-start gap-5 mb-8">
-        <div class="shrink-0 w-16 h-16 rounded-full bg-surface overflow-hidden border border-border">
+      <header class="rise flex flex-col sm:flex-row sm:items-end gap-6 mb-10">
+        <div class:list={['shrink-0 w-28 h-28 rounded-[28px] border-2 border-ink overflow-hidden grid place-items-center -rotate-6 pop', color]}>
           {
             avatar ? (
-              <Image
-                src={avatar}
-                alt={name}
-                width={128}
-                height={128}
-                class="w-full h-full object-cover"
-              />
+              <Image src={avatar} alt={name} width={224} height={224} class="w-full h-full object-cover" />
             ) : (
-              <div class="w-full h-full flex items-center justify-center">
-                <span class="font-serif text-2xl text-muted">{name.charAt(0)}</span>
-              </div>
+              <span class="font-serif text-6xl text-[#111216]" style="font-weight:800">{name.charAt(0)}</span>
             )
           }
         </div>
         <div>
-          <h1 class="font-serif text-3xl sm:text-4xl text-fg leading-tight mb-1">{name}</h1>
-          <p class="text-muted">{role} · {location}</p>
-          <p class="text-muted text-sm capitalize mt-0.5">{relationship}</p>
+          <h1 class="display text-5xl sm:text-7xl mb-3">{name}</h1>
+          <p class="text-fg/75 text-lg">{role} · {location}</p>
         </div>
+      </header>
+
+      <div class="rise flex flex-wrap items-center gap-2 mb-12" style="--d: 100ms">
+        <span class:list={['chip text-[#111216] capitalize', color]}>{relationship}</span>
+        {tags.map((tag) => <span class="tag-pill">{tag}</span>)}
+        <a href={url} target="_blank" rel="noopener noreferrer" class="btn-ink ml-auto">
+          {url.replace(/^https?:\/\//, '').replace(/\/$/, '')} ↗
+        </a>
       </div>
 
-      {
-        tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mb-6">
-            {tags.map((tag) => (
-              <span class="tag-pill">{tag}</span>
-            ))}
-          </div>
-        )
-      }
+      <section class="pop rounded-[28px] bg-sun text-[#111216] p-8 sm:p-10 mb-14 relative">
+        <span class="absolute -top-5 left-8 chip bg-white border-[#111216] text-[#111216]">Asif's take</span>
+        <p class="font-serif text-2xl sm:text-3xl leading-[1.25]" style="font-weight:700">“{asifsTake}”</p>
+      </section>
 
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-accent text-sm hover:underline"
-      >
-        {url.replace(/^https?:\/\//, '')} →
-      </a>
-    </header>
-
-    <section class="border-t border-border pt-10 mb-12 fade-up fade-up-delay-1">
-      <h2 class="text-xs text-muted uppercase tracking-widest mb-4">Asif's Take</h2>
-      <p class="text-fg text-lg leading-relaxed font-light">"{asifsTake}"</p>
-    </section>
-
-    <div class="prose-antigravity fade-up fade-up-delay-2">
-      <Content />
+      <div class="prose-antigravity">
+        <Content />
+      </div>
     </div>
   </article>
 </BaseLayout>
