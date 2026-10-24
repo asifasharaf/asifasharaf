@@ -1,0 +1,33 @@
+---
+title: "Cull"
+description: "An on-device AI photo culler for photographers. No cloud, no APIs, just Apple Silicon and a local vision model."
+year: 2026
+period: "2026"
+role: "Designer & builder"
+order: 4
+tags: ["ai", "photography", "side project", "prototype"]
+---
+
+## A real problem
+
+I photograph a lot. After one modelling shoot left me with 2,997 frames to sort by hand, I tried a sharpness-based auto-sort in Python. It failed in an instructive way. It couldn't understand expression or composition, so a sharp background behind a blurry subject scored higher than the reverse.
+
+That failure became Cull.
+
+## Cascade-safe tiers
+
+Cull sorts each shooting set into four folders, ordered so you can delete from the bottom up without ever losing a good photo:
+
+1. **Best picks**, the top ~10%, for the portfolio and client delivery
+2. **All good**, the top ~25%, which also contains every best pick
+3. **Almost good**, borderline keepers
+4. **To delete**, only frames that are technically broken: blur, closed eyes, blown exposure
+
+The design is in the contract, not the UI: *the bottom tier is always safe to delete.*
+
+## Two layers
+
+- **Layer 1** is fast pixel analysis (~0.08s per image). It measures centre-weighted sharpness so bokeh doesn't win, penalises backgrounds that are sharper than the subject, and checks exposure.
+- **Layer 2** is a local vision model, Moondream 2 running through Ollama. It checks whether eyes are open, where the subject is looking, expression, focus and bystanders. It only runs on frames that pass layer 1, which saves about 40% of model calls.
+
+It is a Python proof of concept for now. If it beats pixel-only sorting, the next step is a native macOS app.

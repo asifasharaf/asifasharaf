@@ -5,16 +5,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import WorkCard from '../../components/WorkCard.astro'
 import { getCollection } from 'astro:content'
 
-const allWork = (await getCollection('work')).sort((a, b) => b.data.year - a.data.year)
+const allWork = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order || b.data.year - a.data.year)
 const allTags = [...new Set(allWork.flatMap((w) => w.data.tags))].sort()
 ---
 
-<BaseLayout title="Work — Asif Asharaf" description="Selected design projects by Asif Asharaf.">
+<BaseLayout title="Work — Asif Asharaf" description="Selected product design work by Asif Asharaf: Factors.ai, Nimo, Quintype and more.">
   <div class="container-page px-6 sm:px-8 py-16 sm:py-24">
     <header class="mb-12 sm:mb-20 fade-up">
       <h1 class="font-serif text-5xl sm:text-7xl text-fg mb-4">Work</h1>
-      <p class="text-muted text-lg max-w-sm">
-        Selected projects. {allWork.length} total.
+      <p class="text-muted text-lg max-w-xl">
+        Nine years of product design, from a college studio in Kerala to founding designer at a B2B SaaS company. {allWork.length} projects.
       </p>
     </header>
 

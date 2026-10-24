@@ -138,7 +138,16 @@
   .prose-antigravity h2,
   .prose-antigravity h3,
   .prose-antigravity h4 {
-    @apply font-serif text-fg;
+    @apply font-serif text-fg leading-tight;
+  }
+  .prose-antigravity h2 {
+    @apply text-3xl sm:text-4xl mt-16 mb-6;
+  }
+  .prose-antigravity h3 {
+    @apply text-2xl mt-10 mb-4;
+  }
+  .prose-antigravity strong {
+    @apply text-fg font-semibold;
   }
   .prose-antigravity a {
     @apply text-accent underline underline-offset-2 decoration-accent/40 hover:decoration-accent transition-colors;
@@ -147,7 +156,7 @@
     @apply mb-6;
   }
   .prose-antigravity img {
-    @apply rounded w-full;
+    @apply rounded block mx-auto max-w-full h-auto my-10;
   }
   .prose-antigravity hr {
     @apply border-border;

@@ -15,9 +15,9 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props
 const { Content } = await entry.render()
-const { title, description, year, tags, coverImage, client, externalUrl } = entry.data
+const { title, description, year, period, role, tags, coverImage, client, externalUrl } = entry.data
 
-const dateFormatted = year
+const dateFormatted = period ?? year
 ---
 
 <BaseLayout
@@ -40,7 +40,8 @@ const dateFormatted = year
 
       <div class="flex flex-wrap gap-6 text-sm text-muted">
         <span>{dateFormatted}</span>
-        {client && <span>Client: {client}</span>}
+        {role && <span>{role}</span>}
+        {client && <span>{client}</span>}
         {
           externalUrl && (
             <a

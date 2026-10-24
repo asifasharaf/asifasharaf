@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { entry } = Astro.props
-const { title, description, year, tags, coverImage } = entry.data
+const { title, description, year, period, role, tags, coverImage } = entry.data
 ---
 
 <a href={`/work/${entry.slug}`} class="group block">
@@ -36,17 +36,18 @@ const { title, description, year, tags, coverImage } = entry.data
       <h3 class="font-serif text-xl text-fg group-hover:text-accent transition-colors truncate">
         {title}
       </h3>
+      {role && <p class="text-fg/70 text-xs uppercase tracking-[0.14em] mt-1">{role}</p>}
       <p class="text-muted text-sm mt-1 leading-relaxed line-clamp-2">
         {description}
       </p>
     </div>
-    <span class="text-muted text-sm shrink-0 mt-0.5">{year}</span>
+    <span class="text-muted text-sm shrink-0 mt-0.5 whitespace-nowrap">{period ?? year}</span>
   </div>
 
   {
     tags.length > 0 && (
       <div class="flex flex-wrap gap-1.5 mt-3">
-        {tags.map((tag) => (
+        {tags.slice(0, 3).map((tag) => (
           <span class="tag-pill">{tag}</span>
         ))}
       </div>

@@ -11,7 +11,7 @@ import SplitWords from '../components/motion/SplitWords.tsx'
 import { getCollection } from 'astro:content'
 
 const featuredWork = (await getCollection('work', ({ data }) => data.featured))
-  .sort((a, b) => b.data.year - a.data.year)
+  .sort((a, b) => a.data.order - b.data.order || b.data.year - a.data.year)
   .slice(0, 3)
 
 const recentPosts = (await getCollection('writing', ({ data }) => !data.draft && !!data.publishedAt))
@@ -20,7 +20,7 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
 
 ---
 
-<BaseLayout title="Asif Asharaf — Senior Product Designer, Bengaluru">
+<BaseLayout title="Asif Asharaf — Lead Product Designer, Bengaluru">
   <!-- Hero -->
   <section class="relative px-6 sm:px-8 pt-12 sm:pt-20 pb-12 sm:pb-20">
     <!-- Floating decorative asterisks -->
@@ -51,8 +51,7 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
         <span class="text-muted text-xs uppercase tracking-[0.2em]">Bengaluru, India</span>
         <span class="h-px w-8 bg-accent"></span>
         <span class="text-muted text-xs uppercase tracking-[0.2em]">
-          <span class="inline-block w-2 h-2 rounded-full bg-olive mr-1.5 align-middle animate-pulse"></span>
-          Available for select work
+          Lead Product Designer · Factors.ai
         </span>
       </Reveal>
 
@@ -73,9 +72,10 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
         as="p"
         className="text-muted text-lg sm:text-xl mt-12 sm:mt-16 max-w-lg leading-relaxed"
       >
-        Ten years of product design and one corner of the internet that's finally
-        mine. Currently mentoring designers earlier in their careers and looking for
-        deep, considered briefs.
+        Nine years building B2B SaaS from 0→1 to scale. I was the founding designer at
+        Factors.ai, where I now lead product design across analytics, account
+        intelligence, AI agents and automation. Before that: newsroom software at
+        Quintype, and a studio of my own in Kerala.
       </Reveal>
     </div>
   </section>
@@ -84,10 +84,12 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
   <Marquee
     items={[
       'Product Design',
+      '0→1',
       'Design Systems',
-      'Mentorship',
-      'Brand Identity',
-      'UX Strategy',
+      'AI & Agentic UX',
+      'B2B SaaS',
+      'Data-heavy UX',
+      'Design Leadership',
       'Bengaluru',
     ]}
   />
@@ -129,12 +131,12 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
       <div class="grid grid-cols-3 gap-8 sm:gap-16 max-w-5xl" data-stagger>
         <div>
           <h3 class="font-serif text-3xl sm:text-4xl text-fg leading-tight mb-4">
-            Product design
+            0→1 products
           </h3>
           <p class="text-muted leading-relaxed">
-            End-to-end product work — from research and strategy through to UI,
-            systems, and shipping. I'm most useful when problems are gnarly and
-            stakes are real.
+            Taking a product from a blank Figma file to something a company runs on:
+            research, strategy, information architecture, data-dense UI, and shipping
+            it with engineering. I've done it at Factors.ai, and again with Nimo.
           </p>
         </div>
         <div>
@@ -142,18 +144,19 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
             Design systems
           </h3>
           <p class="text-muted leading-relaxed">
-            Building component libraries, tokens, and the documentation around them
-            so design and engineering can move at the same pace without arguing.
+            Component libraries, tokens and the documentation around them, so a small
+            team can ship a wide product that still feels like one thing. I've built
+            them for Quintype's platform and from scratch at Factors.ai.
           </p>
         </div>
         <div>
           <h3 class="font-serif text-3xl sm:text-4xl text-fg leading-tight mb-4">
-            Mentorship
+            Design leadership
           </h3>
           <p class="text-muted leading-relaxed">
-            Working with designers earlier in their careers — sharpening
-            problem-solving, portfolio reviews, and the kind of feedback you wish
-            your first manager had given you.
+            Growing a design team from one person: hiring foundations, process,
+            and close work with founders, PMs and engineers. I also mentor designers
+            earlier in their careers, giving the feedback I wish I'd had.
           </p>
         </div>
       </div>

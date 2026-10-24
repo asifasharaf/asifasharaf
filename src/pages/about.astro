@@ -3,57 +3,157 @@ export const prerender = true
 
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { LINKEDIN_URL, INSTAGRAM_URL, EMAIL } from '../lib/social'
+
+const experience = [
+  {
+    company: 'Factors.ai',
+    href: '/work/factors-ai',
+    roles: [
+      { title: 'Lead Product Designer', period: 'Jul 2023 — now' },
+      { title: 'Senior Product Designer, founding designer', period: 'Aug 2020 — Jun 2023' },
+    ],
+    summary:
+      'First designer at a B2B go-to-market platform. Built analytics and attribution from zero, then account intelligence, real-time alerts, workflow automations, AI agents and Adpilot. Own the design system; lead and mentor the design team.',
+  },
+  {
+    company: 'Quintype Technologies',
+    href: '/work/quintype',
+    roles: [
+      { title: 'Senior Product Designer', period: 'Apr 2020 — Aug 2020' },
+      { title: 'UI/UX Designer', period: 'May 2017 — Apr 2020' },
+    ],
+    summary:
+      'Newsroom software for large digital publishers: Bold (CMS), Metype (engagement) and Subtype (subscriptions), and the shared design system across them.',
+  },
+  {
+    company: 'Teezonic Digital Makers',
+    roles: [{ title: 'UI Designer', period: 'Jul 2016 — May 2017' }],
+    summary: 'Wireframes, prototypes, style guides and responsive interfaces for client and internal products.',
+  },
+  {
+    company: 'Foxbrain Creative',
+    href: '/work/foxbrain-creative',
+    roles: [{ title: 'Founder', period: 'Jan 2015 — Jun 2017' }],
+    summary:
+      'A student-run studio in Cochin and Munnar. Websites, brand identities and photography, mostly for tourism and hospitality brands.',
+  },
+]
+
+const skills = [
+  'Product design',
+  '0→1 product building',
+  'Design systems',
+  'AI & agentic UX',
+  'B2B SaaS',
+  'Data-heavy UX',
+  'Workflow automation',
+  'Design management',
+  'Team building',
+  'Front-end (HTML, CSS, JS)',
+]
 ---
 
 <BaseLayout
   title="About — Asif Asharaf"
-  description="Senior product designer based in Bengaluru, India."
+  description="Lead product designer in Bengaluru. Founding designer at Factors.ai; previously Quintype; founder of Foxbrain Creative."
 >
-  <div class="max-w-2xl mx-auto px-6 sm:px-8 py-16 sm:py-24">
+  <div class="max-w-3xl mx-auto px-6 sm:px-8 py-16 sm:py-24">
     <header class="mb-16" data-reveal>
-      <h1 class="font-serif text-5xl sm:text-7xl text-fg leading-tight mb-8">
-        About
-      </h1>
+      <h1 class="font-serif text-5xl sm:text-7xl text-fg leading-tight mb-8">About</h1>
     </header>
 
     <div class="space-y-16">
       <section data-reveal>
         <p class="text-fg text-xl leading-relaxed font-light mb-6">
-          I'm Asif Asharaf — a senior product designer based in Bengaluru, India. I work on
-          digital products and the systems that hold them together.
+          I'm Asif Asharaf, a lead product designer in Bengaluru. For nine years I've built
+          B2B SaaS products from 0→1 to scale, trying to balance what users need with what
+          the business needs.
         </p>
         <p class="text-muted text-lg leading-relaxed mb-6">
-          A lot of my time goes into mentoring designers earlier in their careers — helping
-          them sharpen their problem-solving instincts and find their footing in UX and UI
-          work. The recommendations on my <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">LinkedIn</a>
-          probably say it better than I can.
+          I joined <a href="/work/factors-ai" class="text-accent hover:underline">Factors.ai</a> in
+          2020 as its first designer. I designed the platform, the design system, the logo and
+          the first website. Today I lead product design across analytics, attribution, account
+          intelligence, workflow automations, AI agents and Adpilot, and I manage the team
+          that grew around it. Before that I spent three years on newsroom software at
+          <a href="/work/quintype" class="text-accent hover:underline">Quintype</a>.
+        </p>
+        <p class="text-muted text-lg leading-relaxed mb-6">
+          I started out in Kerala, in Adimali and Munnar, with a diploma in computer engineering
+          and a studio I ran with friends in college. I still write front-end code, and lately I
+          build with AI agents too:
+          <a href="/work/nimo" class="text-accent hover:underline">Nimo</a>, a clinical note system
+          for Indian clinics, and <a href="/work/cull" class="text-accent hover:underline">Cull</a>,
+          an on-device photo culler. I'm also a keen photographer and filmmaker.
         </p>
         <p class="text-muted text-lg leading-relaxed">
-          What I care about: work that earns its place. Design that doesn't announce itself.
-          The kind of thing you notice when it's gone, not when it's there.
+          A lot of my time goes into mentoring designers earlier in their careers. The
+          recommendations on my
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">LinkedIn</a>
+          probably say it better than I can.
         </p>
+      </section>
+
+      <section class="border-t border-border pt-12" data-reveal>
+        <h2 class="font-serif text-3xl text-fg mb-10">Experience</h2>
+        <ol class="space-y-10">
+          {
+            experience.map((job) => (
+              <li class="grid sm:grid-cols-[minmax(0,1fr)_auto] gap-x-8 gap-y-2">
+                <div>
+                  <h3 class="font-serif text-2xl text-fg">
+                    {job.href ? (
+                      <a href={job.href} class="hover:text-accent transition-colors">{job.company}</a>
+                    ) : (
+                      job.company
+                    )}
+                  </h3>
+                  <ul class="mt-2 space-y-1">
+                    {job.roles.map((r) => (
+                      <li class="text-sm text-fg/80">
+                        {r.title} <span class="text-muted font-mono text-xs ml-2">{r.period}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="text-muted leading-relaxed mt-3">{job.summary}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section class="border-t border-border pt-12 grid sm:grid-cols-2 gap-12" data-reveal>
+        <div>
+          <h2 class="font-serif text-2xl text-fg mb-6">What I'm good at</h2>
+          <div class="flex flex-wrap gap-2">
+            {skills.map((s) => <span class="tag-pill">{s}</span>)}
+          </div>
+        </div>
+        <div>
+          <h2 class="font-serif text-2xl text-fg mb-6">Education</h2>
+          <ul class="space-y-4 text-muted">
+            <li>
+              <span class="text-fg">Model Engineering College</span><br />
+              B.Tech <span class="font-mono text-xs ml-1">2014 — 2017</span>
+            </li>
+            <li>
+              <span class="text-fg">Government Polytechnic College, Nedumkandam</span><br />
+              Diploma in Computer Engineering <span class="font-mono text-xs ml-1">2011 — 2014</span>
+            </li>
+          </ul>
+          <h2 class="font-serif text-2xl text-fg mt-10 mb-4">Languages</h2>
+          <p class="text-muted">Malayalam, English, and some Tamil and Hindi.</p>
+        </div>
       </section>
 
       <section class="border-t border-border pt-12" data-reveal>
         <h2 class="font-serif text-2xl text-fg mb-6">Get in touch</h2>
         <div class="flex flex-col gap-3">
-          <a href={`mailto:${EMAIL}`} class="text-accent hover:underline">
-            {EMAIL}
-          </a>
-          <a
-            href={LINKEDIN_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-muted hover:text-fg transition-colors"
-          >
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">
             LinkedIn →
           </a>
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-muted hover:text-fg transition-colors"
-          >
+          <a href={`mailto:${EMAIL}`} class="text-muted hover:text-fg transition-colors">{EMAIL}</a>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg transition-colors">
             Instagram →
           </a>
         </div>
