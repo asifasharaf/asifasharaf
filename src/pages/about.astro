@@ -2,7 +2,7 @@
 export const prerender = true
 
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { LINKEDIN_URL, INSTAGRAM_URL, EMAIL } from '../lib/social'
+import { LINKEDIN_URL } from '../lib/social'
 
 const experience = [
   {
@@ -57,64 +57,72 @@ const skills = [
   title="About — Asif Asharaf"
   description="Lead product designer in Bengaluru. Founding designer at Factors.ai; previously Quintype; founder of Foxbrain Creative."
 >
-  <div class="max-w-3xl mx-auto px-6 sm:px-8 py-16 sm:py-24">
-    <header class="mb-16" data-reveal>
-      <h1 class="font-serif text-5xl sm:text-7xl text-fg leading-tight mb-8">About</h1>
-    </header>
+  <div class="px-5 sm:px-8 pt-14 sm:pt-24">
+    <div class="container-page">
+      <header class="grid-12 gap-y-8 mb-20 sm:mb-28">
+        <p class="meta col-span-4 md:col-span-3">About</p>
+        <h1 class="col-span-4 md:col-span-9 display text-[clamp(3rem,7.5vw,7.5rem)] max-w-[16ch]">
+          A designer who likes the <em>hard</em> middle of products.
+        </h1>
+      </header>
 
-    <div class="space-y-16">
-      <section data-reveal>
-        <p class="text-fg text-xl leading-relaxed font-light mb-6">
-          I'm Asif Asharaf, a lead product designer in Bengaluru. For nine years I've built
-          B2B SaaS products from 0→1 to scale, trying to balance what users need with what
-          the business needs.
-        </p>
-        <p class="text-muted text-lg leading-relaxed mb-6">
-          I joined <a href="/work/factors-ai" class="text-accent hover:underline">Factors.ai</a> in
-          2020 as its first designer. I designed the platform, the design system, the logo and
-          the first website. Today I lead product design across analytics, attribution, account
-          intelligence, workflow automations, AI agents and Adpilot, and I manage the team
-          that grew around it. Before that I spent three years on newsroom software at
-          <a href="/work/quintype" class="text-accent hover:underline">Quintype</a>.
-        </p>
-        <p class="text-muted text-lg leading-relaxed mb-6">
-          I started out in Kerala, in Adimali and Munnar, with a diploma in computer engineering
-          and a studio I ran with friends in college. I still write front-end code, and lately I
-          build with AI agents too:
-          <a href="/work/nimo" class="text-accent hover:underline">Nimo</a>, a clinical note system
-          for Indian clinics, and <a href="/work/cull" class="text-accent hover:underline">Cull</a>,
-          an on-device photo culler. I'm also a keen photographer and filmmaker.
-        </p>
-        <p class="text-muted text-lg leading-relaxed">
-          A lot of my time goes into mentoring designers earlier in their careers. The
-          recommendations on my
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">LinkedIn</a>
-          probably say it better than I can.
-        </p>
+      <section class="grid-12 gap-y-8" data-reveal>
+        <p class="meta col-span-4 md:col-span-3">Story</p>
+        <div class="col-span-4 md:col-span-6 space-y-6 text-[18px] leading-[1.7] text-fg/80">
+          <p class="font-serif text-3xl sm:text-4xl leading-[1.2] text-fg">
+            I'm Asif Asharaf, a lead product designer in Bengaluru. For nine years I've built B2B SaaS
+            from 0→1 to scale.
+          </p>
+          <p>
+            I joined <a href="/work/factors-ai" class="text-fg underline decoration-accent/50 underline-offset-4 hover:decoration-accent">Factors.ai</a>
+            in 2020 as its first designer. I designed the platform, the design system, the logo and the
+            first website. Today I lead product design across analytics, attribution, account
+            intelligence, workflow automations, AI agents and Adpilot, and I manage the team that grew
+            around it. Before that I spent three years on newsroom software at
+            <a href="/work/quintype" class="text-fg underline decoration-accent/50 underline-offset-4 hover:decoration-accent">Quintype</a>.
+          </p>
+          <p>
+            I started out in Kerala, in Adimali and Munnar, with a diploma in computer engineering and a
+            studio I ran with friends in college. I still write front-end code, and lately I build with AI
+            agents too:
+            <a href="/work/nimo" class="text-fg underline decoration-accent/50 underline-offset-4 hover:decoration-accent">Nimo</a>,
+            a clinical note system for Indian clinics, and
+            <a href="/work/cull" class="text-fg underline decoration-accent/50 underline-offset-4 hover:decoration-accent">Cull</a>,
+            an on-device photo culler. Away from the screen I photograph and make films.
+          </p>
+          <p>
+            A lot of my time goes into mentoring designers earlier in their careers. The recommendations on my
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="text-fg underline decoration-accent/50 underline-offset-4 hover:decoration-accent">LinkedIn</a>
+            probably say it better than I can.
+          </p>
+        </div>
       </section>
 
-      <section class="border-t border-border pt-12" data-reveal>
-        <h2 class="font-serif text-3xl text-fg mb-10">Experience</h2>
-        <ol class="space-y-10">
+      <section class="grid-12 gap-y-8 pt-28 sm:pt-36" data-reveal>
+        <p class="meta col-span-4 md:col-span-3">Experience</p>
+        <ol class="col-span-4 md:col-span-9 border-t border-fg/80">
           {
             experience.map((job) => (
-              <li class="grid sm:grid-cols-[minmax(0,1fr)_auto] gap-x-8 gap-y-2">
-                <div>
-                  <h3 class="font-serif text-2xl text-fg">
+              <li class="grid grid-cols-4 md:grid-cols-9 gap-x-6 gap-y-4 py-8 border-b border-border">
+                <div class="col-span-4 md:col-span-3">
+                  <h2 class="font-serif text-3xl sm:text-4xl leading-none">
                     {job.href ? (
                       <a href={job.href} class="hover:text-accent transition-colors">{job.company}</a>
                     ) : (
                       job.company
                     )}
-                  </h3>
-                  <ul class="mt-2 space-y-1">
+                  </h2>
+                </div>
+                <div class="col-span-4 md:col-span-6">
+                  <ul class="space-y-1.5 mb-4">
                     {job.roles.map((r) => (
-                      <li class="text-sm text-fg/80">
-                        {r.title} <span class="text-muted font-mono text-xs ml-2">{r.period}</span>
+                      <li class="flex flex-wrap items-baseline justify-between gap-x-4 text-fg">
+                        <span>{r.title}</span>
+                        <span class="font-mono text-xs text-muted tabular-nums">{r.period}</span>
                       </li>
                     ))}
                   </ul>
-                  <p class="text-muted leading-relaxed mt-3">{job.summary}</p>
+                  <p class="text-muted leading-relaxed">{job.summary}</p>
                 </div>
               </li>
             ))
@@ -122,40 +130,35 @@ const skills = [
         </ol>
       </section>
 
-      <section class="border-t border-border pt-12 grid sm:grid-cols-2 gap-12" data-reveal>
-        <div>
-          <h2 class="font-serif text-2xl text-fg mb-6">What I'm good at</h2>
-          <div class="flex flex-wrap gap-2">
-            {skills.map((s) => <span class="tag-pill">{s}</span>)}
-          </div>
-        </div>
-        <div>
-          <h2 class="font-serif text-2xl text-fg mb-6">Education</h2>
-          <ul class="space-y-4 text-muted">
-            <li>
-              <span class="text-fg">Model Engineering College</span><br />
-              B.Tech <span class="font-mono text-xs ml-1">2014 — 2017</span>
-            </li>
-            <li>
-              <span class="text-fg">Government Polytechnic College, Nedumkandam</span><br />
-              Diploma in Computer Engineering <span class="font-mono text-xs ml-1">2011 — 2014</span>
-            </li>
-          </ul>
-          <h2 class="font-serif text-2xl text-fg mt-10 mb-4">Languages</h2>
-          <p class="text-muted">Malayalam, English, and some Tamil and Hindi.</p>
-        </div>
+      <section class="grid-12 gap-y-8 pt-28 sm:pt-36" data-reveal>
+        <p class="meta col-span-4 md:col-span-3">Capabilities</p>
+        <ul class="col-span-4 md:col-span-9 grid grid-cols-1 sm:grid-cols-2 border-t border-fg/80">
+          {
+            skills.map((s, i) => (
+              <li class="flex items-baseline gap-4 py-4 border-b border-border font-serif text-2xl">
+                <span class="font-mono text-[10px] text-accent tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                {s}
+              </li>
+            ))
+          }
+        </ul>
       </section>
 
-      <section class="border-t border-border pt-12" data-reveal>
-        <h2 class="font-serif text-2xl text-fg mb-6">Get in touch</h2>
-        <div class="flex flex-col gap-3">
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">
-            LinkedIn →
-          </a>
-          <a href={`mailto:${EMAIL}`} class="text-muted hover:text-fg transition-colors">{EMAIL}</a>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg transition-colors">
-            Instagram →
-          </a>
+      <section class="grid-12 gap-y-8 pt-28 sm:pt-36" data-reveal>
+        <p class="meta col-span-4 md:col-span-3">Education &amp; languages</p>
+        <div class="col-span-4 md:col-span-9 grid sm:grid-cols-3 gap-6 border-t border-fg/80 pt-6">
+          <div>
+            <p class="font-serif text-2xl leading-tight">Model Engineering College</p>
+            <p class="text-muted text-sm mt-2">B.Tech · <span class="font-mono text-xs">2014 — 2017</span></p>
+          </div>
+          <div>
+            <p class="font-serif text-2xl leading-tight">Govt. Polytechnic College, Nedumkandam</p>
+            <p class="text-muted text-sm mt-2">Diploma, Computer Engineering · <span class="font-mono text-xs">2011 — 2014</span></p>
+          </div>
+          <div>
+            <p class="font-serif text-2xl leading-tight">Malayalam, English</p>
+            <p class="text-muted text-sm mt-2">Some Tamil and Hindi</p>
+          </div>
         </div>
       </section>
     </div>

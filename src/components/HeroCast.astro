@@ -1,0 +1,124 @@
+---
+const ink = '#111216'
+
+const eyes = (x: number, y: number, gap = 26, r = 11) => [
+  { cx: x - gap / 2, cy: y, r },
+  { cx: x + gap / 2, cy: y, r },
+]
+---
+
+<div class="relative mx-auto w-full max-w-[560px] aspect-square" data-cast>
+  <svg viewBox="0 0 560 560" class="w-full h-full overflow-visible" role="img" aria-label="A cast of colorful shape characters">
+    <!-- ground shadow -->
+    <ellipse cx="280" cy="520" rx="220" ry="16" fill={ink} opacity="0.08" />
+
+    <!-- star (sun) -->
+    <g transform="translate(250 40)">
+      <g class="float-b" style="transform-box: fill-box; transform-origin: center; --r: -6deg">
+        <path d="M110 0 L140 72 L218 78 L158 128 L178 204 L110 162 L42 204 L62 128 L2 78 L80 72 Z" fill="#ffc93c" stroke={ink} stroke-width="5" stroke-linejoin="round" />
+        <g class="blink">
+          {eyes(110, 110).map((e) => (
+            <g><circle cx={e.cx} cy={e.cy} r={e.r} fill="#fff" stroke={ink} stroke-width="4" /><circle cx={e.cx} cy={e.cy} r="5" fill={ink} data-pupil /></g>
+          ))}
+        </g>
+        <path d="M94 136 Q110 152 126 136" fill="none" stroke={ink} stroke-width="5" stroke-linecap="round" />
+        <circle cx="76" cy="132" r="8" fill="#ff8bd1" opacity="0.9" />
+        <circle cx="144" cy="132" r="8" fill="#ff8bd1" opacity="0.9" />
+      </g>
+    </g>
+
+    <!-- coral circle -->
+    <g transform="translate(420 170)">
+      <g class="float-c" style="transform-box: fill-box; transform-origin: center">
+        <circle cx="62" cy="62" r="60" fill="#ff6b4a" stroke={ink} stroke-width="5" />
+        <g class="blink">
+          <circle cx="62" cy="52" r="16" fill="#fff" stroke={ink} stroke-width="4" />
+          <circle cx="62" cy="52" r="7" fill={ink} data-pupil />
+        </g>
+        <path d="M44 84 Q62 98 80 84" fill="none" stroke={ink} stroke-width="5" stroke-linecap="round" />
+      </g>
+    </g>
+
+    <!-- cobalt screen (the designer) -->
+    <g transform="translate(40 230)">
+      <g class="float-a" style="transform-box: fill-box; transform-origin: center; --r: -4deg">
+        <rect x="0" y="0" width="170" height="150" rx="30" fill="#3357ff" stroke={ink} stroke-width="5" />
+        <rect x="22" y="22" width="126" height="84" rx="14" fill={ink} />
+        <g class="blink">
+          {eyes(85, 58, 44, 10).map((e) => (
+            <g><circle cx={e.cx} cy={e.cy} r={e.r} fill="#c6f03c" /><circle cx={e.cx} cy={e.cy} r="4.5" fill={ink} data-pupil /></g>
+          ))}
+        </g>
+        <path d="M68 82 Q85 94 102 82" fill="none" stroke="#c6f03c" stroke-width="5" stroke-linecap="round" />
+        <circle cx="40" cy="128" r="6" fill="#ffc93c" />
+        <circle cx="60" cy="128" r="6" fill="#3dd9b3" />
+        <rect x="80" y="122" width="66" height="12" rx="6" fill="#fff" opacity="0.6" />
+        <line x1="60" y1="150" x2="50" y2="214" stroke={ink} stroke-width="6" stroke-linecap="round" />
+        <line x1="110" y1="150" x2="120" y2="214" stroke={ink} stroke-width="6" stroke-linecap="round" />
+        <rect x="30" y="208" width="34" height="14" rx="7" fill="#3dd9b3" stroke={ink} stroke-width="4" />
+        <rect x="108" y="208" width="34" height="14" rx="7" fill="#3dd9b3" stroke={ink} stroke-width="4" />
+      </g>
+    </g>
+
+    <!-- mint blob -->
+    <g transform="translate(200 300)">
+      <g class="float-c" style="transform-box: fill-box; transform-origin: center; --r: 3deg">
+        <rect x="0" y="0" width="160" height="160" rx="48" fill="#3dd9b3" stroke={ink} stroke-width="5" />
+        <g class="blink">
+          {eyes(80, 66, 40, 13).map((e) => (
+            <g><circle cx={e.cx} cy={e.cy} r={e.r} fill="#fff" stroke={ink} stroke-width="4" /><circle cx={e.cx} cy={e.cy} r="6" fill={ink} data-pupil /></g>
+          ))}
+        </g>
+        <path d="M54 100 Q80 128 106 100 Z" fill={ink} />
+        <path d="M70 112 Q80 120 90 112" fill="#ff6b4a" />
+      </g>
+    </g>
+
+    <!-- lilac triangle -->
+    <g transform="translate(370 300)">
+      <g class="float-b" style="transform-box: fill-box; transform-origin: center; --r: 5deg">
+        <path d="M80 6 Q88 0 96 8 L168 150 Q172 166 154 166 L22 166 Q4 166 10 150 Z" fill="#b69cff" stroke={ink} stroke-width="5" stroke-linejoin="round" />
+        <g class="blink">
+          {eyes(88, 104, 34, 11).map((e) => (
+            <g><circle cx={e.cx} cy={e.cy} r={e.r} fill="#fff" stroke={ink} stroke-width="4" /><circle cx={e.cx} cy={e.cy} r="5" fill={ink} data-pupil /></g>
+          ))}
+        </g>
+        <path d="M76 134 Q88 144 100 134" fill="none" stroke={ink} stroke-width="5" stroke-linecap="round" />
+      </g>
+    </g>
+
+    <!-- multiplayer cursor -->
+    <g transform="translate(150 150)">
+      <g class="float-a" style="transform-box: fill-box; transform-origin: center">
+        <path d="M0 0 L0 44 L12 33 L21 52 L30 48 L21 29 L37 29 Z" fill="#ff8bd1" stroke={ink} stroke-width="4" stroke-linejoin="round" />
+        <rect x="30" y="46" width="78" height="32" rx="16" fill="#ff8bd1" stroke={ink} stroke-width="4" />
+        <text x="69" y="68" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="17" fill={ink}>Asif</text>
+      </g>
+    </g>
+
+    <!-- sparkles -->
+    <path d="M500 60 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6z" fill="#c6f03c" stroke={ink} stroke-width="3" class="float-c" style="transform-box: fill-box; transform-origin: center" />
+    <path d="M60 120 l4 11 11 4 -11 4 -4 11 -4 -11 -11 -4 11 -4z" fill="#78c8ff" stroke={ink} stroke-width="3" class="float-b" style="transform-box: fill-box; transform-origin: center" />
+  </svg>
+</div>
+
+<script is:inline>
+  (function () {
+    const cast = document.querySelector('[data-cast]')
+    if (!cast || !window.matchMedia('(hover: hover)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const pupils = [...cast.querySelectorAll('[data-pupil]')]
+    const base = pupils.map((p) => [+p.getAttribute('cx'), +p.getAttribute('cy')])
+    window.addEventListener('mousemove', (e) => {
+      const r = cast.getBoundingClientRect()
+      const dx = (e.clientX - (r.left + r.width / 2)) / r.width
+      const dy = (e.clientY - (r.top + r.height / 2)) / r.height
+      const m = Math.min(1, Math.hypot(dx, dy))
+      const a = Math.atan2(dy, dx)
+      pupils.forEach((p, i) => {
+        p.setAttribute('cx', base[i][0] + Math.cos(a) * 4 * m)
+        p.setAttribute('cy', base[i][1] + Math.sin(a) * 4 * m)
+      })
+    }, { passive: true })
+  })()
+</script>

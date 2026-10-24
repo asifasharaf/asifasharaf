@@ -8,25 +8,28 @@ interface Props {
 const { entry } = Astro.props
 const { title, publishedAt, summary, tags } = entry.data
 
-const dateFormatted = new Intl.DateTimeFormat('en-IN', {
+const dateFormatted = new Intl.DateTimeFormat('en-GB', {
   year: 'numeric',
   month: 'short',
-  day: 'numeric',
+  day: '2-digit',
 }).format(new Date(publishedAt))
 ---
 
 <a
   href={`/writing/${entry.slug}`}
-  class="group flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-8 py-6 border-b border-border"
+  class="group grid grid-cols-4 md:grid-cols-9 gap-x-6 gap-y-2 py-7 border-b border-border items-baseline"
 >
-  <div class="flex-1">
-    <h3 class="font-serif text-xl text-fg group-hover:text-accent transition-colors mb-1">
+  <time datetime={new Date(publishedAt).toISOString()} class="col-span-4 md:col-span-2 font-mono text-xs uppercase tracking-[0.1em] text-muted tabular-nums">
+    {dateFormatted}
+  </time>
+  <div class="col-span-4 md:col-span-6">
+    <h3 class="font-serif text-2xl sm:text-[2rem] leading-[1.1] text-fg group-hover:text-accent transition-colors mb-2">
       {title}
     </h3>
-    <p class="text-muted text-sm leading-relaxed">{summary}</p>
+    <p class="text-muted leading-relaxed">{summary}</p>
     {
       tags.length > 0 && (
-        <div class="flex flex-wrap gap-1.5 mt-3">
+        <div class="flex flex-wrap gap-1.5 mt-4">
           {tags.map((tag) => (
             <span class="tag-pill">{tag}</span>
           ))}
@@ -34,11 +37,5 @@ const dateFormatted = new Intl.DateTimeFormat('en-IN', {
       )
     }
   </div>
-
-  <time
-    datetime={new Date(publishedAt).toISOString()}
-    class="text-muted text-sm shrink-0 sm:text-right"
-  >
-    {dateFormatted}
-  </time>
+  <span class="hidden md:block md:col-span-1 justify-self-end font-mono text-sm text-muted group-hover:text-accent group-hover:translate-x-1 transition-all">→</span>
 </a>

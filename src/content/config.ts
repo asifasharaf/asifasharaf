@@ -12,6 +12,7 @@ const work = defineCollection({
       order: z.number().default(99),
       tags: z.array(z.string()).default([]),
       coverImage: image().optional(),
+      cover: z.enum(['signals', 'newsroom', 'notes', 'tiers', 'studio', 'contours']).optional(),
       client: z.string().optional(),
       featured: z.boolean().default(false),
       externalUrl: z.string().url().optional(),

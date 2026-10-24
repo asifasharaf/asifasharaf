@@ -2,13 +2,11 @@
 export const prerender = true
 
 import BaseLayout from '../layouts/BaseLayout.astro'
-import WorkCard from '../components/WorkCard.astro'
+import ProjectCover from '../components/ProjectCover.astro'
 import PostCard from '../components/PostCard.astro'
-import Marquee from '../components/Marquee.astro'
-import Reveal from '../components/motion/Reveal.tsx'
-import Stagger from '../components/motion/Stagger.tsx'
-import SplitWords from '../components/motion/SplitWords.tsx'
+import HeroCast from '../components/HeroCast.astro'
 import { getCollection } from 'astro:content'
+import { LINKEDIN_URL } from '../lib/social'
 
 const featuredWork = (await getCollection('work', ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order || b.data.year - a.data.year)
@@ -18,227 +16,265 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
   .sort((a, b) => new Date(b.data.publishedAt!).getTime() - new Date(a.data.publishedAt!).getTime())
   .slice(0, 3)
 
+const labels: Record<string, string> = {
+  'factors-ai': '0→1 B2B platform',
+  nimo: 'AI · healthcare',
+  quintype: 'Newsroom software',
+}
+
+const stats = [
+  { n: '9+', l: 'years designing products', c: 'bg-sun' },
+  { n: '#1', l: 'first designer at Factors.ai', c: 'bg-lime' },
+  { n: '3', l: 'Quintype products: Bold, Metype, Subtype', c: 'bg-lilac' },
+  { n: '1→n', l: 'a design team grown from one', c: 'bg-mint' },
+]
+
+const approach = [
+  {
+    t: 'Start from the decision',
+    d: 'Data-heavy products fail when they show everything. I design backwards from the decision someone has to make, and cut what doesn’t serve it.',
+    c: 'bg-sun',
+  },
+  {
+    t: 'Systems before screens',
+    d: 'A wide product built by a small team only holds together with a system underneath it: tokens, components, and patterns for the hard states.',
+    c: 'bg-mint',
+  },
+  {
+    t: 'AI prepares, people decide',
+    d: 'In agents and AI features the craft is trust: show what the model saw, what it suggests and why, and make overriding it effortless.',
+    c: 'bg-lilac',
+  },
+]
+
+const timeline = [
+  { y: '2023 — now', c: 'Factors.ai', r: 'Lead Product Designer', dot: 'bg-accent' },
+  { y: '2020 — 23', c: 'Factors.ai', r: 'Senior Product Designer, founding designer', dot: 'bg-accent' },
+  { y: '2017 — 20', c: 'Quintype', r: 'UI/UX → Senior Product Designer', dot: 'bg-sun' },
+  { y: '2016 — 17', c: 'Teezonic Digital Makers', r: 'UI Designer', dot: 'bg-pink' },
+  { y: '2015 — 17', c: 'Foxbrain Creative', r: 'Founder', dot: 'bg-lime' },
+]
+
+const ticker = ['0→1 products', 'Design systems', 'AI & agentic UX', 'Data-heavy UX', 'B2B SaaS', 'Mentoring designers']
+const tickerDots = ['bg-lime', 'bg-sun', 'bg-pink', 'bg-mint', 'bg-lilac', 'bg-sky']
 ---
 
 <BaseLayout title="Asif Asharaf — Lead Product Designer, Bengaluru">
   <!-- Hero -->
-  <section class="relative px-6 sm:px-8 pt-12 sm:pt-20 pb-12 sm:pb-20">
-    <!-- Floating decorative asterisks -->
-    <span
-      aria-hidden="true"
-      class="hidden md:block absolute top-20 right-12 text-olive text-3xl spin-asterisk select-none"
-      style="animation-duration: 14s"
-    >
-      ✻
-    </span>
-    <span
-      aria-hidden="true"
-      class="hidden md:block absolute top-1/2 right-[18%] text-mustard text-2xl spin-asterisk select-none"
-      style="animation-duration: 10s; animation-direction: reverse"
-    >
-      ✦
-    </span>
-    <span
-      aria-hidden="true"
-      class="hidden md:block absolute bottom-32 right-32 text-rose text-2xl spin-asterisk select-none"
-      style="animation-duration: 18s"
-    >
-      ❋
-    </span>
+  <section class="relative px-5 sm:px-8 pt-10 sm:pt-16 pb-20 sm:pb-28 overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -left-40 w-[620px] h-[620px] rounded-full bg-lilac/35 blur-[120px]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute top-20 right-[-10%] w-[520px] h-[520px] rounded-full bg-sky/35 blur-[120px]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute bottom-[-20%] left-1/3 w-[520px] h-[420px] rounded-full bg-lime/30 blur-[120px]"></div>
 
-    <div class="container-page relative">
-      <Reveal client:load as="div" className="flex items-center gap-3 mb-12 sm:mb-16">
-        <span class="text-muted text-xs uppercase tracking-[0.2em]">Bengaluru, India</span>
-        <span class="h-px w-8 bg-accent"></span>
-        <span class="text-muted text-xs uppercase tracking-[0.2em]">
-          Lead Product Designer · Factors.ai
-        </span>
-      </Reveal>
-
-      <h1
-        class="font-serif text-[clamp(2.75rem,8vw,7.5rem)] text-fg leading-[0.98] tracking-tight max-w-5xl"
-      >
-        <SplitWords
-          client:load
-          text="I design things that have to work — and help others get better at it."
-          highlight={['work', 'better']}
-          highlightClass="squiggle-underline"
-        />
-      </h1>
-
-      <Reveal
-        client:load
-        delay={1.1}
-        as="p"
-        className="text-muted text-lg sm:text-xl mt-12 sm:mt-16 max-w-lg leading-relaxed"
-      >
-        Nine years building B2B SaaS from 0→1 to scale. I was the founding designer at
-        Factors.ai, where I now lead product design across analytics, account
-        intelligence, AI agents and automation. Before that: newsroom software at
-        Quintype, and a studio of my own in Kerala.
-      </Reveal>
-    </div>
-  </section>
-
-  <!-- Marquee strip -->
-  <Marquee
-    items={[
-      'Product Design',
-      '0→1',
-      'Design Systems',
-      'AI & Agentic UX',
-      'B2B SaaS',
-      'Data-heavy UX',
-      'Design Leadership',
-      'Bengaluru',
-    ]}
-  />
-
-  <!-- 01 · Selected Work -->
-  {
-    featuredWork.length > 0 && (
-      <section class="px-6 sm:px-8 py-16 sm:py-24">
-        <div class="container-page">
-          <Reveal client:visible className="flex items-baseline justify-between gap-4 mb-12 sm:mb-16">
-            <div class="flex items-baseline gap-4 sm:gap-6">
-              <span class="section-num section-num--01">01</span>
-              <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
-                Selected Work
-              </h2>
-            </div>
-            <a href="/work" class="link-underline text-muted hover:text-accent text-sm transition-colors">
-              All work →
-            </a>
-          </Reveal>
-          <div class:list={["grid gap-6 sm:gap-10", featuredWork.length === 2 ? "grid-cols-2" : "grid-cols-3"]} data-stagger>
-            {featuredWork.map((entry) => (
-              <WorkCard entry={entry} />
-            ))}
-          </div>
+    <div class="container-page relative grid-12 gap-y-12 items-center">
+      <div class="col-span-4 md:col-span-7">
+        <div class="rise flex flex-wrap items-center gap-3 mb-8">
+          <span class="chip bg-bg">
+            <span class="w-2 h-2 rounded-full bg-mint ring-2 ring-mint/30"></span>
+            Lead Product Designer @ Factors.ai
+          </span>
+          <span class="font-mono text-sm"><span class="text-accent font-medium">Namaskaram</span>, I'm Asif 👋</span>
         </div>
-      </section>
-    )
-  }
 
-  <!-- 02 · What I do -->
-  <section class="px-6 sm:px-8 py-16 sm:py-24 border-t border-border">
-    <div class="container-page">
-      <Reveal client:visible className="flex items-baseline gap-4 sm:gap-6 mb-12 sm:mb-16">
-        <span class="section-num section-num--02">02</span>
-        <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">What I Do</h2>
-      </Reveal>
+        <div class="rise" style="--d: 80ms">
+          <h1 class="display text-[clamp(2.9rem,6.4vw,6.25rem)]">
+            I design products that <em>actually work</em> and help designers <em class="hl-lime">level up.</em>
+          </h1>
+        </div>
 
-      <div class="grid grid-cols-3 gap-8 sm:gap-16 max-w-5xl" data-stagger>
-        <div>
-          <h3 class="font-serif text-3xl sm:text-4xl text-fg leading-tight mb-4">
-            0→1 products
-          </h3>
-          <p class="text-muted leading-relaxed">
-            Taking a product from a blank Figma file to something a company runs on:
-            research, strategy, information architecture, data-dense UI, and shipping
-            it with engineering. I've done it at Factors.ai, and again with Nimo.
-          </p>
+        <p class="rise text-[19px] leading-[1.6] text-fg/75 mt-8 max-w-xl" style="--d: 180ms">
+          Nine years building B2B SaaS from 0→1 to scale. I was the first designer at Factors.ai, and now lead
+          design across its analytics, account intelligence, AI agents and automation.
+        </p>
+
+        <div class="rise flex flex-wrap gap-3 mt-10" style="--d: 260ms">
+          <a href="/work" class="btn-ink">See my work <span aria-hidden="true">→</span></a>
+          <button type="button" class="btn-sun" data-open-tldr>⏱ 60-second version</button>
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn-line">Say hello</a>
         </div>
-        <div>
-          <h3 class="font-serif text-3xl sm:text-4xl text-fg leading-tight mb-4">
-            Design systems
-          </h3>
-          <p class="text-muted leading-relaxed">
-            Component libraries, tokens and the documentation around them, so a small
-            team can ship a wide product that still feels like one thing. I've built
-            them for Quintype's platform and from scratch at Factors.ai.
-          </p>
-        </div>
-        <div>
-          <h3 class="font-serif text-3xl sm:text-4xl text-fg leading-tight mb-4">
-            Design leadership
-          </h3>
-          <p class="text-muted leading-relaxed">
-            Growing a design team from one person: hiring foundations, process,
-            and close work with founders, PMs and engineers. I also mentor designers
-            earlier in their careers, giving the feedback I wish I'd had.
-          </p>
-        </div>
+      </div>
+
+      <div class="col-span-4 md:col-span-5">
+        <HeroCast />
       </div>
     </div>
   </section>
 
-  <!-- Featured interactive -->
-  <section class="px-6 sm:px-8 py-16 sm:py-24 border-t border-border">
+  <!-- Ticker band -->
+  <div class="band bg-coral py-4 overflow-hidden whitespace-nowrap" aria-hidden="true">
+    <div class="marquee-track w-max" style="animation-duration: 28s">
+      {
+        [...ticker, ...ticker, ...ticker, ...ticker].map((t, i) => (
+          <span class="inline-flex shrink-0 items-center gap-4 font-serif text-2xl sm:text-3xl text-[#111216] whitespace-nowrap" style="font-weight:800">
+            <span class:list={['w-7 h-7 rounded-lg border-2 border-[#111216] rotate-12', tickerDots[i % tickerDots.length]]}></span>
+            {t}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Selected work -->
+  <section class="px-5 sm:px-8 pt-24 sm:pt-36" id="work">
     <div class="container-page">
-      <Reveal client:visible>
-        <a href="/ai-and-design" class="group block">
-          <div class="flex items-baseline gap-4 sm:gap-6 mb-8 sm:mb-10">
-            <span class="section-num section-num--05">✳</span>
-            <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
-              Interactive
-            </h2>
-          </div>
-          <div class="grid md:grid-cols-[minmax(0,1fr)_auto] gap-8 md:gap-16 items-end">
-            <div>
-              <h3
-                class="font-serif text-3xl sm:text-5xl text-fg leading-tight mb-5 group-hover:text-accent transition-colors"
-              >
-                What AI does to design work
-              </h3>
-              <p class="text-muted leading-relaxed max-w-xl">
-                A task-level model of how AI changes design jobs, built around Indian
-                design employment. Twenty-nine tasks, five levers, four futures — set
-                the assumptions yourself and see what follows.
-              </p>
-            </div>
-            <span class="text-accent text-sm whitespace-nowrap link-underline">
-              Open the explorer →
-            </span>
-          </div>
-        </a>
-      </Reveal>
+      <div class="flex flex-wrap items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div>
+          <span class="chip mb-6">01 · Selected work</span>
+          <h2 class="display text-5xl sm:text-7xl">Pick a project.<br />Any <em class="hl-sun">project.</em></h2>
+        </div>
+        <a href="/work" class="arrow-link">All projects <span class="arr">→</span></a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+        {
+          featuredWork.map((entry, i) => (
+            <a href={`/work/${entry.slug}`} class:list={['group flex flex-col', i === 0 && 'md:col-span-2']} data-reveal>
+              <div class="relative">
+                <ProjectCover entry={entry} class={i === 0 ? 'aspect-[4/3] md:aspect-[2.1/1]' : 'aspect-[4/3]'} eager={i === 0} />
+                <span class="chip bg-bg absolute top-4 left-4">{labels[entry.slug] ?? entry.data.tags[0]}</span>
+              </div>
+              <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 mt-6">
+                <div class="max-w-xl">
+                  <h3 class="font-serif text-4xl sm:text-5xl leading-none mb-3" style="font-weight:800">{entry.data.title}</h3>
+                  <p class="text-fg/70 leading-relaxed">{entry.data.description}</p>
+                </div>
+                <div class="flex flex-col items-start gap-3">
+                  <span class="meta">{entry.data.period ?? entry.data.year} · {entry.data.role}</span>
+                  <span class="arrow-link">Read case study <span class="arr">→</span></span>
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 
-  <!-- 03 · Writing -->
+  <!-- Stats -->
+  <section class="px-5 sm:px-8 pt-24 sm:pt-36">
+    <div class="container-page grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6" data-stagger>
+      {
+        stats.map((s, i) => (
+          <div class:list={['pop rounded-[22px] p-6 sm:p-7 text-[#111216]', s.c]} style={`transform: rotate(${[-1.5, 1, -0.5, 1.5][i]}deg)`}>
+            <p class="font-serif text-6xl sm:text-7xl leading-none mb-6" style="font-weight:800">{s.n}</p>
+            <p class="font-medium leading-snug">{s.l}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="px-5 sm:px-8 pt-24 sm:pt-36">
+    <div class="container-page">
+      <span class="chip mb-6">02 · How I work</span>
+      <h2 class="display text-5xl sm:text-7xl max-w-[16ch] mb-12 sm:mb-16">
+        Clarity for products that carry a lot of <em class="hl-coral">weight.</em>
+      </h2>
+      <ol class="grid md:grid-cols-3 gap-6" data-stagger>
+        {
+          approach.map((a, i) => (
+            <li class:list={['pop rounded-[22px] p-7 sm:p-8 text-[#111216] flex flex-col', a.c]}>
+              <span class="w-11 h-11 rounded-full bg-white border-2 border-[#111216] grid place-items-center font-mono text-sm mb-14">0{i + 1}</span>
+              <h3 class="font-serif text-3xl leading-tight mb-4" style="font-weight:800">{a.t}</h3>
+              <p class="leading-relaxed text-[#111216]/80">{a.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="px-5 sm:px-8 pt-24 sm:pt-36">
+    <div class="container-page grid-12 gap-y-10">
+      <div class="col-span-4 md:col-span-4">
+        <span class="chip mb-6">03 · Experience</span>
+        <h2 class="display text-5xl sm:text-6xl mb-8">Where I've <em class="hl-mint">been.</em></h2>
+        <a href="/about" class="arrow-link">Full story <span class="arr">→</span></a>
+      </div>
+      <ol class="col-span-4 md:col-span-8 pop rounded-[22px] bg-bg overflow-hidden">
+        {
+          timeline.map((t, i) => (
+            <li class:list={['grid grid-cols-[auto_1fr] md:grid-cols-[150px_1fr_1.2fr] gap-x-5 gap-y-1 px-6 sm:px-8 py-6 items-baseline', i > 0 && 'border-t-2 border-ink/10']}>
+              <span class:list={['row-span-2 md:row-span-1 w-3.5 h-3.5 rounded-full border-2 border-ink self-center md:hidden', t.dot]}></span>
+              <span class="hidden md:flex items-center gap-3 font-mono text-xs text-muted tabular-nums">
+                <span class:list={['w-3.5 h-3.5 rounded-full border-2 border-ink', t.dot]}></span>{t.y}
+              </span>
+              <span class="font-serif text-2xl sm:text-3xl leading-none" style="font-weight:800">{t.c}</span>
+              <span class="text-muted text-sm col-start-2 md:col-start-auto"><span class="md:hidden font-mono text-xs mr-2">{t.y}</span>{t.r}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Lab -->
+  <section class="px-5 sm:px-8 pt-24 sm:pt-36">
+    <div class="container-page">
+      <a href="/ai-and-design" class="group pop block rounded-[28px] bg-accent text-white p-8 sm:p-14 relative overflow-hidden" data-reveal>
+        <div aria-hidden="true" class="absolute -right-16 -bottom-16 w-72 h-72 rounded-full bg-lime border-2 border-[#111216] group-hover:scale-110 transition-transform duration-700"></div>
+        <div aria-hidden="true" class="absolute right-40 top-10 w-24 h-24 rounded-2xl bg-pink border-2 border-[#111216] rotate-12 group-hover:rotate-45 transition-transform duration-700"></div>
+        <div class="relative max-w-3xl">
+          <span class="chip bg-white text-[#111216] border-[#111216] mb-8">✳ Lab · interactive essay</span>
+          <h2 class="font-serif text-5xl sm:text-7xl leading-[0.95] mb-6" style="font-weight:800;letter-spacing:-0.04em">What AI does to design work</h2>
+          <p class="text-white/85 leading-relaxed max-w-xl mb-8">
+            A task-level model of how AI changes design jobs in India. Twenty-nine tasks, five levers, four
+            futures. Set the assumptions yourself and see what follows.
+          </p>
+          <span class="inline-flex items-center gap-2 rounded-full bg-white text-[#111216] px-5 py-3 font-semibold border-2 border-[#111216]">Open the explorer →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Writing -->
   {
     recentPosts.length > 0 && (
-      <section class="px-6 sm:px-8 py-16 sm:py-24 border-t border-border">
-        <div class="container-page">
-          <Reveal client:visible className="flex items-baseline justify-between gap-4 mb-12 sm:mb-16">
-            <div class="flex items-baseline gap-4 sm:gap-6">
-              <span class="section-num section-num--03">03</span>
-              <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">Writing</h2>
-            </div>
-            <a href="/writing" class="link-underline text-muted hover:text-accent text-sm transition-colors">
-              All writing →
-            </a>
-          </Reveal>
-          <Stagger client:visible>
-            {recentPosts.map((entry) => (
-              <PostCard entry={entry} />
-            ))}
-          </Stagger>
+      <section class="px-5 sm:px-8 pt-24 sm:pt-36">
+        <div class="container-page grid-12 gap-y-10">
+          <div class="col-span-4 md:col-span-4">
+            <span class="chip mb-6">04 · Writing</span>
+            <h2 class="display text-5xl sm:text-6xl mb-8">Notes from <em class="hl-lilac">the work.</em></h2>
+            <a href="/writing" class="arrow-link">All writing <span class="arr">→</span></a>
+          </div>
+          <div class="col-span-4 md:col-span-8">
+            {recentPosts.map((entry) => <PostCard entry={entry} />)}
+          </div>
         </div>
       </section>
     )
   }
 
-  <!-- Closing CTA -->
-  <section class="px-6 sm:px-8 py-24 sm:py-40 border-t border-border">
-    <div class="container-page">
-      <Reveal client:visible>
-        <div class="max-w-4xl">
-          <span class="text-muted text-xs uppercase tracking-[0.22em] mb-8 block">
-            Get in touch
-          </span>
-          <h2 class="font-serif text-4xl sm:text-6xl text-fg leading-tight mb-8">
-            Have a project that deserves the time?
-          </h2>
-          <a
-            href="mailto:hello@asifasharaf.com"
-            class="link-underline text-accent text-lg sm:text-xl"
-          >
-            hello@asifasharaf.com →
-          </a>
-        </div>
-      </Reveal>
+  <!-- 60-second version -->
+  <dialog id="tldr" class="pop rounded-[28px] bg-bg text-fg p-0 w-[min(640px,calc(100vw-2rem))] backdrop:bg-ink/40 backdrop:backdrop-blur-sm">
+    <div class="p-7 sm:p-10">
+      <div class="flex items-center justify-between mb-8">
+        <span class="chip bg-sun text-[#111216]">⏱ The 60-second version</span>
+        <button type="button" class="w-10 h-10 rounded-full border-2 border-ink grid place-items-center text-lg" data-close-tldr aria-label="Close">×</button>
+      </div>
+      <ul class="space-y-5 text-[17px] leading-relaxed">
+        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-accent"></span><span><strong>Lead Product Designer at Factors.ai.</strong> I joined in 2020 as the first designer and built the platform, design system, logo and first website from zero.</span></li>
+        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-lime border border-ink"></span><span><strong>What I design now:</strong> analytics and attribution, account intelligence, real-time alerts, workflow automations, AI agents and Adpilot.</span></li>
+        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-sun border border-ink"></span><span><strong>Before that, Quintype (2017–20):</strong> Bold CMS, Metype and Subtype for large digital newsrooms, plus their shared design system.</span></li>
+        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-lilac border border-ink"></span><span><strong>On the side:</strong> Nimo, an AI clinical-note system for Indian clinics, designed with Irfan; and Cull, an on-device photo culler.</span></li>
+        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-mint border border-ink"></span><span><strong>I lead and mentor designers,</strong> and still write front-end code.</span></li>
+      </ul>
+      <div class="flex flex-wrap gap-3 mt-10">
+        <a href="/work" class="btn-ink">See the work →</a>
+        <a href="/about" class="btn-line">Full story</a>
+      </div>
     </div>
-  </section>
+  </dialog>
 </BaseLayout>
+
+<script is:inline>
+  (function () {
+    const d = document.getElementById('tldr')
+    if (!d) return
+    document.querySelectorAll('[data-open-tldr]').forEach((b) => b.addEventListener('click', () => d.showModal()))
+    d.querySelectorAll('[data-close-tldr]').forEach((b) => b.addEventListener('click', () => d.close()))
+    d.addEventListener('click', (e) => { if (e.target === d) d.close() })
+  })()
+</script>

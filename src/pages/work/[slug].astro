@@ -3,78 +3,96 @@ export const prerender = true
 
 import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import { Image } from 'astro:assets'
+import ProjectCover from '../../components/ProjectCover.astro'
 
 export async function getStaticPaths() {
-  const entries = await getCollection('work')
-  return entries.map((entry) => ({
+  const entries = (await getCollection('work')).sort(
+    (a, b) => a.data.order - b.data.order || b.data.year - a.data.year,
+  )
+  return entries.map((entry, i) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { entry, next: entries[(i + 1) % entries.length] },
   }))
 }
 
-const { entry } = Astro.props
+const { entry, next } = Astro.props
 const { Content } = await entry.render()
-const { title, description, year, period, role, tags, coverImage, client, externalUrl } = entry.data
+const { title, description, year, period, role, tags, client, externalUrl } = entry.data
 
-const dateFormatted = period ?? year
+const meta = [
+  { k: 'Role', v: role },
+  { k: 'Period', v: period ?? String(year) },
+  { k: 'Company', v: client ?? 'Independent' },
+  { k: 'Focus', v: tags.slice(0, 3).join(', ') },
+].filter((m) => m.v)
 ---
 
-<BaseLayout
-  title={`${title} — Asif Asharaf`}
-  description={description}
->
-  <article class="max-w-3xl mx-auto px-6 sm:px-8 py-16 sm:py-24">
-    <!-- Back link -->
-    <a href="/work" class="text-muted hover:text-fg text-sm transition-colors mb-12 inline-block">
-      ← All work
-    </a>
+<BaseLayout title={`${title} — Asif Asharaf`} description={description}>
+  <article class="px-5 sm:px-8 pt-10 sm:pt-16">
+    <div class="container-page">
+      <a href="/work" class="arrow-link text-muted hover:text-fg mb-14 sm:mb-20 inline-flex">
+        <span aria-hidden="true">←</span> All work
+      </a>
 
-    <!-- Header -->
-    <header class="mb-12 fade-up">
-      <div class="flex flex-wrap gap-2 mb-6">
-        {tags.map((tag) => <span class="tag-pill">{tag}</span>)}
-      </div>
-      <h1 class="font-serif text-4xl sm:text-6xl text-fg leading-tight mb-4">{title}</h1>
-      <p class="text-muted text-lg leading-relaxed mb-6">{description}</p>
+      <header class="grid-12 gap-y-10 mb-14 sm:mb-20">
+        <h1 class="col-span-4 md:col-span-7 display text-[clamp(4rem,11vw,11rem)]">{title}</h1>
+        <p class="col-span-4 md:col-span-5 md:self-end text-xl sm:text-2xl leading-[1.45] font-medium text-fg/80">
+          {description}
+        </p>
+      </header>
 
-      <div class="flex flex-wrap gap-6 text-sm text-muted">
-        <span>{dateFormatted}</span>
-        {role && <span>{role}</span>}
-        {client && <span>{client}</span>}
+      <dl class="grid grid-cols-2 md:grid-cols-4 border-t border-fg/80 mb-10 sm:mb-14">
         {
-          externalUrl && (
-            <a
-              href={externalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-accent hover:underline"
-            >
-              View project →
-            </a>
-          )
+          meta.map((m, i) => (
+            <div class:list={['py-5 pr-4', i % 2 === 1 && 'pl-5 border-l border-border', i > 1 && 'border-t border-border md:border-t-0', i === 2 && 'md:pl-5 md:border-l']}>
+              <dt class="meta mb-2">{m.k}</dt>
+              <dd class="text-fg text-[15px] leading-snug">{m.v}</dd>
+            </div>
+          ))
         }
-      </div>
-    </header>
+      </dl>
 
-    <!-- Cover image -->
-    {
-      coverImage && (
-        <div class="rounded overflow-hidden mb-12 fade-up fade-up-delay-1">
-          <Image
-            src={coverImage}
-            alt={title}
-            width={1200}
-            height={800}
-            class="w-full"
-          />
+      <ProjectCover entry={entry} class="aspect-[4/3] md:aspect-[16/8]" eager />
+
+      <div class="grid-12 mt-16 sm:mt-28">
+        <aside class="hidden md:block md:col-span-3">
+          <div class="sticky top-28 flex flex-col gap-4">
+            <p class="meta">Case study</p>
+            <p class="font-serif text-2xl leading-tight">{title}</p>
+            {
+              externalUrl && (
+                <a href={externalUrl} target="_blank" rel="noopener noreferrer" class="arrow-link hover:text-accent">
+                  Visit site <span class="arr">↗</span>
+                </a>
+              )
+            }
+          </div>
+        </aside>
+        <div class="col-span-4 md:col-span-8 md:col-start-5 lg:col-span-7 lg:col-start-5">
+          <div class="prose-antigravity">
+            <Content />
+          </div>
         </div>
-      )
-    }
-
-    <!-- Body -->
-    <div class="prose-antigravity fade-up fade-up-delay-2">
-      <Content />
+      </div>
     </div>
   </article>
+
+  {
+    next && next.slug !== entry.slug && (
+      <section class="px-5 sm:px-8 pt-28 sm:pt-40">
+        <div class="container-page">
+          <a href={`/work/${next.slug}`} class="group grid-12 gap-y-8 border-t border-fg/80 pt-8 items-end">
+            <div class="col-span-4 md:col-span-7">
+              <p class="meta mb-6">Next project</p>
+              <p class="display text-6xl sm:text-9xl group-hover:text-accent transition-colors">{next.data.title}</p>
+              <p class="text-muted mt-5 max-w-lg">{next.data.description}</p>
+            </div>
+            <div class="col-span-4 md:col-span-5">
+              <ProjectCover entry={next} class="aspect-[4/3]" />
+            </div>
+          </a>
+        </div>
+      </section>
+    )
+  }
 </BaseLayout>
