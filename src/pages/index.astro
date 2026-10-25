@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import ProjectCover from '../components/ProjectCover.astro'
 import PostCard from '../components/PostCard.astro'
 import Glyph from '../components/Glyph.astro'
+import type { GlyphName } from '../lib/glyphs'
 import { getCollection } from 'astro:content'
 
 const featuredWork = (await getCollection('work', ({ data }) => data.featured))
@@ -14,51 +15,105 @@ const featuredWork = (await getCollection('work', ({ data }) => data.featured))
 const recentPosts = (await getCollection('writing', ({ data }) => !data.draft && !!data.publishedAt))
   .sort((a, b) => new Date(b.data.publishedAt!).getTime() - new Date(a.data.publishedAt!).getTime())
   .slice(0, 3)
+
+const stats = [
+  { n: '9+', l: 'years designing products' },
+  { n: '#1', l: 'first designer at Factors.ai' },
+  { n: '3', l: 'Quintype products: Bold, Metype, Subtype' },
+  { n: '1→n', l: 'a design team grown from one' },
+]
+
+const approach: { t: string; d: string; g: GlyphName }[] = [
+  {
+    t: 'Start from the decision',
+    d: 'Data-heavy products fail when they show everything. I design backwards from the decision someone has to make, and cut what doesn’t serve it.',
+    g: 'eye',
+  },
+  {
+    t: 'Systems before screens',
+    d: 'A wide product built by a small team only holds together with a system underneath it: tokens, components, and patterns for the hard states.',
+    g: 'wheel',
+  },
+  {
+    t: 'AI prepares, people decide',
+    d: 'In agents and AI features the craft is trust: show what the model saw, what it suggests and why, and make overriding it effortless.',
+    g: 'hand',
+  },
+]
 ---
 
 <BaseLayout title="Asif Asharaf — Lead Product Designer, Bengaluru">
   <!-- Hero -->
-  <section class="px-5 sm:px-8 pt-16 sm:pt-28 pb-24 sm:pb-36">
-    <div class="container-page grid md:grid-cols-[1fr_auto] gap-12 md:gap-20 items-center">
+  <section class="px-5 sm:px-8 pt-16 sm:pt-24 pb-24 sm:pb-32">
+    <div class="container-page grid md:grid-cols-[1fr_auto] gap-12 md:gap-16 items-center">
       <div class="max-w-3xl">
-        <p class="rise text-muted mb-8">Lead Product Designer at Factors.ai · Bengaluru</p>
-        <h1 class="rise display text-[clamp(2.6rem,5.6vw,5rem)]" style="--d: 80ms">
+        <p class="rise font-mono text-sm mb-8">
+          <span class="text-accent">Namaskaram</span>, I'm Asif · Lead Product Designer at Factors.ai
+        </p>
+        <h1 class="rise display text-[clamp(2.6rem,5.8vw,5.25rem)]" style="--d: 80ms">
           I design products that <em>actually work</em>, and help designers get better at it.
         </h1>
         <p class="rise text-lg leading-relaxed text-fg/70 mt-8 max-w-xl" style="--d: 160ms">
           Nine years building B2B SaaS from 0→1 to scale. I was the first designer at Factors.ai and now
-          lead design across analytics, AI agents and automation.
+          lead design across analytics, account intelligence, AI agents and automation. Before that,
+          newsroom software at Quintype.
         </p>
-        <div class="rise flex flex-wrap gap-8 mt-10" style="--d: 240ms">
-          <a href="/work" class="arrow-link">See my work <span class="arr">→</span></a>
-          <button type="button" class="arrow-link" data-open-tldr>The 60-second version</button>
+        <div class="rise flex flex-wrap items-center gap-4 mt-10" style="--d: 240ms">
+          <a href="/work" class="btn-ink">See my work <span aria-hidden="true">→</span></a>
+          <button type="button" class="btn-line" data-open-tldr>⏱ The 60-second version</button>
         </div>
       </div>
 
-      <div class="relative w-56 sm:w-72 md:w-80 justify-self-center" aria-hidden="true">
-        <Glyph name="maker" class="w-full h-auto text-fg" weight={3.2} draw delay={300} />
-        <Glyph name="cursor" class="absolute right-[2%] top-[22%] w-[16%] h-auto text-accent" weight={6} draw delay={1100} />
-      </div>
+      <figure class="w-64 sm:w-80 md:w-[22rem] justify-self-center" aria-hidden="true">
+        <svg viewBox="0 0 360 330" class="w-full h-auto overflow-visible">
+          <Glyph name="sun" x={10} y={0} size={78} weight={5} class="text-sun" draw delay={200} />
+          <Glyph name="hills" x={210} y={0} size={130} weight={4} class="text-fg" draw delay={350} />
+          <Glyph name="maker" x={60} y={70} size={200} weight={3.4} class="text-fg" draw delay={500} />
+          <Glyph name="cursor" x={250} y={92} size={42} weight={6} class="text-accent" draw delay={1300} />
+          <Glyph name="deer" x={250} y={150} size={110} weight={4.5} class="text-fg" draw delay={900} />
+          <Glyph name="boat" x={70} y={200} size={180} weight={3.6} class="text-coral" draw delay={1100} />
+        </svg>
+        <figcaption class="mt-2 text-right font-mono text-[10px] uppercase tracking-[0.1em] text-muted">After the Edakkal petroglyphs, Kerala</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Numbers -->
+  <section class="px-5 sm:px-8">
+    <div class="container-page grid grid-cols-2 md:grid-cols-4 border-y border-border" data-stagger>
+      {
+        stats.map((s, i) => (
+          <div class:list={['py-8 pr-5', i % 2 === 1 && 'pl-5 border-l border-border', i > 1 && 'border-t border-border md:border-t-0', i === 2 && 'md:pl-5 md:border-l']}>
+            <p class="font-serif text-5xl sm:text-6xl leading-none mb-3" style="font-weight:700">{s.n}</p>
+            <p class="text-sm text-muted leading-snug">{s.l}</p>
+          </div>
+        ))
+      }
     </div>
   </section>
 
   <!-- Selected work -->
-  <section class="px-5 sm:px-8" id="work">
+  <section class="px-5 sm:px-8 pt-24 sm:pt-32" id="work">
     <div class="container-page">
-      <div class="flex items-baseline justify-between mb-10">
-        <h2 class="text-muted">Selected work</h2>
-        <a href="/work" class="text-[15px] text-muted hover:text-fg transition-colors">All projects →</a>
+      <div class="flex items-end justify-between gap-6 mb-6">
+        <div>
+          <p class="text-muted mb-3">Selected work</p>
+          <h2 class="display text-4xl sm:text-5xl">Things I've designed from <em class="hl-lilac">zero.</em></h2>
+        </div>
+        <a href="/work" class="arrow-link shrink-0">All projects <span class="arr">→</span></a>
       </div>
 
       <div class="flex flex-col">
         {
           featuredWork.map((entry, i) => (
-            <a href={`/work/${entry.slug}`} class:list={['group grid md:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] gap-6 md:gap-14 items-center py-10', i > 0 && 'border-t border-border']} data-reveal>
+            <a href={`/work/${entry.slug}`} class="group grid md:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] gap-6 md:gap-14 items-center py-10 border-t border-border" data-reveal>
               <ProjectCover entry={entry} class="aspect-[4/3]" eager={i === 0} />
               <div>
+                <p class="font-mono text-xs text-muted mb-4">0{i + 1}</p>
                 <h3 class="font-serif text-3xl sm:text-4xl leading-tight mb-3 group-hover:underline decoration-1 underline-offset-[6px]" style="font-weight:700">{entry.data.title}</h3>
-                <p class="text-fg/70 leading-relaxed mb-4">{entry.data.description}</p>
-                <p class="text-sm text-muted">{entry.data.role} · {entry.data.period ?? entry.data.year}</p>
+                <p class="text-fg/70 leading-relaxed mb-5">{entry.data.description}</p>
+                <p class="text-sm text-muted mb-6">{entry.data.role} · {entry.data.period ?? entry.data.year}</p>
+                <span class="arrow-link">Read case study <span class="arr">→</span></span>
               </div>
             </a>
           ))
@@ -67,14 +122,51 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
     </div>
   </section>
 
+  <!-- How I work -->
+  <section class="px-5 sm:px-8 pt-24 sm:pt-32">
+    <div class="container-page">
+      <p class="text-muted mb-3">How I work</p>
+      <h2 class="display text-4xl sm:text-5xl max-w-[18ch] mb-12">Clarity for products that carry a lot of <em class="hl-coral">weight.</em></h2>
+      <ol class="grid md:grid-cols-3 gap-x-12 gap-y-10" data-stagger>
+        {
+          approach.map((a) => (
+            <li class="border-t border-border pt-6">
+              <Glyph name={a.g} class="w-12 h-12 mb-6 text-fg" weight={5} />
+              <h3 class="font-serif text-2xl leading-tight mb-3" style="font-weight:700">{a.t}</h3>
+              <p class="leading-relaxed text-fg/70">{a.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Lab -->
+  <section class="px-5 sm:px-8 pt-24 sm:pt-32">
+    <div class="container-page">
+      <a href="/ai-and-design" class="group flex flex-col sm:flex-row sm:items-center gap-6 border-y border-border py-8" data-reveal>
+        <Glyph name="chart" class="w-16 h-16 shrink-0 text-accent" weight={5} />
+        <div class="flex-1">
+          <p class="text-muted text-sm mb-1">From the lab · interactive essay</p>
+          <p class="font-serif text-2xl sm:text-3xl leading-tight group-hover:underline decoration-1 underline-offset-[6px]" style="font-weight:700">What AI does to design work</p>
+          <p class="text-fg/70 mt-1">Twenty-nine tasks, five levers, four futures. Set the model yourself.</p>
+        </div>
+        <span class="arrow-link shrink-0">Open the explorer <span class="arr">→</span></span>
+      </a>
+    </div>
+  </section>
+
   <!-- Writing -->
   {
     recentPosts.length > 0 && (
       <section class="px-5 sm:px-8 pt-24 sm:pt-32">
         <div class="container-page">
-          <div class="flex items-baseline justify-between mb-4">
-            <h2 class="text-muted">Writing</h2>
-            <a href="/writing" class="text-[15px] text-muted hover:text-fg transition-colors">All writing →</a>
+          <div class="flex items-end justify-between gap-6 mb-4">
+            <div>
+              <p class="text-muted mb-3">Writing</p>
+              <h2 class="display text-4xl sm:text-5xl">Notes from the work.</h2>
+            </div>
+            <a href="/writing" class="arrow-link shrink-0">All writing <span class="arr">→</span></a>
           </div>
           {recentPosts.map((entry) => <PostCard entry={entry} />)}
         </div>
@@ -86,19 +178,19 @@ const recentPosts = (await getCollection('writing', ({ data }) => !data.draft &&
   <dialog id="tldr" class="rounded-md border border-border bg-bg text-fg p-0 w-[min(600px,calc(100vw-2rem))] backdrop:bg-ink/30 backdrop:backdrop-blur-sm">
     <div class="p-7 sm:p-10">
       <div class="flex items-center justify-between mb-6">
-        <p class="text-muted">The 60-second version</p>
+        <p class="text-muted">⏱ The 60-second version</p>
         <button type="button" class="w-8 h-8 grid place-items-center text-xl text-muted hover:text-fg" data-close-tldr aria-label="Close">×</button>
       </div>
       <ul class="space-y-4 text-[17px] leading-relaxed">
-        <li><strong>Lead Product Designer at Factors.ai.</strong> I joined in 2020 as the first designer and built the platform, design system, logo and first website from zero.</li>
-        <li><strong>What I design now:</strong> analytics and attribution, account intelligence, real-time alerts, workflow automations, AI agents and Adpilot.</li>
-        <li><strong>Before that, Quintype (2017–20):</strong> Bold CMS, Metype and Subtype for large digital newsrooms, plus their shared design system.</li>
-        <li><strong>On the side:</strong> Nimo, an AI clinical-note system for Indian clinics, designed with Irfan; and Cull, an on-device photo culler.</li>
-        <li><strong>I lead and mentor designers,</strong> and still write front-end code.</li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-accent"></span><span><strong>Lead Product Designer at Factors.ai.</strong> I joined in 2020 as the first designer and built the platform, design system, logo and first website from zero.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-mint"></span><span><strong>What I design now:</strong> analytics and attribution, account intelligence, real-time alerts, workflow automations, AI agents and Adpilot.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-sun"></span><span><strong>Before that, Quintype (2017–20):</strong> Bold CMS, Metype and Subtype for large digital newsrooms, plus their shared design system.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-lilac"></span><span><strong>On the side:</strong> Nimo, an AI clinical-note system for Indian clinics, designed with Irfan; and Cull, an on-device photo culler.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-coral"></span><span><strong>I lead and mentor designers,</strong> and still write front-end code.</span></li>
       </ul>
-      <div class="flex gap-8 mt-8">
-        <a href="/work" class="arrow-link">See the work <span class="arr">→</span></a>
-        <a href="/about" class="arrow-link">Full story <span class="arr">→</span></a>
+      <div class="flex gap-4 mt-8">
+        <a href="/work" class="btn-ink">See the work →</a>
+        <a href="/about" class="btn-line">Full story</a>
       </div>
     </div>
   </dialog>

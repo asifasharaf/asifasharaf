@@ -1,22 +1,32 @@
 ---
 import { LINKEDIN_URL, INSTAGRAM_URL, EMAIL } from '../lib/social'
+import Glyph from './Glyph.astro'
 const year = new Date().getFullYear()
 ---
 
 <footer class="mt-32 px-5 sm:px-8 pb-10">
-  <div class="container-page border-t border-border pt-12">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+  <div class="container-page border-t border-border pt-14">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
       <div>
-        <p class="font-serif text-3xl sm:text-4xl leading-tight" style="font-weight:700">Have a hard product problem?</p>
-        <a href={`mailto:${EMAIL}`} class="text-lg text-muted hover:text-fg transition-colors">{EMAIL}</a>
+        <p class="text-muted mb-3">Get in touch</p>
+        <p class="display text-4xl sm:text-6xl mb-4">Have a hard product problem? <em class="hl-lime">Let's talk.</em></p>
+        <a href={`mailto:${EMAIL}`} class="text-lg text-fg/70 hover:text-fg transition-colors">{EMAIL} →</a>
       </div>
-      <nav aria-label="Elsewhere" class="flex flex-wrap gap-6 text-[15px]">
+      <div class="flex items-end gap-5 shrink-0" aria-hidden="true">
+        <Glyph name="sun" class="w-10 h-10 text-sun" weight={5} />
+        <Glyph name="deer" class="w-14 h-14 text-fg" weight={5} />
+        <Glyph name="fish" class="w-10 h-10 text-accent" weight={5} />
+        <Glyph name="boat" class="w-16 h-16 text-coral" weight={4.5} />
+      </div>
+    </div>
+    <div class="mt-14 pt-6 border-t border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm">
+      <p class="text-muted">© {year} Asif Asharaf · Bengaluru</p>
+      <nav aria-label="Elsewhere" class="flex flex-wrap gap-6">
         <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg transition-colors">LinkedIn</a>
         <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg transition-colors">Instagram</a>
         <a href="/people" class="text-muted hover:text-fg transition-colors">People</a>
         <a href="/jobs" class="text-muted hover:text-fg transition-colors">Jobs</a>
       </nav>
     </div>
-    <p class="mt-12 text-sm text-muted">© {year} Asif Asharaf · Bengaluru</p>
   </div>
 </footer>
