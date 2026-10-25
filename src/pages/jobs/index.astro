@@ -40,7 +40,7 @@ const formatDate = (d: Date) =>
         activeJobs.length > 0 ? (
           <section class="grid gap-6 mb-20">
             {activeJobs.map((job) => (
-              <a href={`/jobs/${job.slug}`} class="group grid md:grid-cols-[1fr_auto] gap-6 border-t-[3px] border-ink pt-6">
+              <a href={`/jobs/${job.slug}`} class="group grid md:grid-cols-[1fr_auto] gap-6 border-t border-border pt-6">
                 <div class="min-w-0">
                   <div class="flex flex-wrap items-center gap-2 mb-5">
                     <span class="chip"><span class:list={['dot', personColor(job.data.company)]}></span>{typeLabel[job.data.type]}</span>

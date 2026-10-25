@@ -4,11 +4,8 @@ export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import ProjectCover from '../components/ProjectCover.astro'
 import PostCard from '../components/PostCard.astro'
-import CaveWall from '../components/CaveWall.astro'
 import Glyph from '../components/Glyph.astro'
-import type { GlyphName } from '../lib/glyphs'
 import { getCollection } from 'astro:content'
-import { LINKEDIN_URL } from '../lib/social'
 
 const featuredWork = (await getCollection('work', ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order || b.data.year - a.data.year)
@@ -17,147 +14,51 @@ const featuredWork = (await getCollection('work', ({ data }) => data.featured))
 const recentPosts = (await getCollection('writing', ({ data }) => !data.draft && !!data.publishedAt))
   .sort((a, b) => new Date(b.data.publishedAt!).getTime() - new Date(a.data.publishedAt!).getTime())
   .slice(0, 3)
-
-const labels: Record<string, string> = {
-  'factors-ai': '0→1 B2B platform',
-  nimo: 'AI · healthcare',
-  quintype: 'Newsroom software',
-}
-
-const stats: { n: string; l: string; g: GlyphName; tone: string }[] = [
-  { n: '9+', l: 'years designing products', g: 'sun', tone: 'text-sun' },
-  { n: '#1', l: 'first designer at Factors.ai', g: 'maker', tone: 'text-accent' },
-  { n: '3', l: 'Quintype products: Bold, Metype, Subtype', g: 'tally', tone: 'text-coral' },
-  { n: '1→n', l: 'a design team grown from one', g: 'human', tone: 'text-mint' },
-]
-
-const approach: { t: string; d: string; g: GlyphName; tone: string }[] = [
-  {
-    t: 'Start from the decision',
-    d: 'Data-heavy products fail when they show everything. I design backwards from the decision someone has to make, and cut what doesn’t serve it.',
-    g: 'eye',
-    tone: 'text-accent',
-  },
-  {
-    t: 'Systems before screens',
-    d: 'A wide product built by a small team only holds together with a system underneath it: tokens, components, and patterns for the hard states.',
-    g: 'wheel',
-    tone: 'text-coral',
-  },
-  {
-    t: 'AI prepares, people decide',
-    d: 'In agents and AI features the craft is trust: show what the model saw, what it suggests and why, and make overriding it effortless.',
-    g: 'hand',
-    tone: 'text-mint',
-  },
-]
-
-const timeline = [
-  { y: '2023 — now', c: 'Factors.ai', r: 'Lead Product Designer', dot: 'bg-accent' },
-  { y: '2020 — 23', c: 'Factors.ai', r: 'Senior Product Designer, founding designer', dot: 'bg-accent' },
-  { y: '2017 — 20', c: 'Quintype', r: 'UI/UX → Senior Product Designer', dot: 'bg-sun' },
-  { y: '2016 — 17', c: 'Teezonic Digital Makers', r: 'UI Designer', dot: 'bg-pink' },
-  { y: '2015 — 17', c: 'Foxbrain Creative', r: 'Founder', dot: 'bg-lime' },
-]
-
-const ticker = ['0→1 products', 'Design systems', 'AI & agentic UX', 'Data-heavy UX', 'B2B SaaS', 'Mentoring designers']
-const tickerGlyphs: { g: GlyphName; tone: string }[] = [
-  { g: 'deer', tone: 'text-coral' },
-  { g: 'fish', tone: 'text-accent' },
-  { g: 'sun', tone: 'text-sun' },
-  { g: 'spiral', tone: 'text-fg' },
-  { g: 'bird', tone: 'text-mint' },
-  { g: 'boat', tone: 'text-coral' },
-]
-
-const today = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date())
 ---
 
 <BaseLayout title="Asif Asharaf — Lead Product Designer, Bengaluru">
-  <!-- Masthead dateline -->
-  <div class="px-5 sm:px-8 pt-6">
-    <div class="container-page double-rule pb-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-      <span class="meta-fg">Design Notes · Vol. IX</span>
-      <span class="meta hidden sm:inline">{today}</span>
-      <span class="meta">Bengaluru, India</span>
-    </div>
-  </div>
-
   <!-- Hero -->
-  <section class="px-5 sm:px-8 pt-10 sm:pt-14 pb-20 sm:pb-28">
-    <div class="container-page grid-12 gap-y-12 items-start">
-      <div class="col-span-4 md:col-span-7">
-        <div class="rise flex flex-wrap items-center gap-3 mb-8">
-          <span class="chip"><span class="dot bg-mint"></span>Lead Product Designer @ Factors.ai</span>
-          <span class="font-mono text-sm"><span class="text-accent font-medium">Namaskaram</span>, I'm Asif 👋</span>
-        </div>
-
-        <h1 class="rise display text-[clamp(2.9rem,6.4vw,6.25rem)]" style="--d: 80ms">
-          I design products that <em>actually work</em> and help designers <em class="hl-lime">level up.</em>
+  <section class="px-5 sm:px-8 pt-16 sm:pt-28 pb-24 sm:pb-36">
+    <div class="container-page grid md:grid-cols-[1fr_auto] gap-12 md:gap-20 items-center">
+      <div class="max-w-3xl">
+        <p class="rise text-muted mb-8">Lead Product Designer at Factors.ai · Bengaluru</p>
+        <h1 class="rise display text-[clamp(2.6rem,5.6vw,5rem)]" style="--d: 80ms">
+          I design products that <em>actually work</em>, and help designers get better at it.
         </h1>
-
-        <div class="rise grid sm:grid-cols-2 gap-6 mt-10 pt-6 border-t border-ink" style="--d: 180ms">
-          <p class="dropcap text-[17px] leading-[1.65] text-fg/80">
-            Nine years building B2B SaaS from 0→1 to scale. I was the first designer at Factors.ai, and now
-            lead design across its analytics, account intelligence, AI agents and automation.
-          </p>
-          <p class="text-[17px] leading-[1.65] text-fg/80">
-            Before that, newsroom software at Quintype, and a studio of my own in Kerala. On the side I build
-            with AI agents, and mentor designers earlier in their careers.
-          </p>
-        </div>
-
-        <div class="rise flex flex-wrap gap-3 mt-10" style="--d: 260ms">
-          <a href="/work" class="btn-ink">See my work <span aria-hidden="true">→</span></a>
-          <button type="button" class="btn-sun" data-open-tldr>⏱ 60-second version</button>
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn-line">Say hello</a>
+        <p class="rise text-lg leading-relaxed text-fg/70 mt-8 max-w-xl" style="--d: 160ms">
+          Nine years building B2B SaaS from 0→1 to scale. I was the first designer at Factors.ai and now
+          lead design across analytics, AI agents and automation.
+        </p>
+        <div class="rise flex flex-wrap gap-8 mt-10" style="--d: 240ms">
+          <a href="/work" class="arrow-link">See my work <span class="arr">→</span></a>
+          <button type="button" class="arrow-link" data-open-tldr>The 60-second version</button>
         </div>
       </div>
 
-      <div class="col-span-4 md:col-span-5">
-        <CaveWall />
+      <div class="relative w-56 sm:w-72 md:w-80 justify-self-center" aria-hidden="true">
+        <Glyph name="maker" class="w-full h-auto text-fg" weight={3.2} draw delay={300} />
+        <Glyph name="cursor" class="absolute right-[2%] top-[22%] w-[16%] h-auto text-accent" weight={6} draw delay={1100} />
       </div>
     </div>
   </section>
 
-  <!-- Ticker -->
-  <div class="band py-3 overflow-hidden whitespace-nowrap" aria-hidden="true">
-    <div class="marquee-track w-max" style="animation-duration: 40s">
-      {
-        [...ticker, ...ticker, ...ticker, ...ticker].map((t, i) => (
-          <span class="inline-flex shrink-0 items-center gap-4 font-serif text-xl sm:text-2xl text-fg whitespace-nowrap" style="font-weight:700">
-            <Glyph name={tickerGlyphs[i % tickerGlyphs.length].g} class={`w-8 h-8 shrink-0 ${tickerGlyphs[i % tickerGlyphs.length].tone}`} weight={6} />
-            {t}
-          </span>
-        ))
-      }
-    </div>
-  </div>
-
   <!-- Selected work -->
-  <section class="px-5 sm:px-8 pt-20 sm:pt-28" id="work">
+  <section class="px-5 sm:px-8" id="work">
     <div class="container-page">
-      <div class="kicker">
-        <span>§ 01 — Selected work</span>
-        <a href="/work" class="arrow-link">All projects <span class="arr">→</span></a>
+      <div class="flex items-baseline justify-between mb-10">
+        <h2 class="text-muted">Selected work</h2>
+        <a href="/work" class="text-[15px] text-muted hover:text-fg transition-colors">All projects →</a>
       </div>
-      <h2 class="display text-5xl sm:text-7xl mb-12 sm:mb-16 max-w-[14ch]">Pick a project. Any <em>project.</em></h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14">
+      <div class="flex flex-col">
         {
           featuredWork.map((entry, i) => (
-            <a href={`/work/${entry.slug}`} class:list={['group flex flex-col', i === 0 && 'md:col-span-2']} data-reveal>
-              <ProjectCover entry={entry} class={i === 0 ? 'aspect-[4/3] md:aspect-[2.1/1]' : 'aspect-[4/3]'} eager={i === 0} />
-              <p class="meta mt-3">Fig. {i + 1} — {labels[entry.slug] ?? entry.data.tags[0]}</p>
-              <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 mt-5 pt-5 border-t border-ink">
-                <div class="max-w-xl">
-                  <h3 class="font-serif text-4xl sm:text-5xl leading-none mb-3 group-hover:underline decoration-2 underline-offset-[6px]" style="font-weight:800">{entry.data.title}</h3>
-                  <p class="text-fg/70 leading-relaxed">{entry.data.description}</p>
-                </div>
-                <div class="flex flex-col items-start gap-3">
-                  <span class="meta">{entry.data.period ?? entry.data.year} · {entry.data.role}</span>
-                  <span class="arrow-link">Read case study <span class="arr">→</span></span>
-                </div>
+            <a href={`/work/${entry.slug}`} class:list={['group grid md:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] gap-6 md:gap-14 items-center py-10', i > 0 && 'border-t border-border']} data-reveal>
+              <ProjectCover entry={entry} class="aspect-[4/3]" eager={i === 0} />
+              <div>
+                <h3 class="font-serif text-3xl sm:text-4xl leading-tight mb-3 group-hover:underline decoration-1 underline-offset-[6px]" style="font-weight:700">{entry.data.title}</h3>
+                <p class="text-fg/70 leading-relaxed mb-4">{entry.data.description}</p>
+                <p class="text-sm text-muted">{entry.data.role} · {entry.data.period ?? entry.data.year}</p>
               </div>
             </a>
           ))
@@ -166,133 +67,38 @@ const today = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric'
     </div>
   </section>
 
-  <!-- By the numbers -->
-  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
-    <div class="container-page">
-      <div class="kicker"><span>§ 02 — By the numbers</span></div>
-      <div class="grid grid-cols-2 md:grid-cols-4 border-b border-ink" data-stagger>
-        {
-          stats.map((s, i) => (
-            <div class:list={['py-6 pr-5', i % 2 === 1 && 'pl-5 border-l border-ink', i > 1 && 'border-t border-ink md:border-t-0', i === 2 && 'md:pl-5 md:border-l']}>
-              <div class="flex items-start justify-between mb-6">
-                <p class="font-serif text-6xl sm:text-7xl leading-none" style="font-weight:800">{s.n}</p>
-                <Glyph name={s.g} class={`w-12 h-12 shrink-0 ${s.tone}`} weight={5} />
-              </div>
-              <p class="text-fg/75 leading-snug">{s.l}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Approach -->
-  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
-    <div class="container-page">
-      <div class="kicker"><span>§ 03 — How I work</span></div>
-      <h2 class="display text-5xl sm:text-7xl max-w-[16ch] mb-12 sm:mb-16">
-        Clarity for products that carry a lot of <em class="hl-coral">weight.</em>
-      </h2>
-      <ol class="grid md:grid-cols-3 gap-x-10 gap-y-12" data-stagger>
-        {
-          approach.map((a, i) => (
-            <li class="flex flex-col border-t border-ink pt-5">
-              <div class="flex items-start justify-between mb-8">
-                <span class="font-mono text-sm">No. {i + 1}</span>
-                <Glyph name={a.g} class={`w-16 h-16 -mt-1 ${a.tone}`} weight={4.5} />
-              </div>
-              <h3 class="font-serif text-3xl leading-tight mb-4" style="font-weight:800">{a.t}</h3>
-              <p class="leading-relaxed text-fg/75">{a.d}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
-    <div class="container-page">
-      <div class="kicker">
-        <span>§ 04 — Experience</span>
-        <a href="/about" class="arrow-link">Full story <span class="arr">→</span></a>
-      </div>
-      <ol class="border-b border-ink">
-        {
-          timeline.map((t, i) => (
-            <li class:list={['grid grid-cols-[auto_1fr] md:grid-cols-[180px_1fr_1.2fr] gap-x-5 gap-y-1 py-5 items-baseline', i > 0 && 'border-t border-border']}>
-              <span class:list={['dot w-2.5 h-2.5 self-center md:hidden', t.dot]}></span>
-              <span class="hidden md:flex items-center gap-3 font-mono text-xs text-muted tabular-nums">
-                <span class:list={['dot w-2.5 h-2.5', t.dot]}></span>{t.y}
-              </span>
-              <span class="font-serif text-2xl sm:text-3xl leading-none" style="font-weight:800">{t.c}</span>
-              <span class="text-muted text-sm col-start-2 md:col-start-auto"><span class="md:hidden font-mono text-xs mr-2">{t.y}</span>{t.r}</span>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <!-- Lab -->
-  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
-    <div class="container-page">
-      <div class="kicker"><span>§ 05 — From the lab</span></div>
-      <a href="/ai-and-design" class="group grid md:grid-cols-[1fr_auto] gap-8 items-end" data-reveal>
-        <div class="max-w-3xl">
-          <span class="chip mb-6"><span class="dot bg-accent"></span>Interactive essay</span>
-          <h2 class="display text-5xl sm:text-7xl mb-6 group-hover:underline decoration-[3px] underline-offset-[8px]">What AI does to design work</h2>
-          <p class="text-fg/75 leading-relaxed max-w-xl mb-8">
-            A task-level model of how AI changes design jobs in India. Twenty-nine tasks, five levers, four
-            futures. Set the assumptions yourself and see what follows.
-          </p>
-          <span class="arrow-link">Open the explorer <span class="arr">→</span></span>
-        </div>
-        <div class="flex items-end gap-4" aria-hidden="true">
-          <Glyph name="eye" class="w-20 h-20 text-fg" weight={5} />
-          <Glyph name="chart" class="w-36 h-36 sm:w-44 sm:h-44 text-accent group-hover:-rotate-3 transition-transform duration-500" weight={4} />
-        </div>
-      </a>
-    </div>
-  </section>
-
   <!-- Writing -->
   {
     recentPosts.length > 0 && (
-      <section class="px-5 sm:px-8 pt-20 sm:pt-28">
+      <section class="px-5 sm:px-8 pt-24 sm:pt-32">
         <div class="container-page">
-          <div class="kicker">
-            <span>§ 06 — Writing</span>
-            <a href="/writing" class="arrow-link">All writing <span class="arr">→</span></a>
+          <div class="flex items-baseline justify-between mb-4">
+            <h2 class="text-muted">Writing</h2>
+            <a href="/writing" class="text-[15px] text-muted hover:text-fg transition-colors">All writing →</a>
           </div>
-          <div class="grid-12 gap-y-8">
-            <h2 class="col-span-4 md:col-span-4 display text-5xl sm:text-6xl">Notes from <em class="hl-lilac">the work.</em></h2>
-            <div class="col-span-4 md:col-span-8">
-              {recentPosts.map((entry) => <PostCard entry={entry} />)}
-            </div>
-          </div>
+          {recentPosts.map((entry) => <PostCard entry={entry} />)}
         </div>
       </section>
     )
   }
 
   <!-- 60-second version -->
-  <dialog id="tldr" class="pop rounded-[6px] bg-bg text-fg p-0 w-[min(640px,calc(100vw-2rem))] backdrop:bg-ink/40 backdrop:backdrop-blur-sm">
+  <dialog id="tldr" class="rounded-md border border-border bg-bg text-fg p-0 w-[min(600px,calc(100vw-2rem))] backdrop:bg-ink/30 backdrop:backdrop-blur-sm">
     <div class="p-7 sm:p-10">
-      <div class="kicker !mb-6">
-        <span>⏱ The 60-second version</span>
-        <button type="button" class="w-9 h-9 rounded-full border border-ink grid place-items-center text-lg" data-close-tldr aria-label="Close">×</button>
+      <div class="flex items-center justify-between mb-6">
+        <p class="text-muted">The 60-second version</p>
+        <button type="button" class="w-8 h-8 grid place-items-center text-xl text-muted hover:text-fg" data-close-tldr aria-label="Close">×</button>
       </div>
-      <ul class="space-y-5 text-[17px] leading-relaxed">
-        <li class="flex gap-4"><span class="dot mt-2.5 bg-accent"></span><span><strong>Lead Product Designer at Factors.ai.</strong> I joined in 2020 as the first designer and built the platform, design system, logo and first website from zero.</span></li>
-        <li class="flex gap-4"><span class="dot mt-2.5 bg-lime"></span><span><strong>What I design now:</strong> analytics and attribution, account intelligence, real-time alerts, workflow automations, AI agents and Adpilot.</span></li>
-        <li class="flex gap-4"><span class="dot mt-2.5 bg-sun"></span><span><strong>Before that, Quintype (2017–20):</strong> Bold CMS, Metype and Subtype for large digital newsrooms, plus their shared design system.</span></li>
-        <li class="flex gap-4"><span class="dot mt-2.5 bg-lilac"></span><span><strong>On the side:</strong> Nimo, an AI clinical-note system for Indian clinics, designed with Irfan; and Cull, an on-device photo culler.</span></li>
-        <li class="flex gap-4"><span class="dot mt-2.5 bg-mint"></span><span><strong>I lead and mentor designers,</strong> and still write front-end code.</span></li>
+      <ul class="space-y-4 text-[17px] leading-relaxed">
+        <li><strong>Lead Product Designer at Factors.ai.</strong> I joined in 2020 as the first designer and built the platform, design system, logo and first website from zero.</li>
+        <li><strong>What I design now:</strong> analytics and attribution, account intelligence, real-time alerts, workflow automations, AI agents and Adpilot.</li>
+        <li><strong>Before that, Quintype (2017–20):</strong> Bold CMS, Metype and Subtype for large digital newsrooms, plus their shared design system.</li>
+        <li><strong>On the side:</strong> Nimo, an AI clinical-note system for Indian clinics, designed with Irfan; and Cull, an on-device photo culler.</li>
+        <li><strong>I lead and mentor designers,</strong> and still write front-end code.</li>
       </ul>
-      <div class="flex flex-wrap gap-3 mt-10">
-        <a href="/work" class="btn-ink">See the work →</a>
-        <a href="/about" class="btn-line">Full story</a>
+      <div class="flex gap-8 mt-8">
+        <a href="/work" class="arrow-link">See the work <span class="arr">→</span></a>
+        <a href="/about" class="arrow-link">Full story <span class="arr">→</span></a>
       </div>
     </div>
   </dialog>

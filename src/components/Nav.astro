@@ -1,6 +1,5 @@
 ---
 import ThemeToggle from './ThemeToggle.astro'
-import { LINKEDIN_URL } from '../lib/social'
 
 const pathname = Astro.url.pathname
 
@@ -12,67 +11,36 @@ const links = [
 ]
 ---
 
-<header class="sticky top-0 z-50 w-full px-5 sm:px-8 bg-bg/90 backdrop-blur-md border-b border-ink">
-  <div class="container-page grid-12 items-center h-16">
-    <a href="/" class="col-span-3 md:col-span-4 flex items-center gap-3 group" aria-label="Asif Asharaf, home">
-      <span class="w-8 h-8 rounded-full border border-ink grid place-items-center font-serif text-[13px] group-hover:bg-ink group-hover:text-bg transition-colors" style="font-weight:800">AA</span><span class="font-serif text-[20px] leading-none text-fg" style="font-weight:800">Asif Asharaf</span>
-      <span class="meta hidden lg:inline">Product Designer</span>
-    </a>
+<header class="sticky top-0 z-50 w-full px-5 sm:px-8 bg-bg/90 backdrop-blur-md">
+  <div class="container-page flex items-center justify-between h-16">
+    <a href="/" class="font-serif text-[18px] leading-none text-fg" style="font-weight:700">Asif Asharaf</a>
 
-    <nav aria-label="Main navigation" class="hidden md:flex md:col-span-5 items-center gap-1">
-      {
-        links.map((link, i) => {
-          const isActive = pathname.startsWith(link.href)
-          return (
-            <a
-              href={link.href}
-              aria-current={isActive ? 'page' : undefined}
-              class:list={[
-                'group inline-flex items-baseline gap-1.5 text-[15px] font-medium px-3 py-1.5 rounded-full transition-colors',
-                isActive ? 'text-fg underline decoration-2 underline-offset-[6px]' : 'text-fg/70 hover:text-fg',
-              ]}
-            >
-              <span class:list={['font-mono text-[10px]', isActive ? 'text-accent' : 'text-muted/70']}>0{i + 1}</span>
-              {link.label}
-            </a>
-          )
-        })
-      }
-    </nav>
-
-    <div class="col-span-1 md:col-span-3 flex items-center justify-end gap-3">
-      <span class="meta hidden xl:inline tabular-nums" data-clock aria-label="Local time in Bengaluru">BLR --:--</span>
-      <ThemeToggle />
-      <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn-ink hidden md:inline-flex">
-        Say hello <span aria-hidden="true">↗</span>
-      </a>
-      <details class="md:hidden relative" data-mobile-menu>
-        <summary class="list-none w-9 h-9 grid place-items-center rounded-full border border-border cursor-pointer" aria-label="Menu">
-          <span class="block w-4 h-px bg-fg shadow-[0_5px_0_currentColor,0_-5px_0_currentColor] text-fg"></span>
-        </summary>
-        <div class="absolute right-0 top-12 w-56 rounded-lg border border-border bg-bg p-2 shadow-xl">
-          {
-            links.map((link, i) => (
-              <a href={link.href} class="flex items-baseline gap-3 px-3 py-2.5 rounded hover:bg-surface text-fg">
-                <span class="font-mono text-[10px] text-muted">0{i + 1}</span>
+    <div class="flex items-center gap-6">
+      <nav aria-label="Main navigation" class="hidden md:flex items-center gap-6">
+        {
+          links.map((link) => {
+            const isActive = pathname.startsWith(link.href)
+            return (
+              <a
+                href={link.href}
+                aria-current={isActive ? 'page' : undefined}
+                class:list={['text-[15px] transition-colors', isActive ? 'text-fg' : 'text-muted hover:text-fg']}
+              >
                 {link.label}
               </a>
-            ))
-          }
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn-ink w-full justify-center mt-2">Say hello ↗</a>
+            )
+          })
+        }
+      </nav>
+      <ThemeToggle />
+      <details class="md:hidden relative" data-mobile-menu>
+        <summary class="list-none w-9 h-9 grid place-items-center cursor-pointer" aria-label="Menu">
+          <span class="block w-4 h-px bg-fg shadow-[0_5px_0_currentColor,0_-5px_0_currentColor] text-fg"></span>
+        </summary>
+        <div class="absolute right-0 top-12 w-48 rounded-md border border-border bg-bg p-2 shadow-lg">
+          {links.map((link) => <a href={link.href} class="block px-3 py-2.5 rounded hover:bg-surface text-fg">{link.label}</a>)}
         </div>
       </details>
     </div>
   </div>
 </header>
-
-<script is:inline>
-  (function () {
-    const el = document.querySelector('[data-clock]')
-    if (!el) return
-    const fmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' })
-    const tick = () => (el.textContent = 'BLR ' + fmt.format(new Date()) + ' IST')
-    tick()
-    setInterval(tick, 30000)
-  })()
-</script>
