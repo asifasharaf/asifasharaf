@@ -28,29 +28,28 @@ const formatDate = (d: Date) =>
 ---
 
 <BaseLayout title={`${title} at ${company} — Jobs`} description={asifNote ?? `${title} at ${company} — ${location}`}>
-  <article class="relative px-5 sm:px-8 pt-10 sm:pt-16 overflow-x-clip">
-    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -right-32 w-[520px] h-[520px] rounded-full bg-sun/35 blur-[120px]"></div>
+  <article class="px-5 sm:px-8 pt-10 sm:pt-16">
     <div class="relative max-w-3xl mx-auto">
       <a href="/jobs" class="arrow-link mb-10 sm:mb-14"><span class="arr">←</span> All opportunities</a>
 
       <header class="mb-12">
         <div class="rise flex flex-wrap items-center gap-2 mb-6">
-          <span class:list={['chip text-[#111216]', color]}>{typeLabel[type]}</span>
+          <span class="chip"><span class:list={['dot', color]}></span>{typeLabel[type]}</span>
           {tags.map((tag) => <span class="tag-pill">{tag}</span>)}
         </div>
         <h1 class="rise display text-5xl sm:text-7xl mb-4" style="--d: 80ms">{title}</h1>
         <p class="rise text-2xl font-medium text-fg/80 mb-8" style="--d: 120ms">{company}</p>
 
-        <dl class="rise grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10" style="--d: 160ms">
-          <div class="rounded-2xl bg-surface px-5 py-4"><dt class="meta mb-1">Location</dt><dd>{location}</dd></div>
-          <div class="rounded-2xl bg-surface px-5 py-4"><dt class="meta mb-1">Salary</dt><dd>{salary ?? 'Not listed'}</dd></div>
-          <div class="rounded-2xl bg-surface px-5 py-4"><dt class="meta mb-1">Posted</dt><dd>{formatDate(postedAt)}</dd></div>
+        <dl class="rise grid grid-cols-1 sm:grid-cols-3 border-y border-ink mb-10" style="--d: 160ms">
+          <div class="py-4 sm:pr-5"><dt class="meta mb-1">Location</dt><dd>{location}</dd></div>
+          <div class="py-4 sm:px-5 border-t sm:border-t-0 sm:border-l border-ink"><dt class="meta mb-1">Salary</dt><dd>{salary ?? 'Not listed'}</dd></div>
+          <div class="py-4 sm:pl-5 border-t sm:border-t-0 sm:border-l border-ink"><dt class="meta mb-1">Posted</dt><dd>{formatDate(postedAt)}</dd></div>
         </dl>
 
         {
           asifNote && (
-            <div class="pop rounded-[22px] bg-lilac text-[#111216] p-7 mb-10 relative">
-              <span class="absolute -top-4 left-6 chip bg-white border-[#111216] text-[#111216]">Asif's note</span>
+            <div class="mb-10 border-l-[3px] border-lilac pl-6 py-1">
+              <p class="meta-fg mb-3">Asif's note</p>
               <p class="text-lg leading-relaxed font-medium">“{asifNote}”</p>
             </div>
           )

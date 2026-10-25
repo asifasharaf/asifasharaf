@@ -4,38 +4,47 @@ import Glyph from './Glyph.astro'
 const year = new Date().getFullYear()
 ---
 
-<footer class="mt-32 px-5 sm:px-8 pt-20 pb-10 bg-[#3357ff] text-white relative overflow-hidden border-t-2 border-ink">
-  <Glyph name="spiral" class="absolute -right-6 top-8 w-72 h-72 text-lime" weight={4} />
-  <Glyph name="sun" class="absolute right-80 -top-6 w-32 h-32 text-sun hidden md:block" weight={5} />
-  <Glyph name="deer" class="absolute right-24 bottom-36 w-40 h-40 text-white/25 hidden md:block" weight={4} />
-  <Glyph name="fish" class="absolute left-[46%] bottom-28 w-20 h-20 text-white/20 hidden lg:block" weight={5} rotate={-10} />
-  <div class="container-page relative">
-    <div class="grid-12 gap-y-10">
+<footer class="mt-28 px-5 sm:px-8 pb-10">
+  <div class="container-page">
+    <div class="kicker">
+      <span>§ — Get in touch</span>
+      <span class="meta">Bengaluru · IST</span>
+    </div>
+    <div class="grid-12 gap-y-10 items-end">
       <div class="col-span-4 md:col-span-8">
-        <span class="chip bg-white text-[#111216] border-[#111216] mb-8">👋 Get in touch</span>
-        <h2 class="font-serif text-[clamp(3rem,8.5vw,8rem)] leading-[0.92]" style="font-weight:800;letter-spacing:-0.045em">
-          Have a hard product<br />problem? <em class="hl hl-lime">Let's talk.</em>
+        <h2 class="display text-[clamp(3rem,8vw,7.5rem)]">
+          Have a hard product problem? <em class="hl-lime">Let's talk.</em>
         </h2>
       </div>
-      <div class="col-span-4 md:col-span-4 md:self-end flex flex-col gap-3 bg-[#3357ff]/80 backdrop-blur-sm rounded-2xl">
-        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between border-t border-white/30 py-4 hover:text-lime transition-colors">
+      <div class="col-span-4 md:col-span-4 flex flex-col">
+        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between border-t border-ink py-4 hover:text-accent transition-colors">
           <span class="text-lg">LinkedIn</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">↗</span>
         </a>
-        <a href={`mailto:${EMAIL}`} class="group flex items-center justify-between border-t border-white/30 py-4 hover:text-lime transition-colors">
+        <a href={`mailto:${EMAIL}`} class="group flex items-center justify-between border-t border-ink py-4 hover:text-accent transition-colors">
           <span class="text-lg">{EMAIL}</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">→</span>
         </a>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between border-y border-white/30 py-4 hover:text-lime transition-colors">
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between border-y border-ink py-4 hover:text-accent transition-colors">
           <span class="text-lg">Instagram</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">↗</span>
         </a>
       </div>
     </div>
 
-    <div class="mt-24 pt-6 border-t border-white/30 grid-12 gap-y-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">
+    <div class="mt-16 flex items-end gap-6 sm:gap-10 overflow-hidden" aria-hidden="true">
+      <Glyph name="hills" class="w-20 h-20 sm:w-28 sm:h-28 text-fg" weight={4.5} />
+      <Glyph name="sun" class="w-14 h-14 sm:w-20 sm:h-20 text-sun" weight={5} />
+      <Glyph name="deer" class="w-20 h-20 sm:w-28 sm:h-28 text-fg" weight={4.5} />
+      <Glyph name="boat" class="w-24 h-24 sm:w-36 sm:h-36 text-coral" weight={4} />
+      <Glyph name="fish" class="w-12 h-12 sm:w-16 sm:h-16 text-accent hidden sm:block" weight={5} />
+      <Glyph name="spiral" class="w-14 h-14 sm:w-20 sm:h-20 text-fg hidden sm:block" weight={5} />
+      <Glyph name="hand" class="w-14 h-14 sm:w-20 sm:h-20 text-fg hidden md:block" weight={5} />
+    </div>
+
+    <div class="pt-4 border-t-4 border-double border-ink grid-12 gap-y-3 font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
       <p class="col-span-4 md:col-span-3">© {year} Asif Asharaf</p>
       <p class="col-span-4 md:col-span-3">Bengaluru, India</p>
       <nav aria-label="More" class="col-span-4 md:col-span-3 flex gap-5">
-        <a href="/people" class="hover:text-white transition-colors">People I respect</a>
-        <a href="/jobs" class="hover:text-white transition-colors">Jobs</a>
+        <a href="/people" class="hover:text-fg transition-colors">People I respect</a>
+        <a href="/jobs" class="hover:text-fg transition-colors">Jobs</a>
       </nav>
       <p class="col-span-4 md:col-span-3 md:text-right">Set in Bricolage Grotesque &amp; DM Sans</p>
     </div>

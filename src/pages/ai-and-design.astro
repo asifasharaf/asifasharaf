@@ -32,13 +32,11 @@ const description =
 
 <BaseLayout title={`${title} — Asif Asharaf`} description={description}>
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
-  <section class="relative px-5 sm:px-8 pt-10 sm:pt-16 pb-14 sm:pb-20 overflow-hidden">
-    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-lime/30 blur-[120px]"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute top-40 -left-40 w-[480px] h-[480px] rounded-full bg-sky/30 blur-[120px]"></div>
-    <div class="container-page relative">
+  <section class="px-5 sm:px-8 pt-10 sm:pt-16 pb-14 sm:pb-20">
+    <div class="container-page">
       <div class="rise flex flex-wrap items-center gap-3 mb-8 sm:mb-10">
-        <span class="chip bg-bg">✳ Lab · interactive essay</span>
-        <span class="chip bg-sun text-[#111216]">Data as of September 2026</span>
+        <span class="chip"><span class="dot bg-accent"></span>Lab · interactive essay</span>
+        <span class="chip"><span class="dot bg-sun"></span>Data as of September 2026</span>
       </div>
 
       <h1 class="rise display text-[clamp(2.75rem,7vw,6.25rem)] max-w-5xl" style="--d: 80ms">
@@ -53,24 +51,24 @@ const description =
         numbers support once you set them yourself.
       </p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-12 sm:mt-16 max-w-4xl">
-        <div class="pop rounded-[22px] bg-accent text-white p-6" style="transform: rotate(-1deg)">
+      <div class="grid grid-cols-1 sm:grid-cols-3 mt-12 sm:mt-16 max-w-4xl border-y border-ink">
+        <div class="py-6 sm:pr-6">
           <p class="font-serif text-6xl tabular-nums leading-none mb-4" style="font-weight:800">
             {Math.round(today.absorbed * 100)}%
           </p>
-          <p class="text-white/85 text-sm leading-snug">of a junior week the model puts on AI today</p>
+          <p class="text-fg/75 text-sm leading-snug"><span class="dot bg-accent mr-2"></span>of a junior week the model puts on AI today</p>
         </div>
-        <div class="pop rounded-[22px] bg-sun text-[#111216] p-6" style="transform: rotate(1deg)">
+        <div class="py-6 sm:px-6 border-t sm:border-t-0 sm:border-l border-ink">
           <p class="font-serif text-6xl tabular-nums leading-none mb-4" style="font-weight:800">
             {Math.round(compression.entryPoolIndex)}
           </p>
-          <p class="text-sm leading-snug">entry-level work left under <em>the compression</em> (100 = today)</p>
+          <p class="text-fg/75 text-sm leading-snug"><span class="dot bg-sun mr-2"></span>entry-level work left under <em>the compression</em> (100 = today)</p>
         </div>
-        <div class="pop rounded-[22px] bg-mint text-[#111216] p-6" style="transform: rotate(-0.5deg)">
+        <div class="py-6 sm:pl-6 border-t sm:border-t-0 sm:border-l border-ink">
           <p class="font-serif text-6xl tabular-nums leading-none mb-4" style="font-weight:800">
             {Math.round(everywhere.headcountIndex)}
           </p>
-          <p class="text-sm leading-snug">designer headcount under <em>design everywhere</em></p>
+          <p class="text-fg/75 text-sm leading-snug"><span class="dot bg-mint mr-2"></span>designer headcount under <em>design everywhere</em></p>
         </div>
       </div>
 
@@ -79,7 +77,7 @@ const description =
   </section>
 
   <!-- Cover band: full-bleed, sits between the hero copy and the argument. -->
-  <div class="relative w-full h-[280px] sm:h-[400px] overflow-hidden border-y-2 border-ink">
+  <div class="relative w-full h-[280px] sm:h-[400px] overflow-hidden border-y border-ink">
     <FlowCover />
   </div>
 
@@ -105,8 +103,8 @@ const description =
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
-          <div class="pop rounded-[22px] bg-mint/20 p-6 sm:p-8">
-            <h3 class="font-serif text-3xl sm:text-4xl text-fg mb-6" style="font-weight:800"><span class="inline-block w-4 h-4 rounded-full bg-mint border-2 border-ink mr-3 align-middle"></span>
+          <div class="border-t-[3px] border-ink pt-6">
+            <h3 class="font-serif text-3xl sm:text-4xl text-fg mb-6" style="font-weight:800"><span class="dot w-3 h-3 bg-mint mr-3 align-middle"></span>
               Design is growing
             </h3>
             <ul class="space-y-5 list-none pl-0 m-0">
@@ -146,8 +144,8 @@ const description =
             </ul>
           </div>
 
-          <div class="pop rounded-[22px] bg-coral/20 p-6 sm:p-8">
-            <h3 class="font-serif text-3xl sm:text-4xl text-fg mb-6" style="font-weight:800"><span class="inline-block w-4 h-4 rounded-full bg-coral border-2 border-ink mr-3 align-middle"></span>
+          <div class="border-t-[3px] border-ink pt-6">
+            <h3 class="font-serif text-3xl sm:text-4xl text-fg mb-6" style="font-weight:800"><span class="dot w-3 h-3 bg-coral mr-3 align-middle"></span>
               The entry rung is narrowing
             </h3>
             <ul class="space-y-5 list-none pl-0 m-0">
@@ -279,7 +277,7 @@ const description =
             takes it seriously — the <em>design everywhere</em> scenario puts headcount
             at {Math.round(everywhere.headcountIndex)} against today&rsquo;s 100.
           </p>
-          <div class="pop rounded-[22px] bg-lilac/25 p-6">
+          <div class="border-l-[3px] border-lilac pl-6 py-1">
             <p class="text-fg/80 leading-relaxed">
               But run that scenario and look at the entry-level figure, not the
               headcount one. It still lands at
@@ -453,19 +451,19 @@ const description =
   <!-- ── Close ────────────────────────────────────────────────────── -->
   <section class="px-5 sm:px-8 pt-20 sm:pt-28">
     <div class="container-page">
-      <div class="pop rounded-[28px] bg-sun text-[#111216] p-8 sm:p-14 relative overflow-hidden" data-reveal>
-        <div aria-hidden="true" class="absolute -right-12 -bottom-12 w-56 h-56 rounded-full bg-coral border-2 border-[#111216]"></div>
-        <div class="relative max-w-3xl">
-          <span class="chip bg-white border-[#111216] text-[#111216] mb-8">👋 Why I built this</span>
+      <div class="border-t-[3px] border-b border-ink py-10 sm:py-14" data-reveal>
+        
+        <div class="max-w-3xl">
+          <span class="chip mb-8">👋 Why I built this</span>
           <h2 class="font-serif text-4xl sm:text-6xl leading-[0.98] mb-6" style="font-weight:800;letter-spacing:-0.04em">
             I build models like this because arguing from vibes is expensive.
           </h2>
-          <p class="leading-relaxed mb-8 max-w-xl text-[#111216]/80">
+          <p class="leading-relaxed mb-8 max-w-xl text-fg/75">
             Nine years of product design, currently in Bengaluru. I mentor designers
             earlier in their careers, which is the part of this page I have the most
             stake in.
           </p>
-          <a href="/about" class="inline-flex items-center gap-2 rounded-full bg-[#111216] text-white px-5 py-3 font-semibold">More about me →</a>
+          <a href="/about" class="btn-ink">More about me →</a>
         </div>
       </div>
     </div>

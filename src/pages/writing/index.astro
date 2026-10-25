@@ -37,14 +37,14 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort()
             )
           }
 
-          <a href="/ai-and-design" class="group pop block rounded-[22px] bg-accent text-white p-6 relative overflow-hidden">
-            <div aria-hidden="true" class="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-lime border-2 border-[#111216] group-hover:scale-110 transition-transform duration-500"></div>
-            <span class="chip bg-white text-[#111216] border-[#111216] mb-5">✳ Interactive</span>
-            <h2 class="font-serif text-3xl leading-[1.02] mb-3 relative" style="font-weight:800">What AI does to design work</h2>
-            <p class="text-white/85 text-sm leading-relaxed mb-5 relative max-w-[26ch]">
+          <a href="/ai-and-design" class="group block border-t-[3px] border-ink pt-5">
+            
+            <span class="chip mb-5"><span class="dot bg-accent"></span>Interactive</span>
+            <h2 class="font-serif text-3xl leading-[1.02] mb-3 group-hover:underline decoration-2 underline-offset-4" style="font-weight:800">What AI does to design work</h2>
+            <p class="text-fg/75 text-sm leading-relaxed mb-5 max-w-[26ch]">
               Twenty-nine tasks, five levers, four futures. Set the model yourself.
             </p>
-            <span class="relative inline-flex items-center gap-2 rounded-full bg-white text-[#111216] px-4 py-2 text-sm font-semibold border-2 border-[#111216]">Open it →</span>
+            <span class="arrow-link">Open it <span class="arr">→</span></span>
           </a>
         </div>
       </aside>

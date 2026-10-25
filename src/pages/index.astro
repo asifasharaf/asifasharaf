@@ -24,31 +24,31 @@ const labels: Record<string, string> = {
   quintype: 'Newsroom software',
 }
 
-const stats = [
-  { n: '9+', l: 'years designing products', c: 'bg-sun', g: 'sun' as GlyphName },
-  { n: '#1', l: 'first designer at Factors.ai', c: 'bg-lime', g: 'maker' as GlyphName },
-  { n: '3', l: 'Quintype products: Bold, Metype, Subtype', c: 'bg-lilac', g: 'tally' as GlyphName },
-  { n: '1→n', l: 'a design team grown from one', c: 'bg-mint', g: 'human' as GlyphName },
+const stats: { n: string; l: string; g: GlyphName; tone: string }[] = [
+  { n: '9+', l: 'years designing products', g: 'sun', tone: 'text-sun' },
+  { n: '#1', l: 'first designer at Factors.ai', g: 'maker', tone: 'text-accent' },
+  { n: '3', l: 'Quintype products: Bold, Metype, Subtype', g: 'tally', tone: 'text-coral' },
+  { n: '1→n', l: 'a design team grown from one', g: 'human', tone: 'text-mint' },
 ]
 
-const approach = [
+const approach: { t: string; d: string; g: GlyphName; tone: string }[] = [
   {
     t: 'Start from the decision',
     d: 'Data-heavy products fail when they show everything. I design backwards from the decision someone has to make, and cut what doesn’t serve it.',
-    c: 'bg-sun',
-    g: 'eye' as GlyphName,
+    g: 'eye',
+    tone: 'text-accent',
   },
   {
     t: 'Systems before screens',
     d: 'A wide product built by a small team only holds together with a system underneath it: tokens, components, and patterns for the hard states.',
-    c: 'bg-mint',
-    g: 'wheel' as GlyphName,
+    g: 'wheel',
+    tone: 'text-coral',
   },
   {
     t: 'AI prepares, people decide',
     d: 'In agents and AI features the craft is trust: show what the model saw, what it suggests and why, and make overriding it effortless.',
-    c: 'bg-lilac',
-    g: 'hand' as GlyphName,
+    g: 'hand',
+    tone: 'text-mint',
   },
 ]
 
@@ -61,36 +61,51 @@ const timeline = [
 ]
 
 const ticker = ['0→1 products', 'Design systems', 'AI & agentic UX', 'Data-heavy UX', 'B2B SaaS', 'Mentoring designers']
-const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boat', 'eye', 'hand']
+const tickerGlyphs: { g: GlyphName; tone: string }[] = [
+  { g: 'deer', tone: 'text-coral' },
+  { g: 'fish', tone: 'text-accent' },
+  { g: 'sun', tone: 'text-sun' },
+  { g: 'spiral', tone: 'text-fg' },
+  { g: 'bird', tone: 'text-mint' },
+  { g: 'boat', tone: 'text-coral' },
+]
+
+const today = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date())
 ---
 
 <BaseLayout title="Asif Asharaf — Lead Product Designer, Bengaluru">
-  <!-- Hero -->
-  <section class="relative px-5 sm:px-8 pt-10 sm:pt-16 pb-20 sm:pb-28 overflow-hidden">
-    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -left-40 w-[620px] h-[620px] rounded-full bg-lilac/35 blur-[120px]"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute top-20 right-[-10%] w-[520px] h-[520px] rounded-full bg-sky/35 blur-[120px]"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute bottom-[-20%] left-1/3 w-[520px] h-[420px] rounded-full bg-lime/30 blur-[120px]"></div>
+  <!-- Masthead dateline -->
+  <div class="px-5 sm:px-8 pt-6">
+    <div class="container-page double-rule pb-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+      <span class="meta-fg">Design Notes · Vol. IX</span>
+      <span class="meta hidden sm:inline">{today}</span>
+      <span class="meta">Bengaluru, India</span>
+    </div>
+  </div>
 
-    <div class="container-page relative grid-12 gap-y-12 items-center">
+  <!-- Hero -->
+  <section class="px-5 sm:px-8 pt-10 sm:pt-14 pb-20 sm:pb-28">
+    <div class="container-page grid-12 gap-y-12 items-start">
       <div class="col-span-4 md:col-span-7">
         <div class="rise flex flex-wrap items-center gap-3 mb-8">
-          <span class="chip bg-bg">
-            <span class="w-2 h-2 rounded-full bg-mint ring-2 ring-mint/30"></span>
-            Lead Product Designer @ Factors.ai
-          </span>
+          <span class="chip"><span class="dot bg-mint"></span>Lead Product Designer @ Factors.ai</span>
           <span class="font-mono text-sm"><span class="text-accent font-medium">Namaskaram</span>, I'm Asif 👋</span>
         </div>
 
-        <div class="rise" style="--d: 80ms">
-          <h1 class="display text-[clamp(2.9rem,6.4vw,6.25rem)]">
-            I design products that <em>actually work</em> and help designers <em class="hl-lime">level up.</em>
-          </h1>
-        </div>
+        <h1 class="rise display text-[clamp(2.9rem,6.4vw,6.25rem)]" style="--d: 80ms">
+          I design products that <em>actually work</em> and help designers <em class="hl-lime">level up.</em>
+        </h1>
 
-        <p class="rise text-[19px] leading-[1.6] text-fg/75 mt-8 max-w-xl" style="--d: 180ms">
-          Nine years building B2B SaaS from 0→1 to scale. I was the first designer at Factors.ai, and now lead
-          design across its analytics, account intelligence, AI agents and automation.
-        </p>
+        <div class="rise grid sm:grid-cols-2 gap-6 mt-10 pt-6 border-t border-ink" style="--d: 180ms">
+          <p class="dropcap text-[17px] leading-[1.65] text-fg/80">
+            Nine years building B2B SaaS from 0→1 to scale. I was the first designer at Factors.ai, and now
+            lead design across its analytics, account intelligence, AI agents and automation.
+          </p>
+          <p class="text-[17px] leading-[1.65] text-fg/80">
+            Before that, newsroom software at Quintype, and a studio of my own in Kerala. On the side I build
+            with AI agents, and mentor designers earlier in their careers.
+          </p>
+        </div>
 
         <div class="rise flex flex-wrap gap-3 mt-10" style="--d: 260ms">
           <a href="/work" class="btn-ink">See my work <span aria-hidden="true">→</span></a>
@@ -105,13 +120,13 @@ const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boa
     </div>
   </section>
 
-  <!-- Ticker band -->
-  <div class="band bg-coral py-4 overflow-hidden whitespace-nowrap" aria-hidden="true">
-    <div class="marquee-track w-max" style="animation-duration: 28s">
+  <!-- Ticker -->
+  <div class="band py-3 overflow-hidden whitespace-nowrap" aria-hidden="true">
+    <div class="marquee-track w-max" style="animation-duration: 40s">
       {
         [...ticker, ...ticker, ...ticker, ...ticker].map((t, i) => (
-          <span class="inline-flex shrink-0 items-center gap-4 font-serif text-2xl sm:text-3xl text-[#111216] whitespace-nowrap" style="font-weight:800">
-            <Glyph name={tickerGlyphs[i % tickerGlyphs.length]} class="w-10 h-10 shrink-0" weight={6} />
+          <span class="inline-flex shrink-0 items-center gap-4 font-serif text-xl sm:text-2xl text-fg whitespace-nowrap" style="font-weight:700">
+            <Glyph name={tickerGlyphs[i % tickerGlyphs.length].g} class={`w-8 h-8 shrink-0 ${tickerGlyphs[i % tickerGlyphs.length].tone}`} weight={6} />
             {t}
           </span>
         ))
@@ -120,27 +135,23 @@ const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boa
   </div>
 
   <!-- Selected work -->
-  <section class="px-5 sm:px-8 pt-24 sm:pt-36" id="work">
+  <section class="px-5 sm:px-8 pt-20 sm:pt-28" id="work">
     <div class="container-page">
-      <div class="flex flex-wrap items-end justify-between gap-6 mb-12 sm:mb-16">
-        <div>
-          <span class="chip mb-6">01 · Selected work</span>
-          <h2 class="display text-5xl sm:text-7xl">Pick a project.<br />Any <em class="hl-sun">project.</em></h2>
-        </div>
+      <div class="kicker">
+        <span>§ 01 — Selected work</span>
         <a href="/work" class="arrow-link">All projects <span class="arr">→</span></a>
       </div>
+      <h2 class="display text-5xl sm:text-7xl mb-12 sm:mb-16 max-w-[14ch]">Pick a project. Any <em>project.</em></h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14">
         {
           featuredWork.map((entry, i) => (
             <a href={`/work/${entry.slug}`} class:list={['group flex flex-col', i === 0 && 'md:col-span-2']} data-reveal>
-              <div class="relative">
-                <ProjectCover entry={entry} class={i === 0 ? 'aspect-[4/3] md:aspect-[2.1/1]' : 'aspect-[4/3]'} eager={i === 0} />
-                <span class="chip bg-bg absolute top-4 left-4">{labels[entry.slug] ?? entry.data.tags[0]}</span>
-              </div>
-              <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 mt-6">
+              <ProjectCover entry={entry} class={i === 0 ? 'aspect-[4/3] md:aspect-[2.1/1]' : 'aspect-[4/3]'} eager={i === 0} />
+              <p class="meta mt-3">Fig. {i + 1} — {labels[entry.slug] ?? entry.data.tags[0]}</p>
+              <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 mt-5 pt-5 border-t border-ink">
                 <div class="max-w-xl">
-                  <h3 class="font-serif text-4xl sm:text-5xl leading-none mb-3" style="font-weight:800">{entry.data.title}</h3>
+                  <h3 class="font-serif text-4xl sm:text-5xl leading-none mb-3 group-hover:underline decoration-2 underline-offset-[6px]" style="font-weight:800">{entry.data.title}</h3>
                   <p class="text-fg/70 leading-relaxed">{entry.data.description}</p>
                 </div>
                 <div class="flex flex-col items-start gap-3">
@@ -155,38 +166,43 @@ const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boa
     </div>
   </section>
 
-  <!-- Stats -->
-  <section class="px-5 sm:px-8 pt-24 sm:pt-36">
-    <div class="container-page grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6" data-stagger>
-      {
-        stats.map((s, i) => (
-          <div class:list={['pop relative overflow-hidden rounded-[22px] p-6 sm:p-7 text-[#111216]', s.c]} style={`transform: rotate(${[-1.5, 1, -0.5, 1.5][i]}deg)`}>
-            <Glyph name={s.g} class="absolute -right-3 -top-3 w-24 h-24 opacity-30" weight={4.5} />
-            <p class="font-serif text-6xl sm:text-7xl leading-none mb-6" style="font-weight:800">{s.n}</p>
-            <p class="font-medium leading-snug">{s.l}</p>
-          </div>
-        ))
-      }
+  <!-- By the numbers -->
+  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
+    <div class="container-page">
+      <div class="kicker"><span>§ 02 — By the numbers</span></div>
+      <div class="grid grid-cols-2 md:grid-cols-4 border-b border-ink" data-stagger>
+        {
+          stats.map((s, i) => (
+            <div class:list={['py-6 pr-5', i % 2 === 1 && 'pl-5 border-l border-ink', i > 1 && 'border-t border-ink md:border-t-0', i === 2 && 'md:pl-5 md:border-l']}>
+              <div class="flex items-start justify-between mb-6">
+                <p class="font-serif text-6xl sm:text-7xl leading-none" style="font-weight:800">{s.n}</p>
+                <Glyph name={s.g} class={`w-12 h-12 shrink-0 ${s.tone}`} weight={5} />
+              </div>
+              <p class="text-fg/75 leading-snug">{s.l}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 
   <!-- Approach -->
-  <section class="px-5 sm:px-8 pt-24 sm:pt-36">
+  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
     <div class="container-page">
-      <span class="chip mb-6">02 · How I work</span>
+      <div class="kicker"><span>§ 03 — How I work</span></div>
       <h2 class="display text-5xl sm:text-7xl max-w-[16ch] mb-12 sm:mb-16">
         Clarity for products that carry a lot of <em class="hl-coral">weight.</em>
       </h2>
-      <ol class="grid md:grid-cols-3 gap-6" data-stagger>
+      <ol class="grid md:grid-cols-3 gap-x-10 gap-y-12" data-stagger>
         {
           approach.map((a, i) => (
-            <li class:list={['pop rounded-[22px] p-7 sm:p-8 text-[#111216] flex flex-col', a.c]}>
-              <div class="flex items-start justify-between mb-10">
-                <span class="w-11 h-11 rounded-full bg-white border-2 border-[#111216] grid place-items-center font-mono text-sm">0{i + 1}</span>
-                <Glyph name={a.g} class="w-20 h-20 -mr-2 -mt-2" weight={4.5} />
+            <li class="flex flex-col border-t border-ink pt-5">
+              <div class="flex items-start justify-between mb-8">
+                <span class="font-mono text-sm">No. {i + 1}</span>
+                <Glyph name={a.g} class={`w-16 h-16 -mt-1 ${a.tone}`} weight={4.5} />
               </div>
               <h3 class="font-serif text-3xl leading-tight mb-4" style="font-weight:800">{a.t}</h3>
-              <p class="leading-relaxed text-[#111216]/80">{a.d}</p>
+              <p class="leading-relaxed text-fg/75">{a.d}</p>
             </li>
           ))
         }
@@ -195,20 +211,19 @@ const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boa
   </section>
 
   <!-- Experience -->
-  <section class="px-5 sm:px-8 pt-24 sm:pt-36">
-    <div class="container-page grid-12 gap-y-10">
-      <div class="col-span-4 md:col-span-4">
-        <span class="chip mb-6">03 · Experience</span>
-        <h2 class="display text-5xl sm:text-6xl mb-8">Where I've <em class="hl-mint">been.</em></h2>
+  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
+    <div class="container-page">
+      <div class="kicker">
+        <span>§ 04 — Experience</span>
         <a href="/about" class="arrow-link">Full story <span class="arr">→</span></a>
       </div>
-      <ol class="col-span-4 md:col-span-8 pop rounded-[22px] bg-bg overflow-hidden">
+      <ol class="border-b border-ink">
         {
           timeline.map((t, i) => (
-            <li class:list={['grid grid-cols-[auto_1fr] md:grid-cols-[150px_1fr_1.2fr] gap-x-5 gap-y-1 px-6 sm:px-8 py-6 items-baseline', i > 0 && 'border-t-2 border-ink/10']}>
-              <span class:list={['row-span-2 md:row-span-1 w-3.5 h-3.5 rounded-full border-2 border-ink self-center md:hidden', t.dot]}></span>
+            <li class:list={['grid grid-cols-[auto_1fr] md:grid-cols-[180px_1fr_1.2fr] gap-x-5 gap-y-1 py-5 items-baseline', i > 0 && 'border-t border-border']}>
+              <span class:list={['dot w-2.5 h-2.5 self-center md:hidden', t.dot]}></span>
               <span class="hidden md:flex items-center gap-3 font-mono text-xs text-muted tabular-nums">
-                <span class:list={['w-3.5 h-3.5 rounded-full border-2 border-ink', t.dot]}></span>{t.y}
+                <span class:list={['dot w-2.5 h-2.5', t.dot]}></span>{t.y}
               </span>
               <span class="font-serif text-2xl sm:text-3xl leading-none" style="font-weight:800">{t.c}</span>
               <span class="text-muted text-sm col-start-2 md:col-start-auto"><span class="md:hidden font-mono text-xs mr-2">{t.y}</span>{t.r}</span>
@@ -220,20 +235,22 @@ const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boa
   </section>
 
   <!-- Lab -->
-  <section class="px-5 sm:px-8 pt-24 sm:pt-36">
+  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
     <div class="container-page">
-      <a href="/ai-and-design" class="group pop block rounded-[28px] bg-accent text-white p-8 sm:p-14 relative overflow-hidden" data-reveal>
-        <Glyph name="chart" class="absolute right-6 bottom-6 w-28 h-28 sm:w-44 sm:h-44 lg:w-56 lg:h-56 text-lime opacity-90 group-hover:-rotate-6 transition-transform duration-700" weight={4} />
-        <Glyph name="eye" class="absolute right-48 top-8 w-24 h-24 text-white/80 hidden md:block group-hover:scale-110 transition-transform duration-700" weight={5} />
-        <Glyph name="dots" class="absolute right-[22rem] bottom-10 w-16 h-16 text-sun hidden lg:block" weight={5} />
-        <div class="relative max-w-3xl pr-24 sm:pr-48 lg:pr-0">
-          <span class="chip bg-white text-[#111216] border-[#111216] mb-8">✳ Lab · interactive essay</span>
-          <h2 class="font-serif text-5xl sm:text-7xl leading-[0.95] mb-6" style="font-weight:800;letter-spacing:-0.04em">What AI does to design work</h2>
-          <p class="text-white/85 leading-relaxed max-w-xl mb-8">
+      <div class="kicker"><span>§ 05 — From the lab</span></div>
+      <a href="/ai-and-design" class="group grid md:grid-cols-[1fr_auto] gap-8 items-end" data-reveal>
+        <div class="max-w-3xl">
+          <span class="chip mb-6"><span class="dot bg-accent"></span>Interactive essay</span>
+          <h2 class="display text-5xl sm:text-7xl mb-6 group-hover:underline decoration-[3px] underline-offset-[8px]">What AI does to design work</h2>
+          <p class="text-fg/75 leading-relaxed max-w-xl mb-8">
             A task-level model of how AI changes design jobs in India. Twenty-nine tasks, five levers, four
             futures. Set the assumptions yourself and see what follows.
           </p>
-          <span class="inline-flex items-center gap-2 rounded-full bg-white text-[#111216] px-5 py-3 font-semibold border-2 border-[#111216]">Open the explorer →</span>
+          <span class="arrow-link">Open the explorer <span class="arr">→</span></span>
+        </div>
+        <div class="flex items-end gap-4" aria-hidden="true">
+          <Glyph name="eye" class="w-20 h-20 text-fg" weight={5} />
+          <Glyph name="chart" class="w-36 h-36 sm:w-44 sm:h-44 text-accent group-hover:-rotate-3 transition-transform duration-500" weight={4} />
         </div>
       </a>
     </div>
@@ -242,15 +259,17 @@ const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boa
   <!-- Writing -->
   {
     recentPosts.length > 0 && (
-      <section class="px-5 sm:px-8 pt-24 sm:pt-36">
-        <div class="container-page grid-12 gap-y-10">
-          <div class="col-span-4 md:col-span-4">
-            <span class="chip mb-6">04 · Writing</span>
-            <h2 class="display text-5xl sm:text-6xl mb-8">Notes from <em class="hl-lilac">the work.</em></h2>
+      <section class="px-5 sm:px-8 pt-20 sm:pt-28">
+        <div class="container-page">
+          <div class="kicker">
+            <span>§ 06 — Writing</span>
             <a href="/writing" class="arrow-link">All writing <span class="arr">→</span></a>
           </div>
-          <div class="col-span-4 md:col-span-8">
-            {recentPosts.map((entry) => <PostCard entry={entry} />)}
+          <div class="grid-12 gap-y-8">
+            <h2 class="col-span-4 md:col-span-4 display text-5xl sm:text-6xl">Notes from <em class="hl-lilac">the work.</em></h2>
+            <div class="col-span-4 md:col-span-8">
+              {recentPosts.map((entry) => <PostCard entry={entry} />)}
+            </div>
           </div>
         </div>
       </section>
@@ -258,18 +277,18 @@ const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boa
   }
 
   <!-- 60-second version -->
-  <dialog id="tldr" class="pop rounded-[28px] bg-bg text-fg p-0 w-[min(640px,calc(100vw-2rem))] backdrop:bg-ink/40 backdrop:backdrop-blur-sm">
+  <dialog id="tldr" class="pop rounded-[6px] bg-bg text-fg p-0 w-[min(640px,calc(100vw-2rem))] backdrop:bg-ink/40 backdrop:backdrop-blur-sm">
     <div class="p-7 sm:p-10">
-      <div class="flex items-center justify-between mb-8">
-        <span class="chip bg-sun text-[#111216]">⏱ The 60-second version</span>
-        <button type="button" class="w-10 h-10 rounded-full border-2 border-ink grid place-items-center text-lg" data-close-tldr aria-label="Close">×</button>
+      <div class="kicker !mb-6">
+        <span>⏱ The 60-second version</span>
+        <button type="button" class="w-9 h-9 rounded-full border border-ink grid place-items-center text-lg" data-close-tldr aria-label="Close">×</button>
       </div>
       <ul class="space-y-5 text-[17px] leading-relaxed">
-        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-accent"></span><span><strong>Lead Product Designer at Factors.ai.</strong> I joined in 2020 as the first designer and built the platform, design system, logo and first website from zero.</span></li>
-        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-lime border border-ink"></span><span><strong>What I design now:</strong> analytics and attribution, account intelligence, real-time alerts, workflow automations, AI agents and Adpilot.</span></li>
-        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-sun border border-ink"></span><span><strong>Before that, Quintype (2017–20):</strong> Bold CMS, Metype and Subtype for large digital newsrooms, plus their shared design system.</span></li>
-        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-lilac border border-ink"></span><span><strong>On the side:</strong> Nimo, an AI clinical-note system for Indian clinics, designed with Irfan; and Cull, an on-device photo culler.</span></li>
-        <li class="flex gap-4"><span class="mt-1.5 w-3 h-3 shrink-0 rounded-full bg-mint border border-ink"></span><span><strong>I lead and mentor designers,</strong> and still write front-end code.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-accent"></span><span><strong>Lead Product Designer at Factors.ai.</strong> I joined in 2020 as the first designer and built the platform, design system, logo and first website from zero.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-lime"></span><span><strong>What I design now:</strong> analytics and attribution, account intelligence, real-time alerts, workflow automations, AI agents and Adpilot.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-sun"></span><span><strong>Before that, Quintype (2017–20):</strong> Bold CMS, Metype and Subtype for large digital newsrooms, plus their shared design system.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-lilac"></span><span><strong>On the side:</strong> Nimo, an AI clinical-note system for Indian clinics, designed with Irfan; and Cull, an on-device photo culler.</span></li>
+        <li class="flex gap-4"><span class="dot mt-2.5 bg-mint"></span><span><strong>I lead and mentor designers,</strong> and still write front-end code.</span></li>
       </ul>
       <div class="flex flex-wrap gap-3 mt-10">
         <a href="/work" class="btn-ink">See the work →</a>

@@ -80,7 +80,7 @@
     @apply max-w-[1440px] mx-auto w-full;
   }
 
-  /* Colorful system */
+  /* Editorial system: ink, paper and rules; color only marks what matters */
   .grid-12 {
     @apply grid grid-cols-4 md:grid-cols-12 gap-x-4 md:gap-x-6;
   }
@@ -95,71 +95,90 @@
     font-weight: 800;
     letter-spacing: -0.04em;
   }
+
+  /* Highlighter stroke under a word, like a marker on newsprint */
   .display em,
   .hl {
+    --hl: var(--rgb-sun);
     font-style: normal;
-    display: inline-block;
-    padding: 0 0.16em 0.04em;
-    margin: 0 0.02em;
-    border-radius: 0.14em;
-    background: rgb(var(--rgb-accent));
-    color: #fff;
-    transform: rotate(-1.5deg);
+    color: inherit;
+    padding: 0 0.06em;
+    background-image: linear-gradient(transparent 60%, rgb(var(--hl) / 0.85) 60%, rgb(var(--hl) / 0.85) 90%, transparent 90%);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
-  .hl-lime, .display em.hl-lime { background: rgb(var(--rgb-lime)); color: #111216; }
-  .hl-sun, .display em.hl-sun { background: rgb(var(--rgb-sun)); color: #111216; }
-  .hl-coral, .display em.hl-coral { background: rgb(var(--rgb-coral)); color: #111216; }
-  .hl-mint, .display em.hl-mint { background: rgb(var(--rgb-mint)); color: #111216; }
-  .hl-lilac, .display em.hl-lilac { background: rgb(var(--rgb-lilac)); color: #111216; }
+  .hl-lime, .display em.hl-lime { --hl: var(--rgb-lime); }
+  .hl-sun, .display em.hl-sun { --hl: var(--rgb-sun); }
+  .hl-coral, .display em.hl-coral { --hl: var(--rgb-coral); }
+  .hl-mint, .display em.hl-mint { --hl: var(--rgb-mint); }
+  .hl-lilac, .display em.hl-lilac { --hl: var(--rgb-lilac); }
 
   .chip {
     @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.06em];
-    border: 2px solid rgb(var(--rgb-ink));
+    border: 1px solid rgb(var(--rgb-ink));
     color: rgb(var(--rgb-fg));
   }
-
-  /* Bordered card with a hard offset shadow that lifts on hover */
-  .pop {
-    border: 2px solid rgb(var(--rgb-ink));
-    box-shadow: 5px 5px 0 rgb(var(--rgb-ink));
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  .dot {
+    @apply inline-block w-2 h-2 rounded-full shrink-0;
   }
-  a.pop:hover,
-  .group:hover .pop {
-    transform: translate(-3px, -3px);
-    box-shadow: 8px 8px 0 rgb(var(--rgb-ink));
+
+  /* Section head: heavy rule, numbered kicker */
+  .kicker {
+    @apply flex items-baseline justify-between gap-4 pt-3 mb-8 sm:mb-10;
+    border-top: 3px solid rgb(var(--rgb-ink));
+  }
+  .kicker > :first-child {
+    @apply font-mono text-[11px] uppercase tracking-[0.1em] text-fg;
+  }
+  .double-rule {
+    border-bottom: 4px double rgb(var(--rgb-ink));
+  }
+
+  /* A framed panel: one hairline in ink, no fill, no shadow */
+  .pop {
+    border: 1px solid rgb(var(--rgb-ink));
+    transition: background-color 0.2s ease;
+  }
+  a.pop:hover {
+    background-color: rgb(var(--rgb-surface));
   }
 
   .btn-ink,
   .btn-line,
   .btn-sun {
-    @apply inline-flex items-center gap-2 rounded-full px-5 py-3 text-[15px] font-semibold;
-    border: 2px solid rgb(var(--rgb-ink));
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[15px] font-semibold;
+    border: 1px solid rgb(var(--rgb-ink));
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
   .btn-ink { background: rgb(var(--rgb-ink)); color: rgb(var(--rgb-bg)); }
-  .btn-line { color: rgb(var(--rgb-fg)); }
-  .btn-sun { background: rgb(var(--rgb-sun)); color: #111216; box-shadow: 3px 3px 0 rgb(var(--rgb-ink)); }
-  .btn-ink:hover { transform: translateY(-2px) rotate(-1deg); }
-  .btn-line:hover { transform: translateY(-2px) rotate(1deg); }
-  .btn-sun:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 rgb(var(--rgb-ink)); }
+  .btn-ink:hover { background: rgb(var(--rgb-accent)); border-color: rgb(var(--rgb-accent)); color: #fff; }
+  .btn-line,
+  .btn-sun { color: rgb(var(--rgb-fg)); }
+  .btn-line:hover,
+  .btn-sun:hover { background: rgb(var(--rgb-surface)); }
 
   .arrow-link {
-    @apply inline-flex items-center gap-2 text-[15px] font-semibold text-fg;
+    @apply inline-flex items-center gap-2 text-[15px] font-semibold text-fg underline decoration-1 underline-offset-[5px];
   }
   .arrow-link .arr {
-    @apply inline-grid place-items-center w-7 h-7 rounded-full text-sm;
-    background: rgb(var(--rgb-ink));
-    color: rgb(var(--rgb-bg));
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    @apply inline-block no-underline transition-transform duration-300;
   }
   .arrow-link:hover .arr,
   .group:hover .arrow-link .arr {
-    transform: translateX(4px) rotate(-12deg);
+    transform: translateX(4px);
+  }
+
+  /* Drop cap for opening paragraphs */
+  .dropcap::first-letter {
+    @apply font-serif float-left text-fg;
+    font-weight: 800;
+    font-size: 4.6em;
+    line-height: 0.82;
+    margin: 0.06em 0.1em 0 0;
   }
 
   .cover-plate {
-    @apply relative overflow-hidden rounded-[22px];
+    @apply relative overflow-hidden rounded-[4px];
   }
   .cover-plate > .cover-inner {
     @apply absolute inset-0 transition-transform duration-700;
@@ -200,9 +219,7 @@
 
   /* Tilted color ticker */
   .band {
-    transform: rotate(-2deg);
-    margin-inline: -2rem;
-    border-block: 2px solid rgb(var(--rgb-ink));
+    border-block: 1px solid rgb(var(--rgb-ink));
   }
 
   /* Hand-drawn underline that paints in on view */
@@ -268,16 +285,15 @@
 
   .tag-btn {
     @apply font-mono text-[11px] uppercase tracking-[0.06em] text-fg px-3.5 py-1.5 rounded-full cursor-pointer;
-    border: 2px solid rgb(var(--rgb-ink));
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+    border: 1px solid rgb(var(--rgb-ink));
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
   .tag-btn:hover {
-    transform: translateY(-2px) rotate(-2deg);
+    background: rgb(var(--rgb-surface));
   }
   .tag-btn.active {
-    background: rgb(var(--rgb-lime));
-    color: #111216;
-    box-shadow: 2px 2px 0 rgb(var(--rgb-ink));
+    background: rgb(var(--rgb-ink));
+    color: rgb(var(--rgb-bg));
   }
 
   .prose-antigravity {
@@ -295,12 +311,9 @@
     counter-increment: section;
   }
   .prose-antigravity h2::before {
-    content: counter(section, decimal-leading-zero);
-    @apply inline-grid place-items-center w-9 h-9 rounded-full font-mono text-[12px] tracking-normal mb-5 align-middle;
-    background: rgb(var(--rgb-sun));
-    color: #111216;
-    border: 2px solid rgb(var(--rgb-ink));
-    display: grid;
+    content: '§ ' counter(section, decimal-leading-zero);
+    @apply block font-mono text-[11px] tracking-[0.1em] text-fg mb-4 pt-3;
+    border-top: 3px solid rgb(var(--rgb-ink));
   }
   .prose-antigravity > :first-child {
     @apply mt-0;
@@ -318,9 +331,8 @@
     @apply mb-6;
   }
   .prose-antigravity img {
-    @apply rounded-[18px] block mx-auto max-w-full h-auto my-12;
-    border: 2px solid rgb(var(--rgb-ink));
-    box-shadow: 6px 6px 0 rgb(var(--rgb-ink));
+    @apply rounded-[4px] block mx-auto max-w-full h-auto my-12;
+    border: 1px solid rgb(var(--rgb-ink));
   }
   .prose-antigravity hr {
     @apply border-border;
@@ -333,8 +345,7 @@
     @apply text-accent;
   }
   .prose-antigravity code {
-    @apply text-fg px-1.5 py-0.5 rounded text-sm;
-    background: rgb(var(--rgb-lime) / 0.45);
+    @apply text-fg px-1.5 py-0.5 rounded text-sm bg-surface;
   }
   .prose-antigravity pre code {
     background: transparent;
@@ -342,7 +353,7 @@
     color: inherit;
   }
   .prose-antigravity pre {
-    @apply bg-surface rounded-lg p-6 overflow-x-auto;
+    @apply rounded-[4px] p-6 overflow-x-auto border border-ink bg-bg;
   }
   .prose-antigravity ul,
   .prose-antigravity ol {

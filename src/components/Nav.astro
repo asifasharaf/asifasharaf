@@ -12,10 +12,10 @@ const links = [
 ]
 ---
 
-<header class="sticky top-0 z-50 w-full px-5 sm:px-8 bg-bg/75 backdrop-blur-md border-b-2 border-ink/10">
+<header class="sticky top-0 z-50 w-full px-5 sm:px-8 bg-bg/90 backdrop-blur-md border-b border-ink">
   <div class="container-page grid-12 items-center h-16">
     <a href="/" class="col-span-3 md:col-span-4 flex items-center gap-3 group" aria-label="Asif Asharaf, home">
-      <span class="w-8 h-8 rounded-xl bg-accent border-2 border-ink grid place-items-center text-white font-serif text-sm -rotate-6 group-hover:rotate-6 transition-transform" style="font-weight:800">AA</span><span class="font-serif text-[20px] leading-none text-fg" style="font-weight:800">Asif Asharaf</span>
+      <span class="w-8 h-8 rounded-full border border-ink grid place-items-center font-serif text-[13px] group-hover:bg-ink group-hover:text-bg transition-colors" style="font-weight:800">AA</span><span class="font-serif text-[20px] leading-none text-fg" style="font-weight:800">Asif Asharaf</span>
       <span class="meta hidden lg:inline">Product Designer</span>
     </a>
 
@@ -29,10 +29,10 @@ const links = [
               aria-current={isActive ? 'page' : undefined}
               class:list={[
                 'group inline-flex items-baseline gap-1.5 text-[15px] font-medium px-3 py-1.5 rounded-full transition-colors',
-                isActive ? 'bg-lime text-[#111216]' : 'text-fg/70 hover:text-fg hover:bg-surface',
+                isActive ? 'text-fg underline decoration-2 underline-offset-[6px]' : 'text-fg/70 hover:text-fg',
               ]}
             >
-              <span class:list={['font-mono text-[10px]', isActive ? 'text-[#111216]/60' : 'text-muted/70']}>0{i + 1}</span>
+              <span class:list={['font-mono text-[10px]', isActive ? 'text-accent' : 'text-muted/70']}>0{i + 1}</span>
               {link.label}
             </a>
           )

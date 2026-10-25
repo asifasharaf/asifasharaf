@@ -24,18 +24,17 @@ const color = personColor(name)
   title={`${name} — People — Asif Asharaf`}
   description={asifsTake.slice(0, 160)}
 >
-  <article class="relative px-5 sm:px-8 pt-10 sm:pt-16 overflow-x-clip">
-    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -right-32 w-[520px] h-[520px] rounded-full bg-mint/30 blur-[120px]"></div>
+  <article class="px-5 sm:px-8 pt-10 sm:pt-16">
     <div class="relative max-w-3xl mx-auto">
       <a href="/people" class="arrow-link mb-10 sm:mb-14"><span class="arr">←</span> People</a>
 
       <header class="rise flex flex-col sm:flex-row sm:items-end gap-6 mb-10">
-        <div class:list={['shrink-0 w-28 h-28 rounded-[28px] border-2 border-ink overflow-hidden grid place-items-center -rotate-6 pop', color]}>
+        <div class="shrink-0 w-28 h-28 rounded-full border border-ink overflow-hidden grid place-items-center">
           {
             avatar ? (
               <Image src={avatar} alt={name} width={224} height={224} class="w-full h-full object-cover" />
             ) : (
-              <span class="font-serif text-6xl text-[#111216]" style="font-weight:800">{name.charAt(0)}</span>
+              <span class="font-serif text-6xl" style="font-weight:800">{name.charAt(0)}</span>
             )
           }
         </div>
@@ -46,15 +45,15 @@ const color = personColor(name)
       </header>
 
       <div class="rise flex flex-wrap items-center gap-2 mb-12" style="--d: 100ms">
-        <span class:list={['chip text-[#111216] capitalize', color]}>{relationship}</span>
+        <span class="chip"><span class:list={['dot', color]}></span>{relationship}</span>
         {tags.map((tag) => <span class="tag-pill">{tag}</span>)}
         <a href={url} target="_blank" rel="noopener noreferrer" class="btn-ink ml-auto">
           {url.replace(/^https?:\/\//, '').replace(/\/$/, '')} ↗
         </a>
       </div>
 
-      <section class="pop rounded-[28px] bg-sun text-[#111216] p-8 sm:p-10 mb-14 relative">
-        <span class="absolute -top-5 left-8 chip bg-white border-[#111216] text-[#111216]">Asif's take</span>
+      <section class="mb-14 border-t-[3px] border-b border-ink py-8">
+        <p class="meta-fg mb-4"><span class="dot bg-sun mr-2"></span>Asif's take</p>
         <p class="font-serif text-2xl sm:text-3xl leading-[1.25]" style="font-weight:700">“{asifsTake}”</p>
       </section>
 
