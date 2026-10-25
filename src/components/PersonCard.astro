@@ -14,19 +14,19 @@ const color = personColor(name)
 const takeExcerpt = asifsTake.length > 150 ? asifsTake.slice(0, 147) + '…' : asifsTake
 ---
 
-<a href={`/people/${entry.slug}`} class="group pop flex flex-col h-full rounded-[22px] bg-bg p-6 sm:p-7">
+<a href={`/people/${entry.slug}`} class="group flex flex-col h-full border-t border-border pt-5">
   <div class="flex items-center gap-4 mb-6">
-    <div class:list={['shrink-0 w-14 h-14 rounded-2xl border-2 border-ink overflow-hidden grid place-items-center -rotate-3 group-hover:rotate-3 transition-transform', color]}>
+    <div class="shrink-0 w-14 h-14 rounded-full border border-ink overflow-hidden grid place-items-center">
       {
         avatar ? (
           <Image src={avatar} alt={name} width={112} height={112} class="w-full h-full object-cover" />
         ) : (
-          <span class="font-serif text-2xl text-[#111216]" style="font-weight:800">{name.charAt(0)}</span>
+          <span class="font-serif text-2xl" style="font-weight:800">{name.charAt(0)}</span>
         )
       }
     </div>
     <div class="min-w-0">
-      <h3 class="font-serif text-2xl leading-tight truncate" style="font-weight:800">{name}</h3>
+      <h3 class="font-serif text-2xl leading-tight truncate group-hover:underline decoration-2 underline-offset-4" style="font-weight:800">{name}</h3>
       <p class="text-muted text-sm truncate">{role} · {location}</p>
     </div>
   </div>
@@ -34,7 +34,7 @@ const takeExcerpt = asifsTake.length > 150 ? asifsTake.slice(0, 147) + '…' : a
   <p class="text-fg/80 leading-relaxed mb-6 flex-1">“{takeExcerpt}”</p>
 
   <div class="flex flex-wrap items-center gap-1.5">
-    <span class:list={['chip text-[#111216] capitalize', color]}>{relationship}</span>
+    <span class="chip"><span class:list={['dot', color]}></span>{relationship}</span>
     {!compact && tags.slice(0, 2).map((tag) => <span class="tag-pill">{tag}</span>)}
   </div>
 </a>

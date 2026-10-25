@@ -40,10 +40,10 @@ const formatDate = (d: Date) =>
         activeJobs.length > 0 ? (
           <section class="grid gap-6 mb-20">
             {activeJobs.map((job) => (
-              <a href={`/jobs/${job.slug}`} class="group pop grid md:grid-cols-[1fr_auto] gap-6 rounded-[22px] bg-bg p-6 sm:p-8">
+              <a href={`/jobs/${job.slug}`} class="group grid md:grid-cols-[1fr_auto] gap-6 border-t border-border pt-6">
                 <div class="min-w-0">
                   <div class="flex flex-wrap items-center gap-2 mb-5">
-                    <span class:list={['chip text-[#111216]', personColor(job.data.company)]}>{typeLabel[job.data.type]}</span>
+                    <span class="chip"><span class:list={['dot', personColor(job.data.company)]}></span>{typeLabel[job.data.type]}</span>
                     {job.data.tags.slice(0, 3).map((tag) => <span class="tag-pill">{tag}</span>)}
                   </div>
                   <h2 class="font-serif text-3xl sm:text-4xl leading-tight mb-2" style="font-weight:800">{job.data.title}</h2>
@@ -52,7 +52,7 @@ const formatDate = (d: Date) =>
                     {job.data.salary && <span class="text-muted"> · {job.data.salary}</span>}
                   </p>
                   {job.data.asifNote && (
-                    <p class="max-w-3xl rounded-2xl bg-surface px-5 py-4 leading-relaxed text-fg/80">
+                    <p class="max-w-3xl border-l-[3px] border-sun pl-5 leading-relaxed text-fg/80">
                       <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-accent block mb-1">Asif's note</span>
                       “{job.data.asifNote}”
                     </p>
@@ -66,7 +66,7 @@ const formatDate = (d: Date) =>
             ))}
           </section>
         ) : (
-          <div class="pop rounded-[22px] bg-surface py-20 text-center mb-20">
+          <div class="border-y border-ink py-20 text-center mb-20">
             <p class="font-serif text-3xl mb-3" style="font-weight:800">Nothing open right now</p>
             <p class="text-muted">Check back soon. I post roles as I come across them.</p>
           </div>

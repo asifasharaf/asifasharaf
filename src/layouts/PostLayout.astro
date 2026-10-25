@@ -20,16 +20,14 @@ const tagColors = ['bg-lime', 'bg-sun', 'bg-lilac', 'bg-mint', 'bg-pink']
 
 <BaseLayout title={`${title} — Asif Asharaf`} description={description} ogImage={ogImage}>
   <article>
-    <header class="relative px-5 sm:px-8 pt-10 sm:pt-16 pb-12 sm:pb-16 overflow-x-clip">
-      <div aria-hidden="true" class="pointer-events-none absolute -top-40 -right-32 w-[520px] h-[520px] rounded-full bg-lilac/35 blur-[120px]"></div>
-      <div aria-hidden="true" class="pointer-events-none absolute top-10 -left-40 w-[420px] h-[420px] rounded-full bg-lime/25 blur-[120px]"></div>
-      <div class="relative max-w-4xl mx-auto">
+    <header class="px-5 sm:px-8 pt-10 sm:pt-16 pb-12 sm:pb-16">
+      <div class="max-w-4xl mx-auto double-rule pb-10">
         <a href="/writing" class="arrow-link mb-10 sm:mb-14"><span class="arr">←</span> All writing</a>
         {
           tags.length > 0 && (
             <div class="rise flex flex-wrap gap-2 mb-6">
               {tags.map((tag, i) => (
-                <span class:list={['chip text-[#111216]', tagColors[i % tagColors.length]]}>{tag}</span>
+                <span class="chip"><span class:list={['dot', tagColors[i % tagColors.length]]}></span>{tag}</span>
               ))}
             </div>
           )
@@ -37,7 +35,7 @@ const tagColors = ['bg-lime', 'bg-sun', 'bg-lilac', 'bg-mint', 'bg-pink']
         <h1 class="rise display text-[clamp(2.5rem,6vw,5rem)] mb-8" style="--d: 80ms">{title}</h1>
         {description && <p class="rise text-xl sm:text-2xl leading-[1.45] font-medium text-fg/75 max-w-3xl mb-8" style="--d: 140ms">{description}</p>}
         <div class="rise flex flex-wrap items-center gap-3" style="--d: 200ms">
-          <span class="w-9 h-9 rounded-xl bg-accent border-2 border-ink grid place-items-center text-white text-xs font-serif -rotate-6" style="font-weight:800">AA</span>
+          <span class="w-9 h-9 rounded-full border border-ink grid place-items-center text-xs font-serif" style="font-weight:800">AA</span>
           <span class="font-semibold">Asif Asharaf</span>
           {dateFormatted && <><span class="text-muted">·</span><time class="font-mono text-sm text-muted">{dateFormatted}</time></>}
         </div>
@@ -50,12 +48,12 @@ const tagColors = ['bg-lime', 'bg-sun', 'bg-lilac', 'bg-mint', 'bg-pink']
       </div>
 
       <div class="max-w-2xl mx-auto mt-20">
-        <a href="/writing" class="group pop flex items-center justify-between gap-6 rounded-[22px] bg-sun text-[#111216] p-6 sm:p-8">
+        <a href="/writing" class="group flex items-center justify-between gap-6 border-y border-border py-6">
           <div>
             <p class="font-mono text-xs uppercase tracking-[0.08em] mb-2">Keep reading</p>
             <p class="font-serif text-3xl leading-tight" style="font-weight:800">More notes from the work</p>
           </div>
-          <span class="shrink-0 w-12 h-12 rounded-full bg-[#111216] text-white grid place-items-center text-lg group-hover:rotate-[-20deg] transition-transform">→</span>
+          <span class="shrink-0 w-12 h-12 rounded-full border border-ink grid place-items-center text-lg group-hover:translate-x-1 transition-transform">→</span>
         </a>
       </div>
     </div>

@@ -1,41 +1,32 @@
 ---
 import { LINKEDIN_URL, INSTAGRAM_URL, EMAIL } from '../lib/social'
+import Glyph from './Glyph.astro'
 const year = new Date().getFullYear()
 ---
 
-<footer class="mt-32 px-5 sm:px-8 pt-20 pb-10 bg-[#3357ff] text-white relative overflow-hidden border-t-2 border-ink">
-  <div aria-hidden="true" class="absolute -right-24 top-10 w-80 h-80 rounded-full bg-lime border-2 border-[#111216]"></div>
-  <div aria-hidden="true" class="absolute right-72 -top-10 w-28 h-28 rounded-3xl bg-pink border-2 border-[#111216] rotate-12"></div>
-  <div aria-hidden="true" class="absolute right-24 bottom-40 w-0 h-0 border-l-[46px] border-r-[46px] border-b-[80px] border-l-transparent border-r-transparent border-b-sun hidden md:block"></div>
-  <div class="container-page relative">
-    <div class="grid-12 gap-y-10">
-      <div class="col-span-4 md:col-span-8">
-        <span class="chip bg-white text-[#111216] border-[#111216] mb-8">👋 Get in touch</span>
-        <h2 class="font-serif text-[clamp(3rem,8.5vw,8rem)] leading-[0.92]" style="font-weight:800;letter-spacing:-0.045em">
-          Have a hard product<br />problem? <em class="hl hl-lime">Let's talk.</em>
-        </h2>
+<footer class="mt-32 px-5 sm:px-8 pb-10">
+  <div class="container-page border-t border-border pt-14">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+      <div>
+        <p class="text-muted mb-3">Get in touch</p>
+        <p class="display text-4xl sm:text-6xl mb-4">Have a hard product problem? <em class="hl-lime">Let's talk.</em></p>
+        <a href={`mailto:${EMAIL}`} class="text-lg text-fg/70 hover:text-fg transition-colors">{EMAIL} →</a>
       </div>
-      <div class="col-span-4 md:col-span-4 md:self-end flex flex-col gap-3 bg-[#3357ff]/80 backdrop-blur-sm rounded-2xl">
-        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between border-t border-white/30 py-4 hover:text-lime transition-colors">
-          <span class="text-lg">LinkedIn</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">↗</span>
-        </a>
-        <a href={`mailto:${EMAIL}`} class="group flex items-center justify-between border-t border-white/30 py-4 hover:text-lime transition-colors">
-          <span class="text-lg">{EMAIL}</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">→</span>
-        </a>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between border-y border-white/30 py-4 hover:text-lime transition-colors">
-          <span class="text-lg">Instagram</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">↗</span>
-        </a>
+      <div class="flex items-end gap-5 shrink-0" aria-hidden="true">
+        <Glyph name="sun" class="w-10 h-10 text-sun" weight={5} />
+        <Glyph name="deer" class="w-14 h-14 text-fg" weight={5} />
+        <Glyph name="fish" class="w-10 h-10 text-accent" weight={5} />
+        <Glyph name="boat" class="w-16 h-16 text-coral" weight={4.5} />
       </div>
     </div>
-
-    <div class="mt-24 pt-6 border-t border-white/30 grid-12 gap-y-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">
-      <p class="col-span-4 md:col-span-3">© {year} Asif Asharaf</p>
-      <p class="col-span-4 md:col-span-3">Bengaluru, India</p>
-      <nav aria-label="More" class="col-span-4 md:col-span-3 flex gap-5">
-        <a href="/people" class="hover:text-white transition-colors">People I respect</a>
-        <a href="/jobs" class="hover:text-white transition-colors">Jobs</a>
+    <div class="mt-14 pt-6 border-t border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm">
+      <p class="text-muted">© {year} Asif Asharaf · Bengaluru</p>
+      <nav aria-label="Elsewhere" class="flex flex-wrap gap-6">
+        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg transition-colors">LinkedIn</a>
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg transition-colors">Instagram</a>
+        <a href="/people" class="text-muted hover:text-fg transition-colors">People</a>
+        <a href="/jobs" class="text-muted hover:text-fg transition-colors">Jobs</a>
       </nav>
-      <p class="col-span-4 md:col-span-3 md:text-right">Set in Bricolage Grotesque &amp; DM Sans</p>
     </div>
   </div>
 </footer>
