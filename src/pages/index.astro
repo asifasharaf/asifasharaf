@@ -4,7 +4,9 @@ export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import ProjectCover from '../components/ProjectCover.astro'
 import PostCard from '../components/PostCard.astro'
-import HeroCast from '../components/HeroCast.astro'
+import CaveWall from '../components/CaveWall.astro'
+import Glyph from '../components/Glyph.astro'
+import type { GlyphName } from '../lib/glyphs'
 import { getCollection } from 'astro:content'
 import { LINKEDIN_URL } from '../lib/social'
 
@@ -23,10 +25,10 @@ const labels: Record<string, string> = {
 }
 
 const stats = [
-  { n: '9+', l: 'years designing products', c: 'bg-sun' },
-  { n: '#1', l: 'first designer at Factors.ai', c: 'bg-lime' },
-  { n: '3', l: 'Quintype products: Bold, Metype, Subtype', c: 'bg-lilac' },
-  { n: '1→n', l: 'a design team grown from one', c: 'bg-mint' },
+  { n: '9+', l: 'years designing products', c: 'bg-sun', g: 'sun' as GlyphName },
+  { n: '#1', l: 'first designer at Factors.ai', c: 'bg-lime', g: 'maker' as GlyphName },
+  { n: '3', l: 'Quintype products: Bold, Metype, Subtype', c: 'bg-lilac', g: 'tally' as GlyphName },
+  { n: '1→n', l: 'a design team grown from one', c: 'bg-mint', g: 'human' as GlyphName },
 ]
 
 const approach = [
@@ -34,16 +36,19 @@ const approach = [
     t: 'Start from the decision',
     d: 'Data-heavy products fail when they show everything. I design backwards from the decision someone has to make, and cut what doesn’t serve it.',
     c: 'bg-sun',
+    g: 'eye' as GlyphName,
   },
   {
     t: 'Systems before screens',
     d: 'A wide product built by a small team only holds together with a system underneath it: tokens, components, and patterns for the hard states.',
     c: 'bg-mint',
+    g: 'wheel' as GlyphName,
   },
   {
     t: 'AI prepares, people decide',
     d: 'In agents and AI features the craft is trust: show what the model saw, what it suggests and why, and make overriding it effortless.',
     c: 'bg-lilac',
+    g: 'hand' as GlyphName,
   },
 ]
 
@@ -56,7 +61,7 @@ const timeline = [
 ]
 
 const ticker = ['0→1 products', 'Design systems', 'AI & agentic UX', 'Data-heavy UX', 'B2B SaaS', 'Mentoring designers']
-const tickerDots = ['bg-lime', 'bg-sun', 'bg-pink', 'bg-mint', 'bg-lilac', 'bg-sky']
+const tickerGlyphs: GlyphName[] = ['deer', 'fish', 'sun', 'spiral', 'bird', 'boat', 'eye', 'hand']
 ---
 
 <BaseLayout title="Asif Asharaf — Lead Product Designer, Bengaluru">
@@ -95,7 +100,7 @@ const tickerDots = ['bg-lime', 'bg-sun', 'bg-pink', 'bg-mint', 'bg-lilac', 'bg-s
       </div>
 
       <div class="col-span-4 md:col-span-5">
-        <HeroCast />
+        <CaveWall />
       </div>
     </div>
   </section>
@@ -106,7 +111,7 @@ const tickerDots = ['bg-lime', 'bg-sun', 'bg-pink', 'bg-mint', 'bg-lilac', 'bg-s
       {
         [...ticker, ...ticker, ...ticker, ...ticker].map((t, i) => (
           <span class="inline-flex shrink-0 items-center gap-4 font-serif text-2xl sm:text-3xl text-[#111216] whitespace-nowrap" style="font-weight:800">
-            <span class:list={['w-7 h-7 rounded-lg border-2 border-[#111216] rotate-12', tickerDots[i % tickerDots.length]]}></span>
+            <Glyph name={tickerGlyphs[i % tickerGlyphs.length]} class="w-10 h-10 shrink-0" weight={6} />
             {t}
           </span>
         ))
@@ -155,7 +160,8 @@ const tickerDots = ['bg-lime', 'bg-sun', 'bg-pink', 'bg-mint', 'bg-lilac', 'bg-s
     <div class="container-page grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6" data-stagger>
       {
         stats.map((s, i) => (
-          <div class:list={['pop rounded-[22px] p-6 sm:p-7 text-[#111216]', s.c]} style={`transform: rotate(${[-1.5, 1, -0.5, 1.5][i]}deg)`}>
+          <div class:list={['pop relative overflow-hidden rounded-[22px] p-6 sm:p-7 text-[#111216]', s.c]} style={`transform: rotate(${[-1.5, 1, -0.5, 1.5][i]}deg)`}>
+            <Glyph name={s.g} class="absolute -right-3 -top-3 w-24 h-24 opacity-30" weight={4.5} />
             <p class="font-serif text-6xl sm:text-7xl leading-none mb-6" style="font-weight:800">{s.n}</p>
             <p class="font-medium leading-snug">{s.l}</p>
           </div>
@@ -175,7 +181,10 @@ const tickerDots = ['bg-lime', 'bg-sun', 'bg-pink', 'bg-mint', 'bg-lilac', 'bg-s
         {
           approach.map((a, i) => (
             <li class:list={['pop rounded-[22px] p-7 sm:p-8 text-[#111216] flex flex-col', a.c]}>
-              <span class="w-11 h-11 rounded-full bg-white border-2 border-[#111216] grid place-items-center font-mono text-sm mb-14">0{i + 1}</span>
+              <div class="flex items-start justify-between mb-10">
+                <span class="w-11 h-11 rounded-full bg-white border-2 border-[#111216] grid place-items-center font-mono text-sm">0{i + 1}</span>
+                <Glyph name={a.g} class="w-20 h-20 -mr-2 -mt-2" weight={4.5} />
+              </div>
               <h3 class="font-serif text-3xl leading-tight mb-4" style="font-weight:800">{a.t}</h3>
               <p class="leading-relaxed text-[#111216]/80">{a.d}</p>
             </li>
@@ -214,9 +223,10 @@ const tickerDots = ['bg-lime', 'bg-sun', 'bg-pink', 'bg-mint', 'bg-lilac', 'bg-s
   <section class="px-5 sm:px-8 pt-24 sm:pt-36">
     <div class="container-page">
       <a href="/ai-and-design" class="group pop block rounded-[28px] bg-accent text-white p-8 sm:p-14 relative overflow-hidden" data-reveal>
-        <div aria-hidden="true" class="absolute -right-16 -bottom-16 w-72 h-72 rounded-full bg-lime border-2 border-[#111216] group-hover:scale-110 transition-transform duration-700"></div>
-        <div aria-hidden="true" class="absolute right-40 top-10 w-24 h-24 rounded-2xl bg-pink border-2 border-[#111216] rotate-12 group-hover:rotate-45 transition-transform duration-700"></div>
-        <div class="relative max-w-3xl">
+        <Glyph name="chart" class="absolute right-6 bottom-6 w-28 h-28 sm:w-44 sm:h-44 lg:w-56 lg:h-56 text-lime opacity-90 group-hover:-rotate-6 transition-transform duration-700" weight={4} />
+        <Glyph name="eye" class="absolute right-48 top-8 w-24 h-24 text-white/80 hidden md:block group-hover:scale-110 transition-transform duration-700" weight={5} />
+        <Glyph name="dots" class="absolute right-[22rem] bottom-10 w-16 h-16 text-sun hidden lg:block" weight={5} />
+        <div class="relative max-w-3xl pr-24 sm:pr-48 lg:pr-0">
           <span class="chip bg-white text-[#111216] border-[#111216] mb-8">✳ Lab · interactive essay</span>
           <h2 class="font-serif text-5xl sm:text-7xl leading-[0.95] mb-6" style="font-weight:800;letter-spacing:-0.04em">What AI does to design work</h2>
           <p class="text-white/85 leading-relaxed max-w-xl mb-8">

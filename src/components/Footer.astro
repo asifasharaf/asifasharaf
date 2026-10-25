@@ -1,12 +1,14 @@
 ---
 import { LINKEDIN_URL, INSTAGRAM_URL, EMAIL } from '../lib/social'
+import Glyph from './Glyph.astro'
 const year = new Date().getFullYear()
 ---
 
 <footer class="mt-32 px-5 sm:px-8 pt-20 pb-10 bg-[#3357ff] text-white relative overflow-hidden border-t-2 border-ink">
-  <div aria-hidden="true" class="absolute -right-24 top-10 w-80 h-80 rounded-full bg-lime border-2 border-[#111216]"></div>
-  <div aria-hidden="true" class="absolute right-72 -top-10 w-28 h-28 rounded-3xl bg-pink border-2 border-[#111216] rotate-12"></div>
-  <div aria-hidden="true" class="absolute right-24 bottom-40 w-0 h-0 border-l-[46px] border-r-[46px] border-b-[80px] border-l-transparent border-r-transparent border-b-sun hidden md:block"></div>
+  <Glyph name="spiral" class="absolute -right-6 top-8 w-72 h-72 text-lime" weight={4} />
+  <Glyph name="sun" class="absolute right-80 -top-6 w-32 h-32 text-sun hidden md:block" weight={5} />
+  <Glyph name="deer" class="absolute right-24 bottom-36 w-40 h-40 text-white/25 hidden md:block" weight={4} />
+  <Glyph name="fish" class="absolute left-[46%] bottom-28 w-20 h-20 text-white/20 hidden lg:block" weight={5} rotate={-10} />
   <div class="container-page relative">
     <div class="grid-12 gap-y-10">
       <div class="col-span-4 md:col-span-8">

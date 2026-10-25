@@ -1,0 +1,46 @@
+---
+import { glyphs, type GlyphName } from '../lib/glyphs'
+
+interface Props {
+  name: GlyphName
+  class?: string
+  /** Stroke weight in grid units (the grid is 100 wide). */
+  weight?: number
+  /** Paint the strokes on when it enters the page. */
+  draw?: boolean
+  /** Delay for the draw-on, in ms. */
+  delay?: number
+  /** Render as a nested <svg> inside a parent SVG scene. */
+  x?: number
+  y?: number
+  size?: number
+  rotate?: number
+  label?: string
+}
+
+const { name, class: className, weight = 5, draw = false, delay = 0, x, y, size, rotate = 0, label } = Astro.props
+const shapes = glyphs[name]
+const nested = size !== undefined
+const style = `--d:${delay}ms`
+const t = rotate ? `rotate(${rotate} 50 50)` : undefined
+---
+
+{
+  nested ? (
+    <svg x={x} y={y} width={size} height={size} viewBox="0 0 100 100" overflow="visible" class:list={['glyph', draw && 'draw', className]} style={style} aria-hidden="true">
+      <g transform={t} filter="url(#rock)" fill="none" stroke="currentColor" stroke-width={weight} stroke-linecap="round" stroke-linejoin="round">
+        {shapes.map((s) =>
+          'p' in s ? <path d={s.p} pathLength="1" /> : 'c' in s ? <circle cx={s.c[0]} cy={s.c[1]} r={s.c[2]} pathLength="1" /> : <circle cx={s.dot[0]} cy={s.dot[1]} r={s.dot[2]} fill="currentColor" stroke="none" class="glyph-dot" />,
+        )}
+      </g>
+    </svg>
+  ) : (
+    <svg viewBox="0 0 100 100" overflow="visible" class:list={['glyph', draw && 'draw', className]} style={style} role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+      <g transform={t} filter="url(#rock)" fill="none" stroke="currentColor" stroke-width={weight} stroke-linecap="round" stroke-linejoin="round">
+        {shapes.map((s) =>
+          'p' in s ? <path d={s.p} pathLength="1" /> : 'c' in s ? <circle cx={s.c[0]} cy={s.c[1]} r={s.c[2]} pathLength="1" /> : <circle cx={s.dot[0]} cy={s.dot[1]} r={s.dot[2]} fill="currentColor" stroke="none" class="glyph-dot" />,
+        )}
+      </g>
+    </svg>
+  )
+}
