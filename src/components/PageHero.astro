@@ -1,0 +1,32 @@
+---
+interface Props {
+  chip: string
+  glow?: 'lilac' | 'lime' | 'sun' | 'mint' | 'coral' | 'sky'
+}
+
+const { chip, glow = 'lilac' } = Astro.props
+const glows: Record<string, string> = {
+  lilac: 'bg-lilac/35',
+  lime: 'bg-lime/35',
+  sun: 'bg-sun/35',
+  mint: 'bg-mint/35',
+  coral: 'bg-coral/30',
+  sky: 'bg-sky/35',
+}
+---
+
+<header class="relative px-5 sm:px-8 pt-10 sm:pt-16 pb-12 sm:pb-16 overflow-x-clip">
+  <div aria-hidden="true" class:list={['pointer-events-none absolute -top-40 -right-32 w-[520px] h-[520px] rounded-full blur-[120px]', glows[glow]]}></div>
+  <div aria-hidden="true" class="pointer-events-none absolute top-10 -left-40 w-[420px] h-[420px] rounded-full bg-sky/25 blur-[120px]"></div>
+  <div class="container-page relative grid-12 gap-y-8 items-end">
+    <div class="col-span-4 md:col-span-8">
+      <span class="rise chip bg-bg mb-7">{chip}</span>
+      <h1 class="rise display text-[clamp(3rem,8vw,7rem)]" style="--d: 80ms">
+        <slot name="title" />
+      </h1>
+    </div>
+    <div class="rise col-span-4 md:col-span-4 text-fg/75 text-lg leading-relaxed" style="--d: 160ms">
+      <slot />
+    </div>
+  </div>
+</header>

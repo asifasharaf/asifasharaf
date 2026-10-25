@@ -14,7 +14,7 @@ export function ScenarioCards() {
   const { state, dispatch } = useExplorer()
 
   return (
-    <div className="grid md:grid-cols-2 gap-px bg-border border border-border rounded-lg overflow-hidden">
+    <div className="pop grid md:grid-cols-2 gap-px bg-ink rounded-[22px] overflow-hidden">
       {SCENARIOS.map((s, i) => {
         const active = state.scenarioId === s.id
         const outcome = runModel(state.role, s.levers)

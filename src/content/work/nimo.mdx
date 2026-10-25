@@ -1,0 +1,84 @@
+---
+title: "Nimo"
+description: "One clinical note system for every kind of Indian practice: a block editor that changes by specialty, and AI that drafts the note while the doctor stays the author."
+year: 2026
+period: "2026"
+role: "Product designer, with Irfan"
+cover: "notes"
+order: 2
+tags: ["0→1", "healthcare", "ai", "mobile-first", "side project"]
+coverImage: "../../assets/work/nimo/A3-nimo-suggests-prescription.png"
+featured: true
+---
+
+import { Image } from 'astro:assets'
+import blockMenu from '../../assets/work/nimo/A1-allopathy-block-menu.png'
+import physioMenu from '../../assets/work/nimo/B1-physio-block-menu.png'
+import suggestion from '../../assets/work/nimo/A3-nimo-suggests-prescription.png'
+import physioNote from '../../assets/work/nimo/B3-physio-filled-note.png'
+
+## In 30 seconds
+
+Nimo is software for small clinics: patients, appointments, notes, prescriptions. In India, "a clinic" is not one workflow. A general physician, a homeopath, an Ayurvedic doctor and a physiotherapist all think differently during a consultation.
+
+Irfan and I designed **one note editor that feels native to each of them**. The writing surface stays the same and the blocks change by practice type. AI records the visit and drafts the note inside the same editor, and the doctor reviews and signs it.
+
+## The challenge
+
+A general physician writes prescriptions and lab orders. A homeopath thinks in case-taking, mentals, generals, particulars and modalities. An Ayurvedic doctor documents prakriti, vikriti, pathya and apathya. A physiotherapist needs assessment, treatment performed, progress and a home exercise programme. Then there are dentists, nutritionists, psychologists, naturopaths, Siddha and Unani practitioners.
+
+In India that diversity isn't an edge case; it *is* the market. So the question was:
+
+**How do we design one note system that feels native to every practice type, without building a separate product for each one?**
+
+A generic SOAP note is too rigid. A hospital-style EMR form gets bloated. A separate editor per system of medicine can't be maintained by a small team.
+
+## The insight: a note is a document, not a form
+
+Irfan and I both approached this as designers first. I had seen at CureType how healthcare workflows shift from specialty to specialty. Irfan's years in publishing at Condé Nast gave us the other half: modern editors are not fixed forms, they are made of blocks. My own time on newsroom tools at Quintype pointed the same way.
+
+So we **treat a clinical note like a block editor**. The doctor types naturally, then presses `/` to insert the structured block they need. The menu comes from the clinic's practice type.
+
+<Image src={blockMenu} alt="The slash menu in a prescribing clinic: Heading, Bullet list, Vitals, Prescription, Lab and Follow-up" width={560} />
+
+A physiotherapy clinic gets Assessment, Treatment performed, Home exercise programme and Progress in place of the prescribing blocks. Homeopathy gets Case taking, and Ayurveda gets Dosha & Pathya.
+
+<Image src={physioMenu} alt="The same slash menu in a physiotherapy clinic, with physio-specific blocks" width={560} />
+
+## Three kinds of blocks
+
+- **Text blocks**: headings, paragraphs, lists.
+- **Content blocks**: specialty structures that live inside the note, such as Assessment, Home exercise programme, Case taking and Dosha & Pathya.
+- **Record blocks**: they sit in the note but read and write real clinical tables. Prescriptions, vitals and lab orders stay structured, auditable and printable, and they connect to pharmacy, billing and the patient record.
+
+That split is the heart of it: *one writing surface, structured data where it matters, freedom where it helps.*
+
+## Recording the visit
+
+Doctors in a busy OPD don't have time to type. In Nimo the doctor taps **Record**, talks through the consultation, and taps **Finish notes**. Nimo transcribes the visit and fills the right blocks in the same editor.
+
+![The recorder dock moving through its states, from recording to "Nimo is writing your note…" to the filled note](/work/nimo/A2-recording-workflow.gif)
+
+The main decision was to make recording part of note-taking, not a separate "AI feature". The recorder dock stays pinned to the note and has clear states: ready, recording, paused, processing and error. While it processes, a ghost scaffold of the note appears, so the doctor is never staring at a blank page. Long consultations can upload in segments. The transcript is always available, so the doctor can check exactly what Nimo heard.
+
+![The same recording flow ending in a physiotherapy note](/work/nimo/B2-recording-workflow.gif)
+
+## Suggestions, not decisions
+
+In prescribing clinics, Nimo can suggest a saved prescription set based on what it heard. The suggestion says why it matched, offers alternatives, and needs a tap to apply. Accepting it writes into the structured prescription record, not into plain text.
+
+<Image src={suggestion} alt="Nimo suggests 'Viral fever — adult', matching the fever, body ache and dry cough described, with Apply, Dismiss and alternatives" width={560} />
+
+The chain runs speech → transcript → summary → structured note → patient record. *Nimo prepares the work. The doctor stays the author.*
+
+<Image src={physioNote} alt="A finished physiotherapy note built from clinical blocks" width={560} />
+
+## Why it was a design problem first
+
+This could easily have become a settings problem, solved with more dropdowns, templates and modules. We started from different questions instead. What should disappear for a clinic that doesn't prescribe? What vocabulary should change for a homeopath? What belongs in the note, and what must stay as structured medical data? How does this work on a phone in a crowded clinic?
+
+The answer wasn't a bigger form. It was a more flexible document. Adding a new specialty now means designing the right blocks, not building a new app.
+
+## How it's built
+
+Nimo has a deliberate ceiling: it serves clinics with five doctors or fewer and will never become hospital software. That keeps it small enough for a tiny team to build with AI coding agents. My post on [stopping those agents from fighting over the same ticket](/writing/how-i-stopped-my-ai-agents-from-fighting) came out of this project. Anything a doctor sees passes a human design gate before it ships.

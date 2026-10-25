@@ -2,6 +2,7 @@
 export const prerender = true
 
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import PageHero from '../../components/PageHero.astro'
 import PostCard from '../../components/PostCard.astro'
 import { getCollection } from 'astro:content'
 
@@ -12,78 +13,54 @@ const posts = (await getCollection('writing', ({ data }) => !data.draft && !!dat
 const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort()
 ---
 
-<BaseLayout title="Writing — Asif Asharaf" description="Writing on design, process, and whatever else is on my mind.">
-  <div class="container-page px-6 sm:px-8 py-16 sm:py-24">
-    <header class="mb-12 sm:mb-20 fade-up">
-      <h1 class="font-serif text-5xl sm:text-7xl text-fg mb-4">Writing</h1>
-      <p class="text-muted text-lg max-w-sm">
-        On design, process, and whatever else.
-      </p>
-    </header>
+<BaseLayout title="Writing — Asif Asharaf" description="Writing on design, AI, process, and building products.">
+  <PageHero chip="✎ Writing" glow="lilac">
+    <Fragment slot="title">Notes from <em class="hl-lilac">the work.</em></Fragment>
+    On design, AI, process, and the things I learn while building products.
+  </PageHero>
 
-    {
-      allTags.length > 1 && (
-        <div id="tag-filter" class="flex flex-wrap gap-2 mb-12">
-          <button class="tag-btn active" data-tag="all">
-            All
-          </button>
-          {allTags.map((tag) => (
-            <button class="tag-btn" data-tag={tag}>
-              {tag}
-            </button>
-          ))}
+  <div class="px-5 sm:px-8">
+    <div class="container-page grid-12 gap-y-10">
+      <aside class="col-span-4 md:col-span-4">
+        <div class="md:sticky md:top-24 flex flex-col gap-6">
+          {
+            allTags.length > 1 && (
+              <div>
+                <p class="meta mb-3">Filter</p>
+                <div id="tag-filter" class="flex flex-wrap gap-2">
+                  <button class="tag-btn active" data-tag="all">All</button>
+                  {allTags.map((tag) => (
+                    <button class="tag-btn" data-tag={tag}>{tag}</button>
+                  ))}
+                </div>
+              </div>
+            )
+          }
+
+          <a href="/ai-and-design" class="group pop block rounded-[22px] bg-accent text-white p-6 relative overflow-hidden">
+            <div aria-hidden="true" class="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-lime border-2 border-[#111216] group-hover:scale-110 transition-transform duration-500"></div>
+            <span class="chip bg-white text-[#111216] border-[#111216] mb-5">✳ Interactive</span>
+            <h2 class="font-serif text-3xl leading-[1.02] mb-3 relative" style="font-weight:800">What AI does to design work</h2>
+            <p class="text-white/85 text-sm leading-relaxed mb-5 relative max-w-[26ch]">
+              Twenty-nine tasks, five levers, four futures. Set the model yourself.
+            </p>
+            <span class="relative inline-flex items-center gap-2 rounded-full bg-white text-[#111216] px-4 py-2 text-sm font-semibold border-2 border-[#111216]">Open it →</span>
+          </a>
         </div>
-      )
-    }
+      </aside>
 
-    <a
-      href="/ai-and-design"
-      class="group block border border-border rounded-lg p-6 sm:p-8 mb-12 hover:border-accent transition-colors"
-    >
-      <span class="text-accent text-[11px] uppercase tracking-[0.2em] mb-4 block">
-        Interactive
-      </span>
-      <h2
-        class="font-serif text-2xl sm:text-4xl text-fg leading-tight mb-4 group-hover:text-accent transition-colors"
-      >
-        What AI does to design work
-      </h2>
-      <p class="text-muted leading-relaxed max-w-2xl mb-5">
-        Twenty-nine design tasks, five levers and four futures — a model you can set
-        yourself, built around Indian design employment rather than US headlines.
-      </p>
-      <span class="text-accent text-sm link-underline">Open the explorer →</span>
-    </a>
-
-    <div id="posts-list">
-      {
-        posts.map((entry) => (
-          <div class="post-item" data-tags={JSON.stringify(entry.data.tags)}>
-            <PostCard entry={entry} />
-          </div>
-        ))
-      }
-    </div>
-
-    {posts.length === 0 && (
-      <p class="text-muted text-lg py-12">Nothing published yet. Check back soon.</p>
-    )}
-  </div>
-
-  <!-- Bottom CTA -->
-  <section class="border-t border-border px-6 sm:px-8 py-20 sm:py-32">
-    <div class="container-page">
-      <div class="max-w-2xl" data-reveal>
-        <span class="text-muted text-xs uppercase tracking-[0.22em] mb-6 block">Stay in touch</span>
-        <h2 class="font-serif text-3xl sm:text-5xl text-fg leading-tight mb-6">
-          Thoughts worth sharing, as they come.
-        </h2>
-        <a href="https://www.linkedin.com/in/asifcasharaf/" target="_blank" rel="noopener noreferrer" class="link-underline text-accent text-lg">
-          Follow on LinkedIn →
-        </a>
+      <div class="col-span-4 md:col-span-8" id="posts-list">
+        {
+          posts.map((entry) => (
+            <div class="post-item" data-tags={JSON.stringify(entry.data.tags)}>
+              <PostCard entry={entry} />
+            </div>
+          ))
+        }
+        {posts.length === 0 && <p class="text-muted text-lg py-12">Nothing published yet. Check back soon.</p>}
       </div>
     </div>
-  </section>
+  </div>
 </BaseLayout>
 
 <script>
@@ -93,10 +70,8 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort()
   btns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const tag = btn.dataset.tag ?? 'all'
-
       btns.forEach((b) => b.classList.remove('active'))
       btn.classList.add('active')
-
       items.forEach((item) => {
         const tags: string[] = JSON.parse(item.dataset.tags ?? '[]')
         item.style.display = tag === 'all' || tags.includes(tag) ? '' : 'none'

@@ -2,79 +2,108 @@
 export const prerender = true
 
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import WorkCard from '../../components/WorkCard.astro'
+import ProjectCover from '../../components/ProjectCover.astro'
 import { getCollection } from 'astro:content'
 
-const allWork = (await getCollection('work')).sort((a, b) => b.data.year - a.data.year)
-const allTags = [...new Set(allWork.flatMap((w) => w.data.tags))].sort()
+const allWork = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order || b.data.year - a.data.year)
+const featured = allWork.filter((w) => w.data.featured)
 ---
 
-<BaseLayout title="Work — Asif Asharaf" description="Selected design projects by Asif Asharaf.">
-  <div class="container-page px-6 sm:px-8 py-16 sm:py-24">
-    <header class="mb-12 sm:mb-20 fade-up">
-      <h1 class="font-serif text-5xl sm:text-7xl text-fg mb-4">Work</h1>
-      <p class="text-muted text-lg max-w-sm">
-        Selected projects. {allWork.length} total.
-      </p>
-    </header>
+<BaseLayout title="Work — Asif Asharaf" description="Selected product design work by Asif Asharaf: Factors.ai, Nimo, Quintype and more.">
+  <div class="px-5 sm:px-8 pt-14 sm:pt-24">
+    <div class="container-page">
+      <header class="grid-12 gap-y-8 mb-16 sm:mb-24">
+        <h1 class="col-span-4 md:col-span-8 display text-[clamp(4rem,12vw,12rem)]">Work<sup class="font-mono text-base sm:text-xl text-accent align-top ml-2 tracking-normal">({allWork.length})</sup></h1>
+        <p class="col-span-4 md:col-span-4 md:self-end text-fg/75 leading-relaxed">
+          Nine years of product design, from a college studio in Kerala to founding designer at a B2B SaaS
+          company. Company work first, then the things I build on my own.
+        </p>
+      </header>
 
-    {
-      allTags.length > 1 && (
-        <div id="tag-filter" class="flex flex-wrap gap-2 mb-12">
-          <button class="tag-btn active" data-tag="all">
-            All
-          </button>
-          {allTags.map((tag) => (
-            <button class="tag-btn" data-tag={tag}>
-              {tag}
-            </button>
-          ))}
+      <!-- Index list -->
+      <div class="hidden md:grid grid-cols-12 gap-x-6 pb-3 meta" aria-hidden="true">
+        <span class="col-span-1">No.</span>
+        <span class="col-span-4">Project</span>
+        <span class="col-span-4">Role</span>
+        <span class="col-span-2">Focus</span>
+        <span class="col-span-1 text-right">Year</span>
+      </div>
+
+      <ol class="border-t border-fg/80" data-work-list>
+        {
+          allWork.map((entry, i) => (
+            <li class="relative">
+              <a href={`/work/${entry.slug}`} class="group grid grid-cols-4 md:grid-cols-12 gap-x-6 gap-y-3 py-6 md:py-7 border-b border-border items-baseline" data-preview-trigger>
+                <span class="col-span-1 font-mono text-xs text-muted tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                <span class="col-span-3 md:col-span-4 font-serif text-4xl md:text-5xl leading-none text-fg group-hover:text-accent group-hover:translate-x-2 transition-all duration-500">
+                  {entry.data.title}
+                </span>
+                <span class="col-span-3 col-start-2 md:col-start-auto md:col-span-4 text-muted text-sm">{entry.data.role}</span>
+                <span class="hidden md:block md:col-span-2 text-muted text-sm">{entry.data.tags[0]}</span>
+                <span class="hidden md:block md:col-span-1 text-right font-mono text-xs text-muted tabular-nums">{entry.data.period ?? entry.data.year}</span>
+              </a>
+              <div class="work-preview pointer-events-none hidden md:block" aria-hidden="true">
+                <ProjectCover entry={entry} class="aspect-[4/3] w-[380px]" />
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <!-- Featured grid -->
+      <section class="pt-28 sm:pt-40">
+        <p class="meta mb-10">Featured case studies</p>
+        <div class="grid-12 gap-y-16">
+          {
+            featured.map((entry, i) => (
+              <a href={`/work/${entry.slug}`} class:list={['group col-span-4', i === 0 ? 'md:col-span-12' : 'md:col-span-6']} data-reveal>
+                <ProjectCover entry={entry} class={i === 0 ? 'aspect-[4/3] md:aspect-[21/9]' : 'aspect-[4/3]'} />
+                <div class="flex items-baseline justify-between gap-4 mt-5">
+                  <h2 class="font-serif text-4xl group-hover:text-accent transition-colors">{entry.data.title}</h2>
+                  <span class="meta tabular-nums">{entry.data.period ?? entry.data.year}</span>
+                </div>
+                <p class="text-muted mt-2 max-w-xl">{entry.data.description}</p>
+              </a>
+            ))
+          }
         </div>
-      )
-    }
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10" id="work-grid">
-      {
-        allWork.map((entry) => (
-          <div class="work-item" data-tags={JSON.stringify(entry.data.tags)}>
-            <WorkCard entry={entry} />
-          </div>
-        ))
-      }
+      </section>
     </div>
   </div>
-
-  <!-- Bottom CTA -->
-  <section class="border-t border-border px-6 sm:px-8 py-20 sm:py-32">
-    <div class="container-page">
-      <div class="max-w-2xl" data-reveal>
-        <span class="text-muted text-xs uppercase tracking-[0.22em] mb-6 block">Get in touch</span>
-        <h2 class="font-serif text-3xl sm:text-5xl text-fg leading-tight mb-6">
-          Have a brief worth the time?
-        </h2>
-        <a href="mailto:hello@asifasharaf.com" class="link-underline text-accent text-lg">
-          hello@asifasharaf.com →
-        </a>
-      </div>
-    </div>
-  </section>
 </BaseLayout>
 
-<script>
-  const btns = document.querySelectorAll<HTMLButtonElement>('#tag-filter .tag-btn')
-  const items = document.querySelectorAll<HTMLElement>('.work-item')
+<style>
+  .work-preview {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 40;
+    opacity: 0;
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(0.92) rotate(-2deg);
+    transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  li:hover > .work-preview {
+    opacity: 1;
+    transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1) rotate(0deg);
+  }
+  @media (hover: none) {
+    .work-preview { display: none !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .work-preview { transition: opacity 0.2s ease; }
+  }
+</style>
 
-  btns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const tag = btn.dataset.tag ?? 'all'
-
-      btns.forEach((b) => b.classList.remove('active'))
-      btn.classList.add('active')
-
-      items.forEach((item) => {
-        const tags: string[] = JSON.parse(item.dataset.tags ?? '[]')
-        item.style.display = tag === 'all' || tags.includes(tag) ? '' : 'none'
-      })
+<script is:inline>
+  (function () {
+    if (!window.matchMedia('(hover: hover)').matches) return
+    const list = document.querySelector('[data-work-list]')
+    if (!list) return
+    list.addEventListener('mousemove', (e) => {
+      const x = Math.min(e.clientX + 32, window.innerWidth - 400)
+      const y = Math.max(80, Math.min(e.clientY - 140, window.innerHeight - 300))
+      list.style.setProperty('--x', x + 'px')
+      list.style.setProperty('--y', y + 'px')
     })
-  })
+  })()
 </script>

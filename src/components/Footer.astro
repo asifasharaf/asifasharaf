@@ -1,63 +1,41 @@
 ---
+import { LINKEDIN_URL, INSTAGRAM_URL, EMAIL } from '../lib/social'
 const year = new Date().getFullYear()
 ---
 
-<footer class="border-t border-border mt-24 px-6 sm:px-8 py-12">
-  <div class="container-page">
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
-      <p class="text-muted text-sm">
-        © {year} Asif Asharaf. All rights reserved.
-      </p>
-
-      <nav aria-label="Social links">
-        <ul class="flex items-center gap-6">
-          <li>
-            <a
-              href="https://www.linkedin.com/in/asifcasharaf/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-muted hover:text-fg text-sm transition-colors"
-            >
-              LinkedIn
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.instagram.com/asifcasharaf/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-muted hover:text-fg text-sm transition-colors"
-            >
-              Instagram
-            </a>
-          </li>
-          <li>
-            <a
-              href="mailto:hello@asifasharaf.com"
-              class="text-muted hover:text-fg text-sm transition-colors"
-            >
-              Email
-            </a>
-          </li>
-        </ul>
-      </nav>
+<footer class="mt-32 px-5 sm:px-8 pt-20 pb-10 bg-[#3357ff] text-white relative overflow-hidden border-t-2 border-ink">
+  <div aria-hidden="true" class="absolute -right-24 top-10 w-80 h-80 rounded-full bg-lime border-2 border-[#111216]"></div>
+  <div aria-hidden="true" class="absolute right-72 -top-10 w-28 h-28 rounded-3xl bg-pink border-2 border-[#111216] rotate-12"></div>
+  <div aria-hidden="true" class="absolute right-24 bottom-40 w-0 h-0 border-l-[46px] border-r-[46px] border-b-[80px] border-l-transparent border-r-transparent border-b-sun hidden md:block"></div>
+  <div class="container-page relative">
+    <div class="grid-12 gap-y-10">
+      <div class="col-span-4 md:col-span-8">
+        <span class="chip bg-white text-[#111216] border-[#111216] mb-8">👋 Get in touch</span>
+        <h2 class="font-serif text-[clamp(3rem,8.5vw,8rem)] leading-[0.92]" style="font-weight:800;letter-spacing:-0.045em">
+          Have a hard product<br />problem? <em class="hl hl-lime">Let's talk.</em>
+        </h2>
+      </div>
+      <div class="col-span-4 md:col-span-4 md:self-end flex flex-col gap-3 bg-[#3357ff]/80 backdrop-blur-sm rounded-2xl">
+        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between border-t border-white/30 py-4 hover:text-lime transition-colors">
+          <span class="text-lg">LinkedIn</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">↗</span>
+        </a>
+        <a href={`mailto:${EMAIL}`} class="group flex items-center justify-between border-t border-white/30 py-4 hover:text-lime transition-colors">
+          <span class="text-lg">{EMAIL}</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between border-y border-white/30 py-4 hover:text-lime transition-colors">
+          <span class="text-lg">Instagram</span><span class="font-mono text-xs group-hover:translate-x-1 transition-transform">↗</span>
+        </a>
+      </div>
     </div>
 
-    <!-- Quiet links row -->
-    <div class="flex items-center gap-6 pt-6 border-t border-border/50">
-      <a
-        href="/people"
-        class="text-muted/60 hover:text-muted text-xs tracking-wide transition-colors"
-      >
-        People I Respect
-      </a>
-      <span class="text-border text-xs">·</span>
-      <a
-        href="/jobs"
-        class="text-muted/60 hover:text-muted text-xs tracking-wide transition-colors"
-      >
-        Jobs & Opportunities
-      </a>
+    <div class="mt-24 pt-6 border-t border-white/30 grid-12 gap-y-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">
+      <p class="col-span-4 md:col-span-3">© {year} Asif Asharaf</p>
+      <p class="col-span-4 md:col-span-3">Bengaluru, India</p>
+      <nav aria-label="More" class="col-span-4 md:col-span-3 flex gap-5">
+        <a href="/people" class="hover:text-white transition-colors">People I respect</a>
+        <a href="/jobs" class="hover:text-white transition-colors">Jobs</a>
+      </nav>
+      <p class="col-span-4 md:col-span-3 md:text-right">Set in Bricolage Grotesque &amp; DM Sans</p>
     </div>
   </div>
 </footer>

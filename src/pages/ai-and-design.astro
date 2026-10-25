@@ -32,77 +32,64 @@ const description =
 
 <BaseLayout title={`${title} — Asif Asharaf`} description={description}>
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
-  <section class="px-6 sm:px-8 pt-8 sm:pt-16 pb-12 sm:pb-20">
-    <div class="container-page">
-      <div class="flex flex-wrap items-center gap-3 mb-10 sm:mb-14">
-        <span class="text-muted text-xs uppercase tracking-[0.2em]">Interactive</span>
-        <span class="h-px w-8 bg-accent"></span>
-        <span class="text-muted text-xs uppercase tracking-[0.2em]">
-          Data as of September 2026
-        </span>
+  <section class="relative px-5 sm:px-8 pt-10 sm:pt-16 pb-14 sm:pb-20 overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-lime/30 blur-[120px]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute top-40 -left-40 w-[480px] h-[480px] rounded-full bg-sky/30 blur-[120px]"></div>
+    <div class="container-page relative">
+      <div class="rise flex flex-wrap items-center gap-3 mb-8 sm:mb-10">
+        <span class="chip bg-bg">✳ Lab · interactive essay</span>
+        <span class="chip bg-sun text-[#111216]">Data as of September 2026</span>
       </div>
 
-      <h1
-        class="font-serif text-[clamp(2.5rem,7vw,6rem)] text-fg leading-[1.02] tracking-tight max-w-4xl"
-      >
-        AI does not take design jobs.<br />It takes design tasks.
+      <h1 class="rise display text-[clamp(2.75rem,7vw,6.25rem)] max-w-5xl" style="--d: 80ms">
+        AI does not take design jobs. It takes design <em class="hl-lime">tasks.</em>
       </h1>
 
-      <p class="text-muted text-lg sm:text-xl mt-10 sm:mt-14 max-w-2xl leading-relaxed">
+      <p class="rise text-fg/75 text-lg sm:text-xl mt-8 sm:mt-10 max-w-2xl leading-relaxed" style="--d: 160ms">
         Which is a different problem, because tasks are not spread evenly across a
         career. Production fills {juniorProduction}% of a junior designer&rsquo;s week
         and {leadProduction}% of a lead&rsquo;s. This page models that gap rather than
-        arguing about it — twenty-nine tasks, five levers, and whatever conclusion the
+        arguing about it: twenty-nine tasks, five levers, and whatever conclusion the
         numbers support once you set them yourself.
       </p>
 
-      <div class="mt-12 sm:mt-16 flex flex-wrap gap-x-10 gap-y-6">
-        <div>
-          <p class="font-serif text-4xl sm:text-5xl text-accent tabular-nums leading-none">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-12 sm:mt-16 max-w-4xl">
+        <div class="pop rounded-[22px] bg-accent text-white p-6" style="transform: rotate(-1deg)">
+          <p class="font-serif text-6xl tabular-nums leading-none mb-4" style="font-weight:800">
             {Math.round(today.absorbed * 100)}%
           </p>
-          <p class="text-muted text-sm mt-2 max-w-[16ch] leading-snug">
-            of a junior week the model puts on AI today
-          </p>
+          <p class="text-white/85 text-sm leading-snug">of a junior week the model puts on AI today</p>
         </div>
-        <div>
-          <p class="font-serif text-4xl sm:text-5xl text-mustard tabular-nums leading-none">
+        <div class="pop rounded-[22px] bg-sun text-[#111216] p-6" style="transform: rotate(1deg)">
+          <p class="font-serif text-6xl tabular-nums leading-none mb-4" style="font-weight:800">
             {Math.round(compression.entryPoolIndex)}
           </p>
-          <p class="text-muted text-sm mt-2 max-w-[18ch] leading-snug">
-            entry-level work left under <em>the compression</em> (100 = today)
-          </p>
+          <p class="text-sm leading-snug">entry-level work left under <em>the compression</em> (100 = today)</p>
         </div>
-        <div>
-          <p class="font-serif text-4xl sm:text-5xl text-olive tabular-nums leading-none">
+        <div class="pop rounded-[22px] bg-mint text-[#111216] p-6" style="transform: rotate(-0.5deg)">
+          <p class="font-serif text-6xl tabular-nums leading-none mb-4" style="font-weight:800">
             {Math.round(everywhere.headcountIndex)}
           </p>
-          <p class="text-muted text-sm mt-2 max-w-[18ch] leading-snug">
-            designer headcount under <em>design everywhere</em>
-          </p>
+          <p class="text-sm leading-snug">designer headcount under <em>design everywhere</em></p>
         </div>
       </div>
 
-      <p class="text-muted text-sm mt-10">
-        <a href="#explorer" class="link-underline text-accent">Skip to the explorer →</a>
-      </p>
+      <a href="#explorer" class="arrow-link mt-10">Skip to the explorer <span class="arr">↓</span></a>
     </div>
   </section>
 
   <!-- Cover band: full-bleed, sits between the hero copy and the argument. -->
-  <div class="relative w-full h-[280px] sm:h-[400px] overflow-hidden">
+  <div class="relative w-full h-[280px] sm:h-[400px] overflow-hidden border-y-2 border-ink">
     <FlowCover />
   </div>
 
   <div class="px-6 sm:px-8">
     <div class="container-page">
       <!-- ── 01 · Two true things ─────────────────────────────────── -->
-      <section class="border-t border-border pt-12 sm:pt-16 pb-16 sm:pb-24">
-        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
-          <span class="section-num section-num--01">01</span>
-          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
-            Two true things
-          </h2>
+      <section class="pt-16 sm:pt-24 pb-8 sm:pb-12">
+        <div class="mb-10" data-reveal>
+          <span class="chip mb-5">01</span>
+          <h2 class="display text-4xl sm:text-6xl max-w-3xl">Two true things</h2>
         </div>
 
         <div class="max-w-2xl mb-12" data-reveal>
@@ -117,9 +104,9 @@ const description =
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-px bg-border border border-border rounded-lg overflow-hidden">
-          <div class="bg-bg p-6 sm:p-8">
-            <h3 class="font-serif text-2xl sm:text-3xl text-olive mb-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="pop rounded-[22px] bg-mint/20 p-6 sm:p-8">
+            <h3 class="font-serif text-3xl sm:text-4xl text-fg mb-6" style="font-weight:800"><span class="inline-block w-4 h-4 rounded-full bg-mint border-2 border-ink mr-3 align-middle"></span>
               Design is growing
             </h3>
             <ul class="space-y-5 list-none pl-0 m-0">
@@ -159,8 +146,8 @@ const description =
             </ul>
           </div>
 
-          <div class="bg-bg p-6 sm:p-8">
-            <h3 class="font-serif text-2xl sm:text-3xl text-rose mb-6">
+          <div class="pop rounded-[22px] bg-coral/20 p-6 sm:p-8">
+            <h3 class="font-serif text-3xl sm:text-4xl text-fg mb-6" style="font-weight:800"><span class="inline-block w-4 h-4 rounded-full bg-coral border-2 border-ink mr-3 align-middle"></span>
               The entry rung is narrowing
             </h3>
             <ul class="space-y-5 list-none pl-0 m-0">
@@ -209,12 +196,10 @@ const description =
       </section>
 
       <!-- ── 02 · Why job-level forecasts fail ────────────────────── -->
-      <section class="border-t border-border pt-12 sm:pt-16 pb-16 sm:pb-24">
-        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
-          <span class="section-num section-num--02">02</span>
-          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
-            Why job-level forecasts fail
-          </h2>
+      <section class="pt-16 sm:pt-24 pb-8 sm:pb-12">
+        <div class="mb-10" data-reveal>
+          <span class="chip mb-5">02</span>
+          <h2 class="display text-4xl sm:text-6xl max-w-3xl">Why job-level forecasts fail</h2>
         </div>
 
         <div class="max-w-2xl space-y-6" data-reveal>
@@ -260,12 +245,10 @@ const description =
   <div class="px-6 sm:px-8">
     <div class="container-page">
       <!-- ── 06 · The pyramid precedent ───────────────────────────── -->
-      <section class="border-t border-border mt-16 sm:mt-24 pt-12 sm:pt-16 pb-16 sm:pb-24">
-        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
-          <span class="section-num section-num--01">06</span>
-          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
-            The pyramid precedent
-          </h2>
+      <section class="mt-8 pt-16 sm:pt-24 pb-8 sm:pb-12">
+        <div class="mb-10" data-reveal>
+          <span class="chip mb-5">06</span>
+          <h2 class="display text-4xl sm:text-6xl max-w-3xl">The pyramid precedent</h2>
         </div>
 
         <div class="max-w-2xl space-y-6" data-reveal>
@@ -296,7 +279,7 @@ const description =
             takes it seriously — the <em>design everywhere</em> scenario puts headcount
             at {Math.round(everywhere.headcountIndex)} against today&rsquo;s 100.
           </p>
-          <div class="border-l-2 border-accent pl-6 py-1">
+          <div class="pop rounded-[22px] bg-lilac/25 p-6">
             <p class="text-fg/80 leading-relaxed">
               But run that scenario and look at the entry-level figure, not the
               headcount one. It still lands at
@@ -317,12 +300,10 @@ const description =
       </section>
 
       <!-- ── 07 · What stays ──────────────────────────────────────── -->
-      <section class="border-t border-border pt-12 sm:pt-16 pb-16 sm:pb-24">
-        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
-          <span class="section-num section-num--02">07</span>
-          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
-            What the model will not move
-          </h2>
+      <section class="pt-16 sm:pt-24 pb-8 sm:pb-12">
+        <div class="mb-10" data-reveal>
+          <span class="chip mb-5">07</span>
+          <h2 class="display text-4xl sm:text-6xl max-w-3xl">What the model will not move</h2>
         </div>
 
         <div class="max-w-2xl mb-10" data-reveal>
@@ -362,12 +343,10 @@ const description =
       </section>
 
       <!-- ── 08 · Method ──────────────────────────────────────────── -->
-      <section class="border-t border-border pt-12 sm:pt-16 pb-16 sm:pb-24">
-        <div class="flex items-baseline gap-4 sm:gap-6 mb-8" data-reveal>
-          <span class="section-num section-num--03">08</span>
-          <h2 class="text-fg text-xs sm:text-sm uppercase tracking-[0.22em]">
-            Method, and what this cannot tell you
-          </h2>
+      <section class="pt-16 sm:pt-24 pb-8 sm:pb-12">
+        <div class="mb-10" data-reveal>
+          <span class="chip mb-5">08</span>
+          <h2 class="display text-4xl sm:text-6xl max-w-3xl">Method, and what this cannot tell you</h2>
         </div>
 
         <div class="max-w-2xl space-y-6" data-reveal>
@@ -472,23 +451,22 @@ const description =
   </div>
 
   <!-- ── Close ────────────────────────────────────────────────────── -->
-  <section class="px-6 sm:px-8 py-20 sm:py-32 border-t border-border">
+  <section class="px-5 sm:px-8 pt-20 sm:pt-28">
     <div class="container-page">
-      <div class="max-w-3xl" data-reveal>
-        <span class="text-muted text-xs uppercase tracking-[0.22em] mb-8 block">
-          Get in touch
-        </span>
-        <h2 class="font-serif text-3xl sm:text-5xl text-fg leading-tight mb-8">
-          I build models like this because arguing from vibes is expensive.
-        </h2>
-        <p class="text-muted leading-relaxed mb-8 max-w-xl">
-          Ten years of product design, currently in Bengaluru. I mentor designers
-          earlier in their careers, which is the part of this page I have the most
-          stake in.
-        </p>
-        <a href="mailto:hello@asifasharaf.com" class="link-underline text-accent text-lg sm:text-xl">
-          hello@asifasharaf.com →
-        </a>
+      <div class="pop rounded-[28px] bg-sun text-[#111216] p-8 sm:p-14 relative overflow-hidden" data-reveal>
+        <div aria-hidden="true" class="absolute -right-12 -bottom-12 w-56 h-56 rounded-full bg-coral border-2 border-[#111216]"></div>
+        <div class="relative max-w-3xl">
+          <span class="chip bg-white border-[#111216] text-[#111216] mb-8">👋 Why I built this</span>
+          <h2 class="font-serif text-4xl sm:text-6xl leading-[0.98] mb-6" style="font-weight:800;letter-spacing:-0.04em">
+            I build models like this because arguing from vibes is expensive.
+          </h2>
+          <p class="leading-relaxed mb-8 max-w-xl text-[#111216]/80">
+            Nine years of product design, currently in Bengaluru. I mentor designers
+            earlier in their careers, which is the part of this page I have the most
+            stake in.
+          </p>
+          <a href="/about" class="inline-flex items-center gap-2 rounded-full bg-[#111216] text-white px-5 py-3 font-semibold">More about me →</a>
+        </div>
       </div>
     </div>
   </section>
