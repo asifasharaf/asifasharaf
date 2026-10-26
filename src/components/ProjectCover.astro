@@ -107,16 +107,16 @@ const wave = Array.from({ length: 64 }, (_, i) => {
               <g transform="translate(980 990)">
                 <rect width="480" height="130" rx="65" fill="none" stroke={ink} stroke-width="3" />
                 <circle cx="65" cy="65" r="18" fill={accent} />
-                <text x="100" y="58" font-family="DM Sans, sans-serif" font-weight="600" font-size="32" fill={ink}>Agent · route to AE</text>
+                <text x="100" y="58" font-family="Inter, sans-serif" font-weight="600" font-size="32" fill={ink}>Agent · route to AE</text>
                 <text x="100" y="98" font-family="DM Mono, monospace" font-size="22" letter-spacing="2" fill={ink} fill-opacity="0.6">INTENT ↑ 3 SIGNALS</text>
               </g>
-              <text x="140" y="1090" font-family="Bricolage Grotesque, sans-serif" font-size="170" font-weight="800" letter-spacing="-6" fill={ink}>2,481</text>
+              <text x="140" y="1090" font-family="DM Serif Text, serif" font-size="170" font-weight="400" letter-spacing="-2" fill={ink}>2,481</text>
             </g>
           )}
           {cover === 'newsroom' && (
             <g fill={ink}>
               <rect x="140" y="140" width="1320" height="6" />
-              <text x="140" y="250" font-family="Bricolage Grotesque, sans-serif" font-size="104" font-weight="800" letter-spacing="-4">The Morning Edition</text>
+              <text x="140" y="250" font-family="DM Serif Text, serif" font-size="104" font-weight="400" letter-spacing="-2">The Morning Edition</text>
               <text x="1460" y="250" text-anchor="end" font-family="DM Mono, monospace" font-size="26" letter-spacing="4">BOLD · DRAFT 04</text>
               <rect x="140" y="290" width="1320" height="2" />
               <rect x="140" y="340" width="860" height="64" rx="4" />
@@ -170,7 +170,7 @@ const wave = Array.from({ length: 64 }, (_, i) => {
               ))}
               <circle cx="160" cy="160" r="16" fill={accent} />
               <text x="192" y="170" font-family="DM Mono, monospace" font-size="28" letter-spacing="3" fill={ink}>REC  00:42:17</text>
-              <text x="1440" y="1080" text-anchor="end" font-family="Bricolage Grotesque, sans-serif" font-weight="800" letter-spacing="-4" font-size="110" fill={ink}>from concept to final cut</text>
+              <text x="1440" y="1080" text-anchor="end" font-family="DM Serif Text, serif" font-weight="400" letter-spacing="-2" font-size="110" fill={ink}>from concept to final cut</text>
             </g>
           )}
           {cover === 'contours' && (
@@ -179,11 +179,11 @@ const wave = Array.from({ length: 64 }, (_, i) => {
                 <path d={d} fill="none" stroke={k === 14 ? accent : ink} stroke-opacity={k === 14 ? 1 : 0.12 + (k / contours.length) * 0.55} stroke-width={k === 14 ? 7 : 2.5} />
               ))}
               <text x="140" y="170" font-family="DM Mono, monospace" font-size="26" letter-spacing="3" fill={ink}>MUNNAR · 10.08° N 77.06° E</text>
-              <text x="140" y="1080" font-family="Bricolage Grotesque, sans-serif" font-weight="800" letter-spacing="-8" font-size="210" fill={ink}>Foxbrain</text>
+              <text x="140" y="1080" font-family="DM Serif Text, serif" font-weight="400" letter-spacing="-2" font-size="210" fill={ink}>Foxbrain</text>
             </g>
           )}
           {!cover && (
-            <text x="800" y="680" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="320" fill="rgb(var(--rgb-muted))">{title.charAt(0)}</text>
+            <text x="800" y="680" text-anchor="middle" font-family="DM Serif Text, serif" font-weight="400" font-size="320" fill="rgb(var(--rgb-muted))">{title.charAt(0)}</text>
           )}
         </svg>
       )

@@ -38,8 +38,8 @@ export default {
         sky: 'rgb(var(--rgb-sky) / <alpha-value>)',
       },
       fontFamily: {
-        serif: ['"Bricolage Grotesque"', ...defaultTheme.fontFamily.sans],
-        sans: ['"DM Sans"', ...defaultTheme.fontFamily.sans],
+        serif: ['"DM Serif Text"', ...defaultTheme.fontFamily.serif],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
         mono: ['"DM Mono"', ...defaultTheme.fontFamily.mono],
       },
     },

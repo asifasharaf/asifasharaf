@@ -45,8 +45,8 @@
   }
 
   h1, h2, h3, h4, .font-serif {
-    font-weight: 700;
-    letter-spacing: -0.025em;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
 
   html {
@@ -92,7 +92,7 @@
   }
   .display {
     @apply font-serif text-fg leading-[1.02];
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: -0.035em;
   }
 
@@ -170,7 +170,7 @@
   /* Drop cap for opening paragraphs */
   .dropcap::first-letter {
     @apply font-serif float-left text-fg;
-    font-weight: 800;
+    font-weight: 400;
     font-size: 4.6em;
     line-height: 0.82;
     margin: 0.06em 0.1em 0 0;
